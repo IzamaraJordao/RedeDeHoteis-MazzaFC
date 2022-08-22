@@ -67,7 +67,7 @@
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "src/components/LoginComponent.tsx"],
   "exclude": [
     "node_modules/**/*",
     ".webpack/**/*",
