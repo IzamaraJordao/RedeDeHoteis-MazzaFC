@@ -1,13 +1,15 @@
 
 import type { AppProps } from 'next/app'
-import Router from 'next/router'
 import React from 'react'
+import '../pages/login/index.css'
 
 
-function MyApp({ Component, pageProps }: AppProps) {
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+ 
+  return (
   <Component {...pageProps} />
-  
+  )
 }
 
 
-export default MyApp
