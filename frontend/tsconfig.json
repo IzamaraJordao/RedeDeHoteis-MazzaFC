@@ -71,8 +71,8 @@
   },
   "include": [
     "./**/*.ts",
-    "src/components/LoginComponent.tsx"
-  ],
+    "src/common/components/LoginComponent.tsx"
+, "src/common/components/Input/Index.tsx"  ],
   "exclude": [
     "node_modules/**/*",
     ".webpack/**/*",
