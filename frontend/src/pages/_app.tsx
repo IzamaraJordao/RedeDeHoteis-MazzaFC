@@ -1,11 +1,16 @@
 
-import '../template/common/login/index.css'
-import type { AppProps } from "next/app";
-import { wrapper } from "../store/store";
-import React from "react";
+import type { AppProps } from 'next/app'
+import React from 'react'
+import '../pages/login/index.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+ 
+  return (
+    
+  <Component {...pageProps} />
+  )
 }
 
-export default wrapper.withRedux(MyApp);
+
