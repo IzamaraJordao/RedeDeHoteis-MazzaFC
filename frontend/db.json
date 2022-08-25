@@ -1,9 +1,0 @@
-{
-  "Login": [
-    {
-      "id": 1,
-      "email": "json-server",
-      "password": "typicode"
-    }
-  ]
-}

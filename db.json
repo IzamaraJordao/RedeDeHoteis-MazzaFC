@@ -1,0 +1,19 @@
+{
+  "home": [
+    { "id": 1,
+     "hospede": "Fernanda Baiano",
+      "quarto": 1,
+      "cor": 1
+     },
+     {"id": 2,
+     "hospede": "Matheus Barbosa",
+      "quarto": 2,
+      "cor": 2
+     },
+     {"id": 3,
+     "hospede": "Izamara Jordao",
+      "quarto":3,
+      "cor": 3
+     }
+    ]
+}

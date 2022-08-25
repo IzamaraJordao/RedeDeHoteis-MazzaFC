@@ -1,7 +1,8 @@
 
 import type { AppProps } from 'next/app'
 import React from 'react'
-import '../pages/login/index.css'
+// import '../pages/login/index.css'
+import '../components/Menu/menu.css'
 
 
 
