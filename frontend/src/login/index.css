@@ -1,32 +1,26 @@
-/* geral*/
-
-*{
+/* geral */
+.container{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Helvetica;
   color:#323232;
   border:none;
-}
-
-body{
   background-image:url('../../assets/background.jpg');
   background-size:cover;/*para que a imagem seja totalmente visivel*/
   background-position-y: -200px;/*para que a imagem seja totalmente visivel*/
-}
+} 
 
-textarea:focus,input:focus{
-  outline: none;
-}
 
-a,label{
+
+label{
   font-size:.8rem;
   font-weight: bold;
 }
 a:hover{
   color:#4D42FA
-}
-/*container -login */
+} 
+/*container -login*/
 
 .login-container{
   background-color: #fff;
@@ -42,29 +36,29 @@ a:hover{
 
 
 /*formulario*/
-form{
+ form{
   margin-top:30px;
   margin-bottom:40px;
-}
+} 
 label,input{
   display: block;
   width: 100%;
   text-align: left;
 
-}
-label{
+} 
+ label{
   font-weight: bold;
-}
-input{
+} 
+ input{
   border-bottom:2px solid #323232;
   padding: 10px;
   font-size:1rem;
   margin-bottom:20px;
 
-}
-input:focus{
+} 
+ input:focus{
   border-bottom:2px solid #4D42FA;
-}
+} 
 
 .forgot-password{
   text-align: right;
@@ -81,7 +75,7 @@ input[type="submit"]{
   color: #fff;
   background-color: #4D42FA;
   cursor: pointer;
-}
+} 
 input[type="submit"]:hover{
   background-color: #4D42FA;
   color: #fff;
