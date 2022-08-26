@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import React from "react";
+import Login from '../login/index'
 
-const Title = styled.h1`
-  color: red;
-`;
 
-const Home = () => {
+function home(){
+  
   return (
-    <div>
-      <p>hello</p>
-      <Title>Title</Title>
-    </div>
-  );
-};
+      <div>
+          <Login/>
+          
+          
+      </div>
+  )
+}
 
-export default Home;
+export default home;

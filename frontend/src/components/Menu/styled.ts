@@ -10,7 +10,7 @@ export const Menu = styled.div`
   font-size: 1.5rem;
   }
   text-align: center;
-`;
+`
 
 export const MenuButton = styled.div`
   color: #858485;
@@ -22,6 +22,6 @@ export const MenuButton = styled.div`
   Button{  
     color: #858485 !important;
      
-    text-align: left; !important;
+    text-align: left !important;
 }
   `;
