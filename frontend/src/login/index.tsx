@@ -4,7 +4,7 @@ import {Input,Form,Body} from './style'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
-import router, { Router } from "next/dist/client/router";
+import router from "next/dist/client/router";
 
 interface IFormInputs {
   email: string;
@@ -49,7 +49,7 @@ export default function Login()  {
             <label htmlFor="password">Senha *</label>
             <Input type="password" id="password" placeholder="Digite a senha" {...register("password")}/>
             <p>{errors.password?.message}</p>
-            <button type="submit" className="btn btn-primary btn-block" onClick={()=>{handleRegister}}>Entrar</button> 
+            <button type="submit" name="Entrar" className="btn btn-primary btn-block" onClick={()=>{handleRegister}}>Entrar</button> 
         </Form> 
     
     </Body>

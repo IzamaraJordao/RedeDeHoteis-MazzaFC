@@ -7,22 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "json-server": "json-server --watch db.json --port 3004"
+    "json-server": "json-server --watch db.json --port 3004",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "-": "^0.0.1",
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@hookform/resolvers": "^2.9.7",
-    "@material-ui/styles": "^4.11.5",
-    "@mui/icons-material": "^5.10.2",
-    "@mui/material": "^5.10.2",
-    "@mui/styled-engine-sc": "^5.10.1",
-    "@mui/x-data-grid": "^5.16.0",
-    "@reduxjs/toolkit": "^1.8.5",
-    "@types/next-redux-wrapper": "^3.0.0",
-    "@types/react-redux": "^7.1.24",
-    "@types/styled-components": "^5.1.26",
+   
     "axios": "^0.27.2",
     "json-server": "^0.17.0",
     "next": "^12.2.5",
@@ -38,10 +27,32 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "-": "^0.0.1",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@hookform/resolvers": "^2.9.7",
+    "@material-ui/styles": "^4.11.5",
+    "@mui/icons-material": "^5.10.2",
+    "@mui/material": "^5.10.2",
+    "@mui/styled-engine-sc": "^5.10.1",
+    "@mui/x-data-grid": "^5.16.0",
+    "@reduxjs/toolkit": "^1.8.5",
+    "@types/next-redux-wrapper": "^3.0.0",
+    "@types/react-redux": "^7.1.24",
+    "@types/styled-components": "^5.1.26",
     "@types/node": "18.7.9",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
+    "eslint": "^8.22.0",
     "eslint-config-next": "12.2.5",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
     "typescript": "4.7.4"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write",
+    "*":"yarn build"
   }
 }
