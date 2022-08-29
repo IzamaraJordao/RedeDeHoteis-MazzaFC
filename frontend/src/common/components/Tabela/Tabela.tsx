@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TabelaCentral } from './styled';
-import { DataGrid, GridRowsProp, GridColDef, GridColumns } from '@mui/x-data-grid';
+import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
 ///GridColDef pode incluir uma função ou combinação para uma deternminada coluna
 import Swal from 'sweetalert2'
+// import BasicModal from './BasicModal';
+import Modal from '../Modal/Modal';
 
 
 export type BancoQuarto = {
   id: number;
   hospede: string;
   quarto: string;
+  status: string;
 }
 
 
 export default function App() {
 
-  const [quartos, setQuartos] = useState <BancoQuarto[]>([]);
-//  console.log(quartos[0].id);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
 
 
   useEffect(() => {
@@ -29,24 +32,23 @@ export default function App() {
   }, []);
 
 
-
-
   const columns: GridColumns = [
     {
-      field: 'quarto',
+      field: 'status',
       headerName: 'Quarto',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
-      renderCell: (cellValues)=>{
-        return(
+      renderCell: (cellValues: GridRenderCellParams<BancoQuarto>) => {
+        return (
           <div
             style={{
               textAlign: 'center',
-              color: 'blue',
-              
-              }}>
-            {cellValues.value}
+              width: '100%',
+              height: '100%',
+              backgroundColor: `var(--${cellValues.row.status})`,
+            }}>
+
           </div>
         )
       }
@@ -55,23 +57,25 @@ export default function App() {
       field: 'Segunda',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
-      width: 140 ,
-      renderCell: (cellValues)=>{
-        return(
+      width: 140,
+      renderCell: (cellValues) => {
+        return (
           <div
             style={{
               textAlign: 'center',
               color: 'blue',
-              
-              }}>
-                {/* <button onClick={}>Reserva</button> */}
+
+            }}>
+            <button type="button" name="Deletar" onClick={() => setIsModalVisible(true)} > Reservar </button>
+            
+
             {cellValues.value}
           </div>
         )
       }
     },
     {
-      field: 'Terça',
+      field: 'status',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
@@ -80,7 +84,7 @@ export default function App() {
       field: 'Quarta',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
-      width: 140 ,
+      width: 140,
     },
     {
       field: 'Quinta',
@@ -92,7 +96,7 @@ export default function App() {
       field: 'Sexta',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
-      width: 140 ,
+      width: 140,
     },
     {
       field: 'Sábado',
@@ -112,26 +116,27 @@ export default function App() {
       <TabelaCentral>
         <div
           style={{ height: 350, width: '84.2%', color: '#222' }}>
-          <DataGrid rows={quartos} columns={columns} 
-          sx={{
-            height: 300,
-            width: '100%', '& .super-app-theme--header': {
-              backgroundColor: '#dcdff4', color: '#858485'
-            },
-            '& .super-app.negative': {
-              backgroundColor: 'rgba(157, 255, 118, 0.49)',
-              color: '#1a3e72',
-              fontWeight: '600',
-            },
-            '& .super-app.positive': {
-              backgroundColor: '#d47483',
-              color: '#1a3e72',
-              fontWeight: '600',
-            },
-            color: '#333',
-          }} />
+          <DataGrid rows={quartos} columns={columns}
+            sx={{
+              height: 300,
+              width: '100%', '& .super-app-theme--header': {
+                backgroundColor: '#dcdff4', color: '#858485'
+              },
+              '& .super-app.negative': {
+                backgroundColor: 'rgba(157, 255, 118, 0.49)',
+                color: '#1a3e72',
+                fontWeight: '600',
+              },
+              '& .super-app.positive': {
+                backgroundColor: '#d47483',
+                color: '#1a3e72',
+                fontWeight: '600',
+              },
+              color: '#333',
+            }} />
         </div>
       </TabelaCentral>
+      {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
 
     </div>
   )

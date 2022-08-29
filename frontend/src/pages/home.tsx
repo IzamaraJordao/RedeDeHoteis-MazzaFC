@@ -1,13 +1,10 @@
 import React from 'react'
-import { AsideMenu, Card } from '../common/components'
-import Tabela from '../components/Tabela/Tabela'
+import Home from '../Home/home'
 
 export default function home() {
   return (
     <div>
-      <AsideMenu name={''} jobTitle={''} />
-      <Card />
-      <Tabela />
+      <Home />
     </div>
   )
 }
