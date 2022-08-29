@@ -15,5 +15,15 @@
       "quarto":3,
       "cor": 3
      }
+    ],
+    "hospedes": [
+      {
+        "id": 1,
+        "nome": "Fernanda Baiano",
+        "cpf": "123.456.789-00",
+        "checkin": "2022/05/01",
+        "checkout": "2022/05/03",
+        "observacao" : " "
+      }
     ]
 }

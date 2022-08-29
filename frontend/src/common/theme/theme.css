@@ -1,0 +1,19 @@
+:root {
+  --primary: #2cd9ac;
+  --secondary: #6c63ff;
+  --tertiary: #e7ff4a;
+  --error: #ff877d;
+  --yellow: #f3fbc4;
+  --red: #ffe2e0;
+  --blue: ##dcdef5;
+  --green: #dcf5e3;
+  --white: #ffffff;
+  --background: #f4f6f9;
+  --background-header: #848484;
+  --text: #3f3d56;
+  --text-secondary: #6c757d;
+  --muted: #d9d9d9;
+  --font-family: Verdana, Arial, sans-serif;
+}
+
+

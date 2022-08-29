@@ -1,14 +1,16 @@
-import type { AppProps } from "next/app";
+
 //import { wrapper } from "../store/store";
-import React from "react";
-import '../components/Menu/menu.css'
+import React from 'react'
 import '../login/style.scss'
+import '../common/components/Modal/modal.css'
 
 
 
-
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+import App from 'next/app'
+  
+export default class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props
+    return <Component {...pageProps} />
+  }
 }
-
-export default MyApp;
