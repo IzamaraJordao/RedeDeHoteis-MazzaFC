@@ -4,7 +4,7 @@ import {Input,Form,Body} from './style'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
-import router from "next/dist/client/router";
+import { useRouter } from "next/router";
 
 interface IFormInputs {
   email: string;
@@ -19,19 +19,30 @@ const schema = Yup.object({
 
 
 export default function Login()  {
+  const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
     resolver: yupResolver(schema)
   });
   const onSubmit = (data: IFormInputs) => console.log(data);
 
-  //funcão para guardar os dados do formulario
+  //funcão para guardar os dados do formulario e validar se estão corretos
   async function handleRegister(email:string,password:string){
       await axios.post('http://localhost:3000/login',{
           email:email,
-          password:password
+          password:password,
+
     })
-    router.push('./home');
-  }
+    .then(response => {
+        console.log(response);
+        
+        router.push('/home');
+    }
+
+   
+    )}
+   
+    
+  
 
   return (
 

@@ -1,9 +1,17 @@
 import styled from 'styled-components'
 
 export const Body = styled.div`
+  background-image: url('https://img.freepik.com/fotos-gratis/piscina_74190-2109.jpg?w=2000');
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  background-size: cover;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  
 `
 export const Div = styled.div`
   height: 100vh;
@@ -36,7 +44,7 @@ export const Form = styled.form`
   width: 250px;
   margin-left: auto;
   margin-right: auto;
-  padding: 100px 30px;
+  padding: 250px 30px;
   margin-top: 7vh;
   border-radius: 10px;
   
@@ -44,6 +52,8 @@ export const Form = styled.form`
     
     font-size: 2rem;
     color: #4d42fa;
+    margin-bottom: 20px;
+    margin-top: -50%;
     
   }
   p {
@@ -56,7 +66,8 @@ export const Form = styled.form`
     background-color: #4d42fa;
     color: #fff;
     width: 200px;
-    height: 40px;
+    height: 60px;
+    padding: 6px;
     border-radius: 5px;
   }
 `
