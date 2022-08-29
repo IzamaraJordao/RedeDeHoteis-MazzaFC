@@ -6,7 +6,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BedIcon from '@mui/icons-material/Bed';
-import Card from './Card';
+//import Card from './Card';
 
 export default function BoxComponent() {
   return (

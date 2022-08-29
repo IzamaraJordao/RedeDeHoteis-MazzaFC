@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+
+
 export const Body = styled.div`
   margin: 0;
   padding: 0;
@@ -11,6 +13,7 @@ export const Div = styled.div`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 `
 
 
@@ -32,13 +35,14 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   height: 5%;
-  background-color: #fff;
+  background-color:white;
   width: 250px;
   margin-left: auto;
   margin-right: auto;
   padding: 100px 30px;
   margin-top: 7vh;
   border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
   
   h2 {
     
@@ -54,7 +58,7 @@ export const Form = styled.form`
  
   button {
     background-color: #4d42fa;
-    color: #fff;
+    color: white;
     width: 200px;
     height: 40px;
     border-radius: 5px;
