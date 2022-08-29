@@ -1,2 +1,2 @@
-export { AsideMenu } from './Menu/Menu'
-export { Card } from './Card-home/Card'
+export { AsideMenu } from './Menu'
+export { default as CardHome } from './Card-home/Card-home'

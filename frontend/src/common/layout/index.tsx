@@ -1,11 +1,10 @@
 import React from 'react'
 import { AsideMenu } from '../components'
 
-export function Layout({ children }) {
+export function Layout({ children, header }) {
   return (
-    <div>
-      <AsideMenu name="Matheus Barbosa" jobTitle="Gerente" />
+      <AsideMenu name="Matheus Barbosa" jobTitle="Gerente" header={header} >
       {children}
-    </div>
+      </AsideMenu>
   )
 }

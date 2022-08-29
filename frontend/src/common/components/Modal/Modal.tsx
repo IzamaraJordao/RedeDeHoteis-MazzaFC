@@ -2,10 +2,16 @@ import React from 'react';
 import Swal from 'sweetalert2'
 import { Modal, ModalCentral, ModalDireita } from './styled';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
+
 
 
 export default function BasicModal({ onClose }) {
   
+
+  // function handlePost(e: any){
+  //   e.preventDefault();
+  //   axios.post("http://localhost:4000/"  }
   
 
   function close() {
@@ -22,6 +28,7 @@ export default function BasicModal({ onClose }) {
   return (
     <div className="modal">
       <div className="container">
+        
         <Modal>
           <h1>Reserva</h1>
           <ModalCentral>
