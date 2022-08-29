@@ -1,17 +1,14 @@
-
-import type { AppProps } from 'next/app'
-import React from 'react'
-// import '../pages/login/index.css'
+import type { AppProps } from "next/app";
+//import { wrapper } from "../store/store";
+import React from "react";
 import '../components/Menu/menu.css'
+import '../login/style.scss'
 
 
 
-export default function MyApp({ Component, pageProps }: AppProps) {
- 
-  return (
-    
-  <Component {...pageProps} />
-  )
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
 }
 
-
+export default MyApp;

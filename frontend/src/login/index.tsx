@@ -1,51 +1,62 @@
-import type { NextPage } from "next";
-import { selectAuthState, setAuthState } from "../store/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 import React, { useState } from "react";
-import { wrapper } from "../store/store";
+import {Input,Form,Body} from './style'
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import axios from "axios";
+import router from "next/dist/client/router";
 
+interface IFormInputs {
+  email: string;
+  password: string;
+}
 
-
-const Home: NextPage = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+const schema = Yup.object({
+  email: Yup.string().email("Email inválido").required("Email é obrigatório"),
+  password: Yup.string().required("Senha é obrigatória").max(8, "Senha deve ter no máximo 8 caracteres").min(6, "Senha deve ter no mínimo 6 caracteres"),
   
-      
-  // const authState = useSelector(selectAuthState);
-  // const dispatch = useDispatch();
-  //  const getServerSideProps = wrapper.getServerSideProps(
-  //   (store) =>
-  //     async ({ params }) => {
-  //       // we can set the initial state from here
-  //       // we are setting to false but you can run your custom logic here
-  //       await store.dispatch(setAuthState(false)); 
-  //       console.log("State on server", store.getState());
-  //       return {
-  //         props: {
-  //           authState: false,
-  //         },
-  //       };
-  //     }
-  // );
+}).required();
+
+
+export default function Login()  {
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
+    resolver: yupResolver(schema)
+  });
+  const onSubmit = (data: IFormInputs) => console.log(data);
+
+  //funcão para guardar os dados do formulario
+  async function handleRegister(email:string,password:string){
+      await axios.post('http://localhost:3000/login',{
+          email:email,
+          password:password
+    })
+    router.push('./home');
+  }
+
   return (
-    <>
-    <div className="login-container">
-    {/* <h1>Rede<small>Inn</small>Hotel</h1> */}
-        <h1>Login</h1>
-        <form action="">
-            <label htmlFor="Email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Digite o email"/>
-            <label htmlFor="password">Senha</label>
-            <input type="password" name="password" id="password" placeholder="Digite a senha"/>
-            <input type="submit" value="Entrar" className="btn btn-primary btn-block"/>
-        </form> 
-    </div>
- 
-  </>
+
+    <Body>
+   
+        
+        
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <h2>Rede Inn Hotel</h2>
+
+
+            <label htmlFor="Email">Email *</label>
+            <Input type="email" id="email" placeholder="Digite o email" {...register("email")} />
+            <p>{errors.email?.message}</p>
+            <label htmlFor="password">Senha *</label>
+            <Input type="password" id="password" placeholder="Digite a senha" {...register("password")}/>
+            <p>{errors.password?.message}</p>
+            <button type="submit" name="Entrar" className="btn btn-primary btn-block" onClick={()=>{handleRegister}}>Entrar</button> 
+        </Form> 
+    
+    </Body>
+  
+  
+  
   );
 };
 
 
-export default Home;
