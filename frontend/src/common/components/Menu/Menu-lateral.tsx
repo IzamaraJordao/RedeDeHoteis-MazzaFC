@@ -10,7 +10,6 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import PersonIcon from '@mui/icons-material/Person';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import BedIcon from '@mui/icons-material/Bed';
-// import './menu.scss';
 
 export default function BoxSx() {
   return (
