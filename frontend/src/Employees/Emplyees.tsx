@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Tabela from "../common/components/MultTabela/index";
+import TextField from '@mui/material/TextField';
+import { width } from "@mui/system";
+import { FilterHead } from './styled';
+import { GridColumnHeaderParams } from "@mui/x-data-grid";
+
 
 
 type BancoEmployees = {
@@ -24,10 +29,30 @@ export default function bancoTabela() {
       })
   }, []);
 
+  function FilterHeader(props: String) {
+    return (
+      <FilterHead>
+       
+          <span>{props}</span>
+        
+        <div>
+          <TextField id="standard-basic" label={props} />
+        </div>
+      </FilterHead>
+    )
+  }
+
+
   const columns = [{
     field: 'id',
-    headerName: 'CÓDIGO',    
+
+    renderHeader: (params: GridColumnHeaderParams) => {
+      return FilterHeader("Quarto");
+    },
+    width: 270,
+
   },
+
   {
     field: 'nome',
     headerName: 'NOME',
@@ -41,16 +66,16 @@ export default function bancoTabela() {
     headerName: 'EMAIL',
   },
   {
-   field: 'perfil',
+    field: 'perfil',
     headerName: 'PERFIL',
   },
   {
     field: 'acoes',
     headerName: 'AÇÕES',
   }
-];
+  ];
   return (
-    <div> 
+    <div>
       <Tabela banco={employees} columns={columns} />
     </div>
   )

@@ -4,6 +4,8 @@ import { TabelaCentral } from './styled';
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
 import Swal from 'sweetalert2'
 import Modal from '../Modal/Modal';
+import Button from '@mui/material/Button';
+
 
 
 export type BancoHospedes = {
@@ -99,7 +101,7 @@ export default function App() {
 
             }}>
            
-            <button type="button" name="Deletar" onClick={() => setIsModalVisible(true)} > Reservar </button>
+            <Button type="button" name="Reservar" onClick={() => setIsModalVisible(true)} > Reservar </Button>
             
 
             {cellValues.value}
