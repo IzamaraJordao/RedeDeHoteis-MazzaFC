@@ -8,10 +8,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Interface } from 'node:readline/promises';
 import * as Yup from "yup";
 
-interface ModalProps {
+export type ModalProps = {
   id: number;
   nome: string;
   cpf: string;
@@ -67,10 +66,11 @@ export default function BasicModal({ onClose }) {
     };
 
     return (
+      <div>
 
-      <Box>
+      <Box sx={style}>
         <div>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Modal>
               <ModalCentral>
                 <ModalEsquerda>
@@ -138,6 +138,7 @@ export default function BasicModal({ onClose }) {
           <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
         </div>
       </Box >
+      </div>
     );
   }
 }

@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TabelaCentral } from './styled';
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-///GridColDef pode incluir uma função ou combinação para uma deternminada coluna
 import Swal from 'sweetalert2'
-// import BasicModal from './BasicModal';
 import Modal from '../Modal/Modal';
 
 
@@ -140,7 +138,8 @@ export default function App() {
         </div>
       </TabelaCentral>
       
-      {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
+      {isModalVisible ? <h1>Testeeee</h1> : null}
+      {/* {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null} */}
 
     </div>
   )
