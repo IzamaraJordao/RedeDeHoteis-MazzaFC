@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState } from 'react';
 import Swal from 'sweetalert2'
 import { Modal, ModalCentral, ModalDireita, ModalEsquerda } from './styled';
 import TextField from '@mui/material/TextField';
@@ -18,6 +18,27 @@ export type ModalProps = {
   telefone: string;
   observacao: string;
 }
+export type BancoHospedes = {
+  id: Number;
+  nome: String;
+  cpf: String;
+  email: String;
+  observacao: String;
+  telefone: String;
+}
+
+export type BancoReserva = {
+  id: Number;
+  consumo: String;
+  checkin: Date;
+  checkout: Date;
+}
+
+export type BancoQuarto = {
+  id_quarto: Number;
+  tipo: String;
+  status: String;
+}
 
 const schema = Yup.object({
   nome: Yup.string().required("Nome é obrigatório"),
@@ -26,13 +47,17 @@ const schema = Yup.object({
   telefone: Yup.string().required("Telefone é obrigatório"),
 });
 
+
+
 export default function BasicModal({ onClose }) {
 
   const [hospedes, setHospedes] = React.useState<ModalProps[]>([]);
+  const [reserva, setReserva] = useState<BancoReserva[]>([]);
+  const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ModalProps>({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState: { errors } } = useForm<BancoHospedes>({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data: ModalProps) => {
+  const onSubmit = (data: BancoHospedes) => {
     axios.post("http://localhost:4000/hospedes", {
       nome: data.nome,
       cpf: data.cpf
@@ -40,8 +65,8 @@ export default function BasicModal({ onClose }) {
     }).then((res) => {
       setHospedes([...hospedes, res.data]);
     })
-
-
+  }
+    
     function close() {
       Swal.fire({
         position: 'center',
@@ -52,26 +77,26 @@ export default function BasicModal({ onClose }) {
       })
       onClose();
     }
+   
 
-    const style = {
-      position: 'absolute' as 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 700,
-      bgcolor: 'background.paper',
-      border: '2px solid #000',
-      boxShadow: 24,
-      p: 4,
-    };
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 700,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
-    return (
-      <div>
 
+  return(
+    <div>
       <Box sx={style}>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Modal>
+          <form onSubmit={handleSubmit(onSubmit)}>          
               <ModalCentral>
                 <ModalEsquerda>
                   <label>Quarto</label>
@@ -132,14 +157,11 @@ export default function BasicModal({ onClose }) {
               </ModalCentral>
 
               <Button color="success" variant="contained" type='submit' >Enviar</Button>
-              {/* <button>Enviar</button> */}
-            </Modal>
+           
           </form>
           <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
         </div>
       </Box >
       </div>
-    );
-  }
-}
-
+      )
+    }

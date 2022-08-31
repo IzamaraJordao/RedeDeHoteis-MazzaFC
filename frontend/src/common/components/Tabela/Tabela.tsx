@@ -6,24 +6,56 @@ import Swal from 'sweetalert2'
 import Modal from '../Modal/Modal';
 
 
-export type BancoQuarto = {
-  id: number;
-  hospede: string;
-  quarto: string;
-  status: string;
+export type BancoHospedes = {
+  id: Number;
+  nome: String;
+  cpf: String;
+  email: String;
+  observacao: String;
+  telefone: String;
 }
 
+export type BancoReserva = {
+  id: Number;
+  consumo: String;
+  checkin: Date;
+  checkout: Date;
+}
+
+export type BancoQuarto = {
+  id_quarto: Number;
+  tipo: String;
+  status: String;
+}
 
 export default function App() {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [hospedes, setHospedes] = useState<BancoHospedes[]>([]);
+  const [reserva, setReserva] = useState<BancoReserva[]>([]);
   const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
-
-
-
+  
 
   useEffect(() => {
-    axios.get("http://localhost:4000/home")
+    axios.get("http://localhost:4000/hospedes")
+      .then(res => {
+        setHospedes(res.data);
+      }).catch(err => {
+        console.log(err);
+      })
+  }, []);
+
+  useEffect(() => {
+    axios.get("http://localhost:4000/reserva")
+      .then(res => {
+        setReserva(res.data);
+      }).catch(err => {
+        console.log(err);
+      })
+  }, []);
+
+  useEffect(() => {
+    axios.get("http://localhost:4000/quarto")
       .then(res => {
         setQuartos(res.data);
       }).catch(err => {
@@ -117,7 +149,7 @@ export default function App() {
       <TabelaCentral>
         <div
           style={{ height: 350, width: '84.2%', color: '#222' }}>
-          <DataGrid rows={quartos} columns={columns}
+          <DataGrid rows={hospedes} columns={columns}
             sx={{
               height: 300,
               width: '100%', '& .super-app-theme--header': {
@@ -138,8 +170,8 @@ export default function App() {
         </div>
       </TabelaCentral>
       
-      {isModalVisible ? <h1>Testeeee</h1> : null}
-      {/* {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null} */}
+      {/* {isModalVisible ? <h1>Testeeee</h1> : null} */}
+      {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
 
     </div>
   )

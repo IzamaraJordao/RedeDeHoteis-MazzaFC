@@ -1,32 +1,10 @@
 {
-  "home": [
-    {
-      "id": 1,
-      "hospede": "Fernanda Baiano",
-      "quarto": 1,
-      "status": "red"
-    },
-    {
-      "id": 2,
-      "hospede": "Matheus Barbosa",
-      "quarto": 2,
-      "status": "red"
-    },
-    {
-      "id": 3,
-      "hospede": "Izamara Jordao",
-      "quarto": 3,
-      "status": "blue"
-    }
-  ],
   "hospedes": [
     {
       "id": 1,
       "nome": "Fernanda Baiano",
       "cpf": "123.456.789-00",
       "email": "Fernanda@Bahiano.com",
-      "checkin": "2022/05/01",
-      "checkout": "2022/05/03",
       "observacao": "testando observações",
       "telefone": "(16)123456789"
     },
@@ -35,8 +13,6 @@
       "nome": "Matheus Barbosa",
       "cpf": "123.456.789-00",
       "email": "Matheus@qwe.com",
-      "checkin": "2022/05/01",
-      "checkout": "2022/05/03",
       "observacao": "testando observações",
       "telefone": "(16)123456789"
     },
@@ -45,8 +21,6 @@
       "nome": "Izamara Jordao",
       "cpf": "123.456.789-00",
       "email": "izamara@jordao.com",
-      "checkin": "2022/05/01",
-      "checkout": "2022/05/03",
       "observacao": "testando observações",
       "telefone": "(16)123456789"
     },
@@ -103,6 +77,32 @@
       "email": "joao@qwe.qwe",
       "perfil": "gerente"
     }
-    
-    ]
+    ],
+    "reserva": [
+      {
+        "id": 1,
+        "consumo": "agua",
+        "checkin" : "2022/05/01",
+        "checkout" : "2022/05/03"
+      }
+    ],
+      "quarto": [
+        {
+          "id_quarto": 1,
+          "tipo" : "luxo",
+          "status": "pink"
+        },
+        {
+          "id_quarto": 2,
+          "tipo" : "luxo",
+          "status": "green"
+        },
+        {
+          "id_quarto": 3,
+          "tipo" : "luxo",
+          "status": "pink"
+        }
+        
+
+      ]
 }
