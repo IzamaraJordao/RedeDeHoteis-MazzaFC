@@ -3,28 +3,12 @@ import Swal from 'sweetalert2'
 import { Modal, ModalCentral, ModalDireita, ModalEsquerda } from './styled';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import * as Yup from "yup";
-import { yupResolver } from '@hookform/resolvers/yup';
-import Button from '@mui/material/Button';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-// import Modal from '@mui/material/Modal';
 
-export type ModalProps = {
-  nome: string;
-  cpf: string;
-
-}
-
-const schema = Yup.object({
-  nome: Yup.string().required("Nome é obrigatório"),
-  cpf: Yup.string().required("CPF é obrigatório").max(11, "CPF deve ter no máximo 11 caracteres").min(11, "CPF deve ter no mínimo 11 caracteres"),
-}).required();
 
 export default function BasicModal({ onClose }) {
 
+<<<<<<< HEAD
 
   const [hospedes, setHospedes] = React.useState<ModalProps[]>([]);
 
@@ -40,14 +24,10 @@ export default function BasicModal({ onClose }) {
     })
 
 
-    Swal.fire({
-      title: 'Hospede cadastrado com sucesso!',
-      icon: 'success',
-      confirmButtonText: 'Ok'
-    })
-    onClose();
-  }
-
+  // function handlePost(e: any){
+  //   e.preventDefault();
+  //   axios.post("http://localhost:4000/"  }
+  
 
   function close() {
     Swal.fire({
@@ -73,14 +53,9 @@ export default function BasicModal({ onClose }) {
   };
 
   return (
-
-
-    <Box sx={style}>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
-        Reserva
-      </Typography>
-      <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="modal">
+      <div className="container">
+        
         <Modal>
           <ModalCentral>
             <ModalEsquerda>
