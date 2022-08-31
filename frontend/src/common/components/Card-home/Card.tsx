@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { CardHome, CardHomeInterno,CardHomeInternoAcom } from './styled';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import BedIcon from '@mui/icons-material/Bed';
+// import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+// import { CardHome, CardHomeInterno,CardHomeInternoAcom } from './styled';
+// import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+// import LoginIcon from '@mui/icons-material/Login';
+// import LogoutIcon from '@mui/icons-material/Logout';
+// import BedIcon from '@mui/icons-material/Bed';
 
 export default function Card(props: any) {
   return (
     <div>
-              <Box
+              {/* <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -33,7 +33,7 @@ export default function Card(props: any) {
             </div>
           </CardHomeInterno>
 
-        </Box>
+        </Box> */}
     </div>
   )
 }

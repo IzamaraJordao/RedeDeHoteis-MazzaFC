@@ -22,6 +22,8 @@ export default function App() {
   const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
 
 
+
+
   useEffect(() => {
     axios.get("http://localhost:4000/home")
       .then(res => {
@@ -66,6 +68,7 @@ export default function App() {
               color: 'blue',
 
             }}>
+           
             <button type="button" name="Deletar" onClick={() => setIsModalVisible(true)} > Reservar </button>
             
 
@@ -136,6 +139,7 @@ export default function App() {
             }} />
         </div>
       </TabelaCentral>
+      
       {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
 
     </div>

@@ -25,3 +25,28 @@ export const MenuButton = styled.div`
     text-align: left; !important;
 }
   `;
+
+  export const IconSaida = styled.div`
+  color: #fff; 
+  margin-left: 95%;
+  display: flex;
+  flex-direction: row;
+  span{
+    text-align: center;
+    align-items: center;
+  }
+  div{
+    margin:2px;
+  }
+  `;
+
+  export const Header = styled.header`
+  margin-top: -50px;
+  margin-left: 30px;
+  background-color: #fff;
+  color: #333;
+  width: 95%;
+  height: 100px;
+  text-align: center;
+  border-radius: 10px;
+  `;

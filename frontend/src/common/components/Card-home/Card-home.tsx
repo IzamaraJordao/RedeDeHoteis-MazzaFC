@@ -25,7 +25,7 @@ export default function BoxComponent() {
             height: 150,
             backgroundColor: '#f5f5f5',
             marginTop: -5,
-            marginLeft: '320px',
+            marginLeft: '20px',
             borderRadius: '10px',
           }}
         >
