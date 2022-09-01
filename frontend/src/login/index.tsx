@@ -1,11 +1,12 @@
 import * as Yup from "yup";
 import React, { useState } from "react";
-import {Input,Form,Body} from './style'
+import {Input,Form,BodyLogin} from './style'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
 // import router from "next/dist/client/router";
 import { useRouter } from 'next/router';
+// import style from './login.module.css'
 
 interface IFormInputs {
   email: string;
@@ -42,10 +43,7 @@ export default function Login()  {
 
   return (
 
-    <Body>
-   
-        
-        
+    <BodyLogin>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h2>Rede Inn Hotel</h2>
 
@@ -60,7 +58,7 @@ export default function Login()  {
             {/* <button type="submit" name="Entrar" className="btn btn-primary btn-block" onClick={()=>{handleRegister}}>Entrar</button>  */}
         </Form> 
     
-    </Body>
+    </BodyLogin>
   
   
   

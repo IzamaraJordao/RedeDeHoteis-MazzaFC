@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {Menu, MenuButton} from './styled';
+import {Menu, MenuButton , HeaderMenu} from './styled';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
@@ -10,9 +10,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import BedIcon from '@mui/icons-material/Bed';
 
+
 export default function BoxSx() {
   return (
-    <div className='header'>
+    <HeaderMenu>
       <div >
         <Box
           sx={{
@@ -41,7 +42,7 @@ export default function BoxSx() {
           </MenuButton> 
         </Box>
       </div>
-    </div>
+    </HeaderMenu>
   );
 
 }

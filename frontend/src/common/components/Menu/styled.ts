@@ -41,6 +41,8 @@ export const MenuButton = styled.div`
   `;
 
   export const Header = styled.header`
+  display: flex;
+  flex-direction: row;
   margin-top: -50px;
   margin-left: 30px;
   background-color: #fff;
@@ -48,5 +50,16 @@ export const MenuButton = styled.div`
   width: 95%;
   height: 100px;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 5px;
+  `;
+
+  export const HeaderMenu = styled.div`
+  background-color: #3f3c57;
+  width: 1250px;
+  height: 100px;
+
+  /* border-radius: 5px; */
+
+  display: flex;
+  flex-direction: row;
   `;

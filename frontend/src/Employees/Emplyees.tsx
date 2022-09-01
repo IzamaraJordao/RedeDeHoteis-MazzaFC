@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Tabela from "../common/components/MultTabela/index";
 import TextField from '@mui/material/TextField';
-import { width } from "@mui/system";
-import { FilterHead } from './styled';
+import { FilterHead, BoxDiv } from './styled';
 import { GridColumnHeaderParams } from "@mui/x-data-grid";
+import Button from '@mui/material/Button';
+import Modal from '../common/components/ModalEmployees/Modal';
 
 
 
@@ -19,6 +20,7 @@ type BancoEmployees = {
 export default function bancoTabela() {
 
   const [employees, setEmployees] = useState<BancoEmployees[]>([]);
+  const [isVisibled, setIsVisibled] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:4000/employees")
@@ -32,9 +34,9 @@ export default function bancoTabela() {
   function FilterHeader(props: String) {
     return (
       <FilterHead>
-       
-          <span>{props}</span>
-        
+
+        <span>{props}</span>
+
         <div>
           <TextField id="standard-basic" label={props} />
         </div>
@@ -76,7 +78,15 @@ export default function bancoTabela() {
   ];
   return (
     <div>
-      <Tabela banco={employees} columns={columns} />
+      <BoxDiv>
+        <div>
+        <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
+        </div>
+        <div>
+          <Tabela banco={employees} columns={columns} />
+        </div>
+      </BoxDiv>
+      {isVisibled && <Modal onClose={()=> setIsVisibled(false)} />}
     </div>
   )
 }

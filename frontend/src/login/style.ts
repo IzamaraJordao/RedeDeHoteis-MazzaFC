@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
-export const Body = styled.div`
-  margin: 0;
-  padding: 0;
+export const BodyLogin = styled.div`
+  background-image: url('https://img.freepik.com/fotos-gratis/piscina_74190-2109.jpg?w=2000');
+  background-size: cover;
   box-sizing: border-box;
+  height: 96vh;
+  overflow: hidden;
 `
 export const Div = styled.div`
   height: 100vh;
@@ -31,14 +33,13 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 5%;
   background-color: #fff;
   width: 250px;
   margin-left: auto;
   margin-right: auto;
   padding: 100px 30px;
   margin-top: 7vh;
-  border-radius: 10px;
+  border-radius: 5px;
   
   h2 {
     

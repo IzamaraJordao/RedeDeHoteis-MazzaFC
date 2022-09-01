@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Menu, MenuButton, IconSaida, Header  } from './styled';
+import { Menu, MenuButton, IconSaida, Header } from './styled';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
@@ -13,22 +13,22 @@ import { useRouter } from 'next/router';
 import Image from 'next/image'
 import Saida from '../../../assets/log-out.svg';
 import styles from './menu.module.css';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export function AsideMenu(props: { children: React.ReactNode, header: React.ReactNode | string, name: string, jobTitle: string }) {
 
   const router = useRouter();
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', backgroundColor: '#EEE9E9' }}>
       <div >
-
         <Box
           sx={{
             width: 250,
             height: 700,
             backgroundColor: '#f5f5f5',
             // borderRadius: '5px',
-            border: '1px solid #3f3c57',
+            // border: '1px solid #3f3c57',
           }}
         >
           <Menu>
@@ -40,11 +40,11 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
 
           <MenuButton>
             <h3>MENU</h3>
-            <Button size="large" onClick={()=> {router.push("/home")}} style={{ textAlign: 'left' }} startIcon={<HomeIcon />}>Home</Button>
-            <Button size="large"  startIcon={<BedIcon />}>Mapa Dos Quartos</Button>
+            <Button size="large" onClick={() => { router.push("/home") }} style={{ textAlign: 'left' }} startIcon={<HomeIcon />}>Home</Button>
+            <Button size="large" startIcon={<BedIcon />}>Mapa Dos Quartos</Button>
             <Button size="large" startIcon={<EventAvailableIcon />}>Reserva</Button>
-            <Button size="large" onClick={()=> {router.push("/guest")}} startIcon={<PermContactCalendarIcon />}>Hopedes</Button>
-            <Button size="large"onClick={()=> {router.push("/employees")}} startIcon={<PersonIcon />}>Funcionários</Button>
+            <Button size="large" onClick={() => { router.push("/guest") }} startIcon={<PermContactCalendarIcon />}>Hopedes</Button>
+            <Button size="large" onClick={() => { router.push("/employees") }} startIcon={<PersonIcon />}>Funcionários</Button>
             <Button size="large" startIcon={<LockOpenIcon />}>Administrativo</Button>
           </MenuButton>
         </Box>
@@ -53,11 +53,12 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
       </div>
       <div>
         <div className={styles.header}>
-        
+
           <IconSaida>
-            <h3 >Sair</h3> 
+            <h3 >Sair</h3>
             <div>
-            <Image  src={Saida} alt="me" width="30" height="80" onClick={()=>{router.push("/")}}/>
+              {/* <Image  src={Saida} alt="me" width="30" height="80" onClick={()=>{router.push("/")}}/> */}
+              <LogoutIcon  sx={{ fontSize: 30, color: '#fff', marginTop: 2 }} />
             </div>
           </IconSaida>
         </div>

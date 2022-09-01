@@ -35,7 +35,7 @@ export default function Card(props: any) {
             backgroundColor: '#f5f5f5',
           
             marginLeft: '20px',
-            borderRadius: '10px',
+            borderRadius: '5px',
           }}
         >
           <CardHomeInterno>
