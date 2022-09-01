@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Swal from 'sweetalert2'
+import axios from 'axios';
+import { useForm } from "react-hook-form";
 
 
 const style = {
@@ -24,7 +26,30 @@ const style = {
   p: 4,
 };
 
+export type TypeEmployees = {
+  nome: String,
+  cpf: String,
+  email: String,
+  perfil: String,
+}
+
 export default function Modal({ onClose }) {
+  const [age, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+
+  const { register, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
+
+  const onSubmit = (data: TypeEmployees  ) => {
+    axios.post('http://localhost:4000/employees', {
+      nome: data.nome,
+      cpf: data.cpf,
+      email: data.email,
+      perfil: data.perfil
+    })
+  }
 
   function close() {
     Swal.fire({
@@ -38,6 +63,7 @@ export default function Modal({ onClose }) {
   }
 
 
+
   return (
     <div>
 
@@ -48,11 +74,11 @@ export default function Modal({ onClose }) {
           </Typography>
         </div>
         <div>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <ModalCentral>
               <ModalEsquerda>
                 <span>Nome</span>
-                <TextField size='small' id="name" label="Name" variant="outlined" />
+                <TextField size='small' id="name" label="Name" variant="outlined" {...register("nome")} />
               </ModalEsquerda>
 
             </ModalCentral>
@@ -60,7 +86,7 @@ export default function Modal({ onClose }) {
             <ModalCentral>
               <div>
                 <label>CPF</label>
-                <TextField size='small' id="cpf" type="number" label="CPF" variant="outlined" maxRows={11} />
+                <TextField size='small' id="cpf" type="number" label="CPF" variant="outlined" maxRows={11} {...register("cpf")}/>
               </div>
               <div>
                 <label>RG</label>
@@ -75,7 +101,7 @@ export default function Modal({ onClose }) {
             <ModalCentral>
               <div>
                 <label>Email</label>
-                <TextField sx={{ width: '360px' }} size='small' id="email" type="email" variant="outlined" label='Email' />
+                <TextField sx={{ width: '360px' }} size='small' id="email" type="email" variant="outlined" label='Email' {...register("email")} />
               </div>
               <div>
                 <label>Telefone</label>
@@ -125,13 +151,18 @@ export default function Modal({ onClose }) {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
+                    value={age}
                     label="Age"
-                  // onChange={handleChange}
+                    /////////
+                  onChange={handleChange}
+                  // {...register("perfil")}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                     <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+                    {/* <MenuItem >Recepcionista</MenuItem>
+                    <MenuItem>Auxiliar de Limpeza</MenuItem>
+                    <MenuItem>Camareira</MenuItem> */}
                   </Select>
                 </FormControl>
               </div>

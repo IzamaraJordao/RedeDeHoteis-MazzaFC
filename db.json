@@ -76,36 +76,40 @@
       "cpf": "123.456.789-00",
       "email": "joao@qwe.qwe",
       "perfil": "gerente"
+    },
+    {
+      "nome": "Erika",
+      "cpf": "12312312312",
+      "email": "erika@qwe.123",
+      "id": 4
     }
-    ],
-    "reserva": [
-      {
-        "id": 1,
-        "consumo": "agua",
-        "checkin" : "2022/05/01",
-        "checkout" : "2022/05/03"
-      }
-    ],
-      "quarto": [
-        {
-          "id": 1,
-          "numero": 101,
-          "tipo" : "luxo",
-          "status": "pink"
-        },
-        {
-          "id": 2,
-          "tipo" : "luxo",
-          "numero": 102,
-          "status": "green"
-        },
-        {
-          "id": 3,
-          "tipo" : "luxo",
-          "numero": 103,
-          "status": "pink"
-        }
-        
-
-      ]
+  ],
+  "reserva": [
+    {
+      "id": 1,
+      "consumo": "agua",
+      "checkin": "2022/05/01",
+      "checkout": "2022/05/03"
+    }
+  ],
+  "quarto": [
+    {
+      "id": 1,
+      "numero": 101,
+      "tipo": "luxo",
+      "status": "pink"
+    },
+    {
+      "id": 2,
+      "tipo": "luxo",
+      "numero": 102,
+      "status": "green"
+    },
+    {
+      "id": 3,
+      "tipo": "luxo",
+      "numero": 103,
+      "status": "pink"
+    }
+  ]
 }
