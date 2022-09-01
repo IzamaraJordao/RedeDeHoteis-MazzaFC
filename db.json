@@ -88,18 +88,21 @@
     ],
       "quarto": [
         {
-          "id_quarto": 1,
+          "id": 1,
+          "numero": 101,
           "tipo" : "luxo",
           "status": "pink"
         },
         {
-          "id_quarto": 2,
+          "id": 2,
           "tipo" : "luxo",
+          "numero": 102,
           "status": "green"
         },
         {
-          "id_quarto": 3,
+          "id": 3,
           "tipo" : "luxo",
+          "numero": 103,
           "status": "pink"
         }
         

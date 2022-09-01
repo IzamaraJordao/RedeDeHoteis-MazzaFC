@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import {Menu, MenuButton} from './styled';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
@@ -15,7 +14,6 @@ export default function BoxSx() {
   return (
     <div className='header'>
       <div >
-    
         <Box
           sx={{
             width: 250,
@@ -41,13 +39,7 @@ export default function BoxSx() {
           <Button size="large" startIcon={<PersonIcon />}>Funcionários</Button>
           <Button size="large" startIcon={<LockOpenIcon />}>Administrativo</Button>
           </MenuButton> 
-          
-
-
         </Box>
-      </div>
-      <div>
-
       </div>
     </div>
   );

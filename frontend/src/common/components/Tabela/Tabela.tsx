@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { TabelaCentral } from './styled';
+import { TabelaCentral,BoxDiv } from './styled';
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-import Swal from 'sweetalert2'
 import Modal from '../Modal/Modal';
 import Button from '@mui/material/Button';
+import { Box } from "@mui/material";
 
 
 
@@ -68,24 +68,24 @@ export default function App() {
 
   const columns: GridColumns = [
     {
-      field: 'status',
-      headerName: 'Quarto',
+      field: 'numero',
+      headerName: 'Comsumo',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
-      renderCell: (cellValues: GridRenderCellParams<BancoQuarto>) => {
-        return (
-          <div
-            style={{
-              textAlign: 'center',
-              width: '100%',
-              height: '100%',
-              backgroundColor: `var(--${cellValues.row.status})`,
-            }}>
+      // renderCell: (cellValues: GridRenderCellParams<BancoQuarto>) => {
+      //   return (
+      //     <div
+      //       style={{
+      //         textAlign: 'center',
+      //         width: '100%',
+      //         height: '100%',
+      //         backgroundColor: `var(--${cellValues.row.status})`,
+      //       }}>
 
-          </div>
-        )
-      }
+      //     </div>
+      //   )
+      // }
     },
     {
       field: 'Segunda',
@@ -98,12 +98,8 @@ export default function App() {
             style={{
               textAlign: 'center',
               color: 'blue',
-
-            }}>
-           
-            <Button type="button" name="Reservar" onClick={() => setIsModalVisible(true)} > Reservar </Button>
-            
-
+            }}>         
+            <Button type="button" name="Reservar" onClick={() => setIsModalVisible(true)} > Reservar </Button>       
             {cellValues.value}
           </div>
         )
@@ -142,16 +138,14 @@ export default function App() {
   ];
 
 
-
-
   return (
     <div>
 
-
+<BoxDiv>
       <TabelaCentral>
         <div
           style={{ height: 350, width: '84.2%', color: '#222' }}>
-          <DataGrid rows={hospedes} columns={columns}
+          <DataGrid rows={quartos} columns={columns}
             sx={{
               height: 300,
               width: '100%', '& .super-app-theme--header': {
@@ -172,7 +166,11 @@ export default function App() {
         </div>
       </TabelaCentral>
       
-      {/* {isModalVisible ? <h1>Testeeee</h1> : null} */}
+
+      
+
+      </BoxDiv>
+
       {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
 
     </div>
