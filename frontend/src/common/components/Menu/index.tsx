@@ -11,9 +11,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import BedIcon from '@mui/icons-material/Bed';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-// import Saida from '../../../assets/sidebar-close.svg';
 import Saida from '../../../assets/log-out.svg';
-// // import './menu.scss';
 import styles from './menu.module.css';
 
 export function AsideMenu(props: { children: React.ReactNode, header: React.ReactNode | string, name: string, jobTitle: string }) {

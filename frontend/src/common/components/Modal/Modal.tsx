@@ -77,9 +77,6 @@ export default function BasicModal({ onClose }) {
 
   
   }
-
-
-    
     function salve() {
       Swal.fire({
         position: 'center',
