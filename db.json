@@ -97,19 +97,19 @@
       "id": 1,
       "numero": 101,
       "tipo": "luxo",
-      "status": "pink"
+      "status": "error"
     },
     {
       "id": 2,
       "tipo": "luxo",
       "numero": 102,
-      "status": "green"
+      "status": "blue"
     },
     {
       "id": 3,
       "tipo": "luxo",
       "numero": 103,
-      "status": "pink"
+      "status": "error"
     }
   ]
 }

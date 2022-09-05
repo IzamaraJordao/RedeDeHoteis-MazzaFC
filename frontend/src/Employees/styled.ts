@@ -27,6 +27,10 @@ div{
 
   button{
     background-color: var(--primary) ;
+    &:hover {
+      background-color: #13E2ED;
+    }
+    }
   }
 }
 `;

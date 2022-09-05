@@ -7,6 +7,10 @@ import axios from "axios";
 // import router from "next/dist/client/router";
 import { useRouter } from 'next/router';
 // import style from './login.module.css'
+import { useDispatch} from 'react-redux'
+import { setEmail} from '../store/authSlice';
+import { wrapper } from "../store/store";
+
 
 interface IFormInputs {
   email: string;
@@ -19,16 +23,17 @@ const schema = Yup.object({
 }).required();
 
 
-
 export default function Login()  {
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
     resolver: yupResolver(schema)
   });
   const onSubmit = (data: IFormInputs) => {
-    console.log(data);
+    dispatch(setEmail(data.email))
+    // console.log(data.email)
     router.push("/home");
   }
 
@@ -55,7 +60,7 @@ export default function Login()  {
             <Input type="password" id="password" placeholder="Digite a senha" {...register("password")}/>
             <p>{errors.password?.message}</p>
             <button type="submit" name="Entrar" className="btn btn-primary btn-block" onClick={()=>{handleRegister}}>Entrar</button> 
-            {/* <button type="submit" name="Entrar" className="btn btn-primary btn-block" onClick={()=>{handleRegister}}>Entrar</button>  */}
+          
         </Form> 
     
     </BodyLogin>

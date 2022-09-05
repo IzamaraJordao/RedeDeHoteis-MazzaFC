@@ -4,7 +4,7 @@ import { TabelaCentral,BoxDiv } from './styled';
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
 import Modal from '../Modal/Modal';
 import Button from '@mui/material/Button';
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 
 
@@ -25,7 +25,8 @@ export type BancoReserva = {
 }
 
 export type BancoQuarto = {
-  id_quarto: Number;
+  id: Number;
+  numero: Number;
   tipo: String;
   status: String;
 }
@@ -37,6 +38,8 @@ export default function App() {
   const [reserva, setReserva] = useState<BancoReserva[]>([]);
   const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
   
+  const size = quartos.length;
+
 
   useEffect(() => {
     axios.get("http://localhost:4000/hospedes")
@@ -65,7 +68,6 @@ export default function App() {
       })
   }, []);
 
-
   const columns: GridColumns = [
     {
       field: 'numero',
@@ -73,20 +75,23 @@ export default function App() {
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
-      // renderCell: (cellValues: GridRenderCellParams<BancoQuarto>) => {
-      //   return (
-      //     <div
-      //       style={{
-      //         textAlign: 'center',
-      //         width: '100%',
-      //         height: '100%',
-      //         backgroundColor: `var(--${cellValues.row.status})`,
-      //       }}>
 
-      //     </div>
-      //   )
-      // }
+      renderCell: (quarto: GridRenderCellParams <BancoQuarto> ) => {
+        return (
+          <div
+          style={{
+            textAlign: 'center',
+            width: '100%',
+            height: '100%',
+            backgroundColor: `var(--text)`,
+          }}
+          >
+            <Typography variant="h6" color="white">{quarto.row.numero}</Typography>
+          </div>
+        )
+      } 
     },
+      
     {
       field: 'Segunda',
       headerClassName: 'super-app-theme--header',
@@ -98,7 +103,8 @@ export default function App() {
             style={{
               textAlign: 'center',
               color: 'blue',
-            }}>         
+            }}>
+                       
             <Button type="button" name="Reservar" onClick={() => setIsModalVisible(true)} > Reservar </Button>       
             {cellValues.value}
           </div>
@@ -110,12 +116,33 @@ export default function App() {
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
+      renderCell: (cellValues: GridRenderCellParams<BancoQuarto>) => {
+        return (
+          <div
+            style={{
+              textAlign: 'center',
+              width: '100%',
+              height: '100%',
+              backgroundColor: `var(--${cellValues.row.status})`,
+            }}>
+            
+           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{cellValues.row.tipo}</Typography>   
+          </div>
+        )
+      }
     },
     {
-      field: 'Quarta',
+      field: 'Quartaaa',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
+      renderCell: (cellValues) => {
+        return (
+          <div>
+            <h1>Teste</h1>
+          </div>
+        )
+      }
     },
     {
       field: 'Quinta',
@@ -170,6 +197,7 @@ export default function App() {
       
 
       </BoxDiv>
+     
 
       {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
 

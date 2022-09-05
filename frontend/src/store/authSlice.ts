@@ -5,11 +5,13 @@ import { AppState } from "./store";
 // Type for our state
 export interface AuthState {
   authState: boolean;
+  email: String;
 }
 
 // Initial state
 const initialState: AuthState = {
   authState: false,
+  email: "Faça o login para continuar",
 };
 
 // Actual Slice
@@ -22,22 +24,15 @@ export const authSlice = createSlice({
     setAuthState(state:any, action:any) {
       state.authState = action.payload;
     },
+    setEmail(state:any, action:any) {
+      state.email = action.payload;
+    }
   },
 });
 
-export const { setAuthState } = authSlice.actions;
+export const { setAuthState, setEmail } = authSlice.actions;
 
 export const selectAuthState = (state: AppState) => state.auth.authState;
+export const selectEmail = (state: AppState) => state.auth.email;
 
 export default authSlice.reducer;
-
-
-// Special reducer for hydrating the state. Special case for next-redux-wrapper
-// extraReducers: {
-//   [HYDRATE]: (state:string, action:string) => {
-//     return {
-//       ...state,
-//       ...action.payload.auth,
-//     };
-//   },
-// },

@@ -6,6 +6,7 @@ import { FilterHead, BoxDiv } from './styled';
 import { GridColumnHeaderParams } from "@mui/x-data-grid";
 import Button from '@mui/material/Button';
 import Modal from '../common/components/ModalEmployees/Modal';
+import {useSelector} from 'react-redux';
 
 
 
@@ -81,6 +82,7 @@ export default function bancoTabela() {
       <BoxDiv>
         <div>
         <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
+
         </div>
         <div>
           <Tabela banco={employees} columns={columns} />

@@ -17,8 +17,9 @@ export const Div = styled.div`
 
 
 export const Input = styled.input`
-  border-bottom: 2px solid #323232;
-
+  // border-bottom: 2px solid var(--text);
+  width: 350px;
+  height: 40px;
   padding: 5px;
   font-size: 1rem;
   margin-bottom: 20px;
@@ -34,22 +35,23 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  width: 250px;
+  width: 450px;
   margin-left: auto;
   margin-right: auto;
   padding: 100px 30px;
-  margin-top: 7vh;
+  margin-top: 3vh;
+  // margin-top: 20px;
   border-radius: 5px;
   
   h2 {
     
-    font-size: 2rem;
+    font-size: 3rem;
     color: #4d42fa;
     
   }
   p {
     color: red;
-    font-size: 1rem;
+    font-size: 1.5rem;
     
   }
  
@@ -60,4 +62,7 @@ export const Form = styled.form`
     height: 40px;
     border-radius: 5px;
   }
-`
+  label{
+    margin-right: 300px;
+  }
+`;

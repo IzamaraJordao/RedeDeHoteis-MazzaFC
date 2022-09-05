@@ -20,13 +20,16 @@ export default function Tabela({ banco, columns }) {
         rows={banco} 
         columns={columns}
         disableColumnFilter
-        disableColumnSelector
+        // disableColumnSelector
         disableDensitySelector
+        //
+      
+      
         components={{ Toolbar: GridToolbar }}
         componentsProps={{
           toolbar: {
             showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 },
+            // quickFilterProps: { debounceMs: 500 },
           },
         }}
         />
