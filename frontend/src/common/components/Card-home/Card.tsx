@@ -11,7 +11,7 @@ export default function Card(props: any) {
 
   function icon() {
     if (props.titulo === "HOSPEDES") {
-      return <PeopleAltIcon sx={{ fontSize: 85, color: '#2dd8ac' , marginLeft: 5}} />
+      return <PeopleAltIcon sx={{ fontSize: 85, color: '#2dd8ac' }} />
     }
     if (props.titulo === "ACOMODAÇÕES") {
       return <BedIcon sx={{ fontSize: 85, color: '#e7ff4a'}} />
@@ -34,7 +34,7 @@ export default function Card(props: any) {
             width: 250,
             height: 100,
             backgroundColor: '#fff',
-            marginLeft: '30px',
+            marginLeft: '20px',
             borderRadius: '5px',
           }}
         >

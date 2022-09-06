@@ -7,12 +7,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import PersonIcon from '@mui/icons-material/Person';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
 import BedIcon from '@mui/icons-material/Bed';
 import { useRouter } from 'next/router';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useSelector} from 'react-redux';
 import { selectEmail } from '../../../store/authSlice';
+import  InputAd  from '../InputAdministrativo/InputAdm';
 
 
 
@@ -46,7 +46,7 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
             <Button size="large" startIcon={<EventAvailableIcon />}>Reserva</Button>
             <Button size="large" onClick={() => { router.push("/guest") }} startIcon={<PermContactCalendarIcon />}>Hopedes</Button>
             <Button size="large" onClick={() => { router.push("/employees") }} startIcon={<PersonIcon />}>Funcionários</Button>
-            <Button size="large" startIcon={<LockOpenIcon />}>Administrativo</Button>
+            <InputAd />
           </MenuButton>
         </Box>
 
