@@ -1,5 +1,5 @@
 {
-  "name": "Backend",
+  "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -14,5 +14,10 @@
   },
   "scripts": {
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.4"
   }
 }
