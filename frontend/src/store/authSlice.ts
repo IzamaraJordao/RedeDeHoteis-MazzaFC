@@ -15,24 +15,24 @@ const initialState: AuthState = {
 };
 
 // Actual Slice
-export const authSlice = createSlice({
+export const authSlice = createSlice({ /// Recebe 3 parametros
   name: "auth",
   initialState,
   reducers: {
 
     // Action to set the authentication status
-    setAuthState(state:any, action:any) {
+    setAuthState(state, action) {
       state.authState = action.payload;
     },
-    setEmail(state:any, action:any) {
+    setEmail(state, action) {
       state.email = action.payload;
     }
   },
 });
 
-export const { setAuthState, setEmail } = authSlice.actions;
+export const { setAuthState, setEmail } = authSlice.actions; // Exportando as actions
 
-export const selectAuthState = (state: AppState) => state.auth.authState;
-export const selectEmail = (state: AppState) => state.auth.email;
+export const selectAuthState = (state: AppState) => state.auth.authState; // Exportando o state, ou pode chamar direto na onde utilizar
+export const selectEmail = (state: AppState) => state.auth.email; // Exportando o state
 
-export default authSlice.reducer;
+export default authSlice.reducer; // Exportando o reducer
