@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
@@ -12,7 +12,8 @@ import '../../components/Input/Index'
 import { ButtonC } from '../Button/Index'
 import { InputS } from '../../components/Input/Index'
 ;
-import { TextField } from '@mui/material'
+import React from 'react'
+
 
 
 export type ModalProps = {
@@ -158,7 +159,7 @@ export default function ModalC({ onClose }) {
             <div className='Note' >
               <label>OBSERVAÇÕES</label>
               <InputS       style={{
-                 padding: '90px'
+                 padding: '100px'
                 }}{...register('note')} />
             </div>
   
@@ -166,9 +167,9 @@ export default function ModalC({ onClose }) {
             <ContainerButton>
               <ButtonC
                 style={{
-                  border: 'solid 1px #a9a9a9',
+                  border: 'solid 1px #27e20ef6',
                   borderRadius: 5,
-                  backgroundColor: '#188b52ba',
+                  backgroundColor: '#27e20ef6',
                 }}
                 onClick={() => {
                   handleClose
@@ -179,9 +180,9 @@ export default function ModalC({ onClose }) {
 
               <ButtonC
                 style={{
-                  border: 'solid 1px #a9a9a9',
+                  border: 'solid 1px red',
                   borderRadius: 5,
-                  backgroundColor: '#e95531b9',
+                  backgroundColor: 'red',
                 }}
                 onClick={onClose}
               >

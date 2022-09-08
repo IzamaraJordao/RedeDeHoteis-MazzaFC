@@ -22,6 +22,6 @@ export const MenuButton = styled.div`
   Button{  
     color: #858485 !important;
      
-    text-align: left; !important;
+    text-align: left !important;
 }
   `;

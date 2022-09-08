@@ -6,6 +6,7 @@
     box-sizing: border-box;
     height: 10vh;
     overflow: hidden;
+    
 }
 input{
     
@@ -17,11 +18,11 @@ input{
       border: #061ef8 1.5px solid
 }
 button{
-    width: 8rem;
+    width: 9rem;
     border-radius: 4px;
     font-weight: 500;
-    background: #835afd;
-    color: #fff;
+    background: transparent;
+   
     padding:.7rem;
     display: flex;
     justify-content: center;

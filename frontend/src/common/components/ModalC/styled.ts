@@ -1,7 +1,7 @@
 
 import styled from 'styled-components'
 export const Modal = styled.div`
-  background-color: rgb(0, 0, 0.2);
+  background-color: rgb(0, 0, 5);
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -10,11 +10,12 @@ export const Modal = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  opacity: 0.9;
-  padding: 1px;
+  opacity: 0.8;
+  padding: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
+  
   form {
     width: 50%;
     margin-top: 50px;
@@ -24,12 +25,13 @@ export const Modal = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction:row;
+    flex-direction:row; 
     flex-wrap: wrap;
     border:10px;
     gap: 20px;
     background:#fff;
-    opacity: 1;
+    background-size:cover;
+    opacity: 2;
   }
   .Itens{
     display: flex;
@@ -41,16 +43,21 @@ export const Modal = styled.div`
   }
   .documentField{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 15px;
   }
   .contactField{
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+   
+    gap: 15px;
     
   }
   .Note{
