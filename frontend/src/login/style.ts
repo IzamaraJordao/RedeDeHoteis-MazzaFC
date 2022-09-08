@@ -1,17 +1,11 @@
 import styled from 'styled-components'
 
-export const Body = styled.div`
+export const BodyLogin = styled.div`
   background-image: url('https://img.freepik.com/fotos-gratis/piscina_74190-2109.jpg?w=2000');
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
   background-size: cover;
+  box-sizing: border-box;
+  height: 96vh;
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100vh;
-  
 `
 export const Div = styled.div`
   height: 100vh;
@@ -23,8 +17,9 @@ export const Div = styled.div`
 
 
 export const Input = styled.input`
-  border-bottom: 2px solid #323232;
-
+  // border-bottom: 2px solid var(--text);
+  width: 350px;
+  height: 40px;
   padding: 5px;
   font-size: 1rem;
   margin-bottom: 20px;
@@ -39,18 +34,18 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 5%;
   background-color: #fff;
-  width: 250px;
+  width: 450px;
   margin-left: auto;
   margin-right: auto;
-  padding: 250px 30px;
-  margin-top: 7vh;
-  border-radius: 10px;
+  padding: 100px 30px;
+  margin-top: 3vh;
+  // margin-top: 20px;
+  border-radius: 5px;
   
   h2 {
     
-    font-size: 2rem;
+    font-size: 3rem;
     color: #4d42fa;
     margin-bottom: 20px;
     margin-top: -50%;
@@ -58,7 +53,7 @@ export const Form = styled.form`
   }
   p {
     color: red;
-    font-size: 1rem;
+    font-size: 1.5rem;
     
   }
  
@@ -70,4 +65,7 @@ export const Form = styled.form`
     padding: 6px;
     border-radius: 5px;
   }
-`
+  label{
+    margin-right: 300px;
+  }
+`;

@@ -25,7 +25,7 @@ export const ModalDireita = styled.div`
 export const ModalEsquerda = styled.div`
 
   input{
-    width: 350px;
+    width: 560px;
   }
 `;
 
