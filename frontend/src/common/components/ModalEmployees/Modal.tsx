@@ -42,7 +42,7 @@ export default function Modal({ onClose }) {
 
   const { register, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
 
-  const onSubmit = (data: TypeEmployees  ) => {
+  const onSubmit = (data: TypeEmployees) => {
     axios.post('http://localhost:4000/employees', {
       nome: data.nome,
       cpf: data.cpf,
@@ -86,7 +86,7 @@ export default function Modal({ onClose }) {
             <ModalCentral>
               <div>
                 <label>CPF</label>
-                <TextField size='small' id="cpf" type="number" label="CPF" variant="outlined" maxRows={11} {...register("cpf")}/>
+                <TextField size='small' id="cpf" type="number" label="CPF" variant="outlined" maxRows={11} {...register("cpf")} />
               </div>
               <div>
                 <label>RG</label>
@@ -154,12 +154,12 @@ export default function Modal({ onClose }) {
                     value={age}
                     label="Age"
                     /////////
-                  onChange={handleChange}
+                    onChange={handleChange}
                   // {...register("perfil")}
                   >
-                     <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
                     {/* <MenuItem >Recepcionista</MenuItem>
                     <MenuItem>Auxiliar de Limpeza</MenuItem>
                     <MenuItem>Camareira</MenuItem> */}
@@ -176,15 +176,10 @@ export default function Modal({ onClose }) {
                   defaultValue="Observação"
                 />
               </div>
-
             </ModalCentral>
-
-
-
             <Button color="success" variant="contained" type='submit'  >Enviar</Button>
-
+            <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
           </form>
-          <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
         </div>
       </Box>
     </div>

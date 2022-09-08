@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FilterHead, BoxDiv } from './styled';
 import Button from '@mui/material/Button';
-import Modal from '../common/components/ModalEmployees/Modal';
+import Modal from '../common/components/ModalRegistration/Modal';
 import {useSelector} from 'react-redux';
 
 
@@ -30,11 +30,18 @@ export default function bancoTabela() {
   }, []);
 
 
+  function extendInput(){
+    const qtd: any = 5;
+    const input: any = <input type="text" placeholder="Digite aqui" />
+    const vezes: any = qtd * input;
+    return vezes;
+  }
 
  
   return (
     <div>
       <BoxDiv>
+        {extendInput()}
         <div>
         <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
 

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const Modal = styled.div`
-  // display: flex;
-  // flex-direction: row;
+export const ModalExterna = styled.div`
 
 `;
 
@@ -15,6 +13,10 @@ export const ModalCentral = styled.div`
     display: flex;
     flex-direction: column;
   }
+  label{
+    margin-left: 10px;
+    font-size: 1.2rem;
+  }
 `;
 export const ModalDireita = styled.div`
 
@@ -23,7 +25,10 @@ export const ModalDireita = styled.div`
   }
 `;
 export const ModalEsquerda = styled.div`
-
+label{
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
   input{
     width: 560px;
   }
