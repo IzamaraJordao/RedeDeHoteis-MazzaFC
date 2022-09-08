@@ -15,7 +15,7 @@ export default function Tabela({ banco , columns}) {
 
   return (
         <div
-          style={{ height: 350, width: '84.2%', color: '#222' }}>
+          style={{ height: 350, width: '800px', color: '#222' }}>
           <DataGrid rows={banco} columns={columns} />
         </div>
      
