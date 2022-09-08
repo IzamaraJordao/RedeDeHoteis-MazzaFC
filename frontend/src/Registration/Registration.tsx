@@ -3,7 +3,7 @@ import axios from "axios";
 import { FilterHead, BoxDiv } from './styled';
 import Button from '@mui/material/Button';
 import Modal from '../common/components/ModalRegistration/Modal';
-import Input from '../common/components/Input/Index';
+
 import {useSelector} from 'react-redux';
 
 
@@ -30,12 +30,7 @@ export default function bancoTabela() {
       })
   }, []);
 
-  const qtd = 5;
-  function extendInput(){
-      for(let i = 0; i <= qtd; i++){
-          return <Input/>
-      }
-    }
+
   
 
  
