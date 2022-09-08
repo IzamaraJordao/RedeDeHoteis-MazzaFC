@@ -47,6 +47,8 @@ export const Form = styled.form`
     
     font-size: 3rem;
     color: #4d42fa;
+    margin-bottom: 20px;
+    margin-top: -50%;
     
   }
   p {
@@ -59,7 +61,8 @@ export const Form = styled.form`
     background-color: #4d42fa;
     color: #fff;
     width: 200px;
-    height: 40px;
+    height: 60px;
+    padding: 6px;
     border-radius: 5px;
   }
   label{

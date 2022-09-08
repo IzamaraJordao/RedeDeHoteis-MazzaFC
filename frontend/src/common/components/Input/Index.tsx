@@ -1,8 +1,29 @@
-import React from 'react'
+import { Props } from './types'
 
-export default function Index() {
+import { Controller, useForm } from 'react-hook-form'
+
+
+export function InputS(props: Props) {
+  const {
+    control,
+    formState: { errors },
+  } = useForm()
+  
   return (
-    <div>Texte Input</div>
+    <>
+      <Controller
+        name={props.name}
+        control={control}
+        defaultValue={!!props.default ? props.default : ''}
+        render={({ field }) => (
+          <input
+            {...field}
+            data-test={`input-${props.name}`}
+          />
+        )}
+      />
+         <p>{errors[props.name]?.message}</p>
+    </>
   )
 }
 

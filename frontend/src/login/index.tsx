@@ -37,11 +37,12 @@ export default function Login()  {
     router.push("/home");
   }
 
-  //funcão para guardar os dados do formulario
+  //funcão para guardar os dados do formulario e validar se estão corretos
   async function handleRegister(email:string,password:string){
       await axios.post('http://localhost:3000/login',{
           email:email,
-          password:password
+          password:password,
+
     })
     router.push('/home');
   }
