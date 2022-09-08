@@ -8,6 +8,6 @@ export default function home() {
     <Layout header={<CardHome />}>
       
       <Home />
-    </Layout>
+    </div>
   )
 }

@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
-export const Body = styled.div`
-  margin: 0;
-  padding: 0;
+export const BodyLogin = styled.div`
+  background-image: url('https://img.freepik.com/fotos-gratis/piscina_74190-2109.jpg?w=2000');
+  background-size: cover;
   box-sizing: border-box;
+  height: 96vh;
+  overflow: hidden;
 `
 export const Div = styled.div`
   height: 100vh;
@@ -15,8 +17,9 @@ export const Div = styled.div`
 
 
 export const Input = styled.input`
-  border-bottom: 2px solid #323232;
-
+  // border-bottom: 2px solid var(--text);
+  width: 350px;
+  height: 40px;
   padding: 5px;
   font-size: 1rem;
   margin-bottom: 20px;
@@ -31,24 +34,26 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 5%;
   background-color: #fff;
-  width: 250px;
+  width: 450px;
   margin-left: auto;
   margin-right: auto;
   padding: 100px 30px;
-  margin-top: 7vh;
-  border-radius: 10px;
+  margin-top: 3vh;
+  // margin-top: 20px;
+  border-radius: 5px;
   
   h2 {
     
-    font-size: 2rem;
+    font-size: 3rem;
     color: #4d42fa;
+    margin-bottom: 20px;
+    margin-top: -50%;
     
   }
   p {
     color: red;
-    font-size: 1rem;
+    font-size: 1.5rem;
     
   }
  
@@ -56,7 +61,11 @@ export const Form = styled.form`
     background-color: #4d42fa;
     color: #fff;
     width: 200px;
-    height: 40px;
+    height: 60px;
+    padding: 6px;
     border-radius: 5px;
   }
-`
+  label{
+    margin-right: 300px;
+  }
+`;

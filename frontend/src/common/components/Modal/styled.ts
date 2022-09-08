@@ -17,6 +17,15 @@ export const ModalCentral = styled.div`
   }
 `;
 export const ModalDireita = styled.div`
-  margin-left: 20px;
+
+  input{
+    width: 350px;
+  }
+`;
+export const ModalEsquerda = styled.div`
+
+  input{
+    width: 350px;
+  }
 `;
 

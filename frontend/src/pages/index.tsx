@@ -6,9 +6,7 @@ function home(){
   
   return (
       <div>
-          <Login/>
-          
-          
+          <Login/>  
       </div>
   )
 }

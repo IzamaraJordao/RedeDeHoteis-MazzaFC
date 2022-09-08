@@ -1,6 +1,8 @@
-export type Props = {
-    email: string;
-    password: string;
+import { InputHTMLAttributes } from "react";
+
+export type Props = InputHTMLAttributes<HTMLInputElement> & {
+    name: string;
+    
     default?: any;
-    type?: "email" | "password";
+    
   };

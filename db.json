@@ -1,29 +1,66 @@
 {
   "home": [
-    { "id": 1,
-     "hospede": "Fernanda Baiano",
+    {
+      "id": 1,
+      "hospede": "Fernanda Baiano",
       "quarto": 1,
       "cor": 1
-     },
-     {"id": 2,
-     "hospede": "Matheus Barbosa",
+    },
+    {
+      "id": 2,
+      "hospede": "Matheus Barbosa",
       "quarto": 2,
       "cor": 2
-     },
-     {"id": 3,
-     "hospede": "Izamara Jordao",
-      "quarto":3,
+    },
+    {
+      "id": 3,
+      "hospede": "Izamara Jordao",
+      "quarto": 3,
       "cor": 3
-     }
-    ],
-    "hospedes": [
-      {
-        "id": 1,
-        "nome": "Fernanda Baiano",
-        "cpf": "123.456.789-00",
-        "checkin": "2022/05/01",
-        "checkout": "2022/05/03",
-        "observacao" : " "
-      }
-    ]
+    }
+  ],
+  "hospedes": [
+    {
+      "id": 1,
+      "nome": "Fernanda Baiano",
+      "cpf": "123.456.789-00",
+      "checkin": "2022/05/01",
+      "checkout": "2022/05/03",
+      "observacao": " "
+    },
+    {
+      "nome": "izamara Jordão",
+      "cpf": "12345689712",
+      "rg": "121345646",
+      "dt_nasc": "2022-08-02",
+      "email": "izamarajordao@outlook.com",
+      "phone": "999999999",
+      "road": "",
+      "number": "",
+      "complement": "",
+      "district": "",
+      "city": "",
+      "zip_code": "",
+      "state": "",
+      "note": "",
+      "id": 2
+    },
+    {
+      "nome": "izamara Jordão",
+      "cpf": "12345689712",
+      "rg": "121345646",
+      "dt_nasc": "2022-08-02",
+      "email": "izamarajordao@outlook.com",
+      "phone": "999999999",
+      "road": "",
+      "number": "",
+      "complement": "",
+      "district": "",
+      "city": "",
+      "zip_code": "",
+      "state": "",
+      "note": "",
+      "id": 3
+    }
+  ]
 }

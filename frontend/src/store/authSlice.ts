@@ -5,39 +5,34 @@ import { AppState } from "./store";
 // Type for our state
 export interface AuthState {
   authState: boolean;
+  email: String;
 }
 
 // Initial state
 const initialState: AuthState = {
   authState: false,
+  email: "Faça o login para continuar",
 };
 
 // Actual Slice
-export const authSlice = createSlice({
+export const authSlice = createSlice({ /// Recebe 3 parametros
   name: "auth",
   initialState,
   reducers: {
 
     // Action to set the authentication status
-    setAuthState(state:any, action:any) {
+    setAuthState(state, action) {
       state.authState = action.payload;
     },
-
-    // Special reducer for hydrating the state. Special case for next-redux-wrapper
-    // extraReducers: {
-    //   [HYDRATE]: (state:string, action:string) => {
-    //     return {
-    //       ...state,
-    //       ...action.payload.auth,
-    //     };
-    //   },
-    // },
-
+    setEmail(state, action) {
+      state.email = action.payload;
+    }
   },
 });
 
-export const { setAuthState } = authSlice.actions;
+export const { setAuthState, setEmail } = authSlice.actions; // Exportando as actions
 
-export const selectAuthState = (state: AppState) => state.auth.authState;
+export const selectAuthState = (state: AppState) => state.auth.authState; // Exportando o state, ou pode chamar direto na onde utilizar
+export const selectEmail = (state: AppState) => state.auth.email; // Exportando o state
 
-export default authSlice.reducer;
+export default authSlice.reducer; // Exportando o reducer
