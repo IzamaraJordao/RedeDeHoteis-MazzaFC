@@ -37,8 +37,8 @@ export default function bancoTabela() {
   return (
     <div>
       <BoxDiv>
-        {extendInput()}
-        <Input />
+       
+       
         <div>
         <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
 
