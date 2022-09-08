@@ -1,115 +1,66 @@
 {
+  "home": [
+    {
+      "id": 1,
+      "hospede": "Fernanda Baiano",
+      "quarto": 1,
+      "cor": 1
+    },
+    {
+      "id": 2,
+      "hospede": "Matheus Barbosa",
+      "quarto": 2,
+      "cor": 2
+    },
+    {
+      "id": 3,
+      "hospede": "Izamara Jordao",
+      "quarto": 3,
+      "cor": 3
+    }
+  ],
   "hospedes": [
     {
       "id": 1,
       "nome": "Fernanda Baiano",
       "cpf": "123.456.789-00",
-      "email": "Fernanda@Bahiano.com",
-      "observacao": "testando observações",
-      "telefone": "(16)123456789"
-    },
-    {
-      "id": 2,
-      "nome": "Matheus Barbosa",
-      "cpf": "123.456.789-00",
-      "email": "Matheus@qwe.com",
-      "observacao": "testando observações",
-      "telefone": "(16)123456789"
-    },
-    {
-      "id": 3,
-      "nome": "Izamara Jordao",
-      "cpf": "123.456.789-00",
-      "email": "izamara@jordao.com",
-      "observacao": "testando observações",
-      "telefone": "(16)123456789"
-    },
-    {
-      "nome": "Matheusss",
-      "cpf": "1231215",
-      "id": 4
-    },
-    {
-      "nome": "asadas",
-      "cpf": "12312312312",
-      "id": 5
-    },
-    {
-      "nome": "Ruiva",
-      "cpf": "12312312312",
-      "id": 6
-    },
-    {
-      "nome": "Bordo",
-      "cpf": "12312312312",
-      "id": 7
-    },
-    {
-      "nome": "matheusinho",
-      "cpf": "40343394898",
-      "id": 8
-    },
-    {
-      "nome": "Samuel",
-      "cpf": "12345678945",
-      "id": 9
-    }
-  ],
-  "employees": [
-    {
-      "id": 1,
-      "nome": "Jose",
-      "cpf": "123.456.789-00",
-      "email": "jose@qwe.qwe",
-      "perfil": "recepcionista"
-    },
-    {
-      "id": 2,
-      "nome": "Maria",
-      "cpf": "123.456.789-00",
-      "email": "maria@qwe.qwe",
-      "perfil": "auxiliar"
-    },
-    {
-      "id": 3,
-      "nome": "Joao",
-      "cpf": "123.456.789-00",
-      "email": "joao@qwe.qwe",
-      "perfil": "gerente"
-    },
-    {
-      "nome": "Erika",
-      "cpf": "12312312312",
-      "email": "erika@qwe.123",
-      "id": 4
-    }
-  ],
-  "reserva": [
-    {
-      "id": 1,
-      "consumo": "agua",
       "checkin": "2022/05/01",
-      "checkout": "2022/05/03"
-    }
-  ],
-  "quarto": [
-    {
-      "id": 1,
-      "numero": 101,
-      "tipo": "luxo",
-      "status": "error"
+      "checkout": "2022/05/03",
+      "observacao": " "
     },
     {
-      "id": 2,
-      "tipo": "luxo",
-      "numero": 102,
-      "status": "blue"
+      "nome": "izamara Jordão",
+      "cpf": "12345689712",
+      "rg": "121345646",
+      "dt_nasc": "2022-08-02",
+      "email": "izamarajordao@outlook.com",
+      "phone": "999999999",
+      "road": "",
+      "number": "",
+      "complement": "",
+      "district": "",
+      "city": "",
+      "zip_code": "",
+      "state": "",
+      "note": "",
+      "id": 2
     },
     {
-      "id": 3,
-      "tipo": "luxo",
-      "numero": 103,
-      "status": "error"
+      "nome": "izamara Jordão",
+      "cpf": "12345689712",
+      "rg": "121345646",
+      "dt_nasc": "2022-08-02",
+      "email": "izamarajordao@outlook.com",
+      "phone": "999999999",
+      "road": "",
+      "number": "",
+      "complement": "",
+      "district": "",
+      "city": "",
+      "zip_code": "",
+      "state": "",
+      "note": "",
+      "id": 3
     }
   ]
 }

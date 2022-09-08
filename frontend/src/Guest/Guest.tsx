@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Tabela from "../common/components/MultTabela/index";
+import ModalF from "../common/components/ModalC/index";
+import { Button } from "@mui/material";
+// import '../common/components/ModalC/index.css'
 
 
 type BancoGuest = {
@@ -12,7 +15,7 @@ type BancoGuest = {
 }
 
 export default function bancoTabela() {
-
+  const[isModalVisible, setIsModalVisible] = useState(false);
   const [guest, setGuest] = useState<BancoGuest[]>([]);
 
   useEffect(() => {
@@ -50,8 +53,14 @@ export default function bancoTabela() {
   }
 ];
   return (
+    <div>
     <div> 
+      <Button color="success" variant="contained" type='submit' onClick={()=>setIsModalVisible(true)}>open </Button>
+      
       <Tabela banco={guest} columns={columns} />
+    </div>
+    
+    {isModalVisible ?<ModalF onClose={() => setIsModalVisible(false)}/>: null}
     </div>
   )
 }
