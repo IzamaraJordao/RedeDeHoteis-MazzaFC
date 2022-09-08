@@ -29,15 +29,10 @@ export default function bancoTabela() {
         console.log(err);
       })
   }, []);
-
-
-  
-
  
   return (
     <div>
       <BoxDiv>
-       
        
         <div>
         <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>

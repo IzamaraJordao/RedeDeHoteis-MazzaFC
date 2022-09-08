@@ -18,7 +18,7 @@ type BancoEmployees = {
   perfil: string;
 }
 
-export default function bancoTabela() {
+export default function bancoTabela(): JSX.Element {
 
   const [employees, setEmployees] = useState<BancoEmployees[]>([]);
   const [isVisibled, setIsVisibled] = useState(false);

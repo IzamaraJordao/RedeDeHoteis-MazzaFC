@@ -76,7 +76,7 @@ export default function Modal({ onClose }) {
             <ModalCentral>
               <ModalEsquerda>
                 <label>Nome fantasia</label>
-                <TextField size='small' id="name" variant="outlined" onBlur={setWalk} {...register("nome")} />
+                <TextField size='small' id="name" variant="outlined" {...register("nome")} />
               </ModalEsquerda>
             </ModalCentral>
 
