@@ -27,6 +27,7 @@ div{
 
   button{
     background-color: var(--primary) ;
+    box-shadow: -10px -20px 10px 20px grey;
     &:hover {
       background-color: #13E2ED;
     }

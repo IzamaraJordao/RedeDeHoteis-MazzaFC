@@ -44,12 +44,8 @@ export const Form = styled.form`
   border-radius: 5px;
   
   h2 {
-    
     font-size: 3rem;
-    color: #4d42fa;
-    // margin-bottom: auto;
-    // margin-top: -50%;
-    
+    color: #4d42fa; 
   }
   p {
     color: red;

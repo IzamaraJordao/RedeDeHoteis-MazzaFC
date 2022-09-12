@@ -39,7 +39,7 @@ export default function bancoTabela() {
 
         </div>
         <div>
-          
+       
         </div>
       </BoxDiv>
       {isVisibled && <Modal onClose={()=> setIsVisibled(false)} />}
