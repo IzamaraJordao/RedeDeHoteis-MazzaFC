@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/uuid": "^8.3.4",
+    "@vitest/coverage-c8": "^0.23.2",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "^2.7.1",
@@ -15,11 +18,14 @@
     "*.{js,css,md}": "prettier --write"
   },
   "scripts": {
-    "prepare": "husky install"
+    "test": "vitest",
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.4",
     "uuid": "^9.0.0"

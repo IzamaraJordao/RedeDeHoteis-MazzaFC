@@ -1,6 +1,4 @@
-
-
-import { EmployeeRepository } from '../../Models/employees'
+import { EmployeeRepository } from '../../models/employees'
 import { Request } from '../interface'
 
 export class GetEmployee {
@@ -10,7 +8,6 @@ export class GetEmployee {
     const employee = await this.employeeRepository.findById(id)
     return employee
   }
-
 }
 
 export class Employee {}
