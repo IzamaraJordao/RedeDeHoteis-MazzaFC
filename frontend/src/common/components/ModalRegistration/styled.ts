@@ -24,6 +24,23 @@ export const ModalDireita = styled.div`
     width: 350px;
   }
 `;
+
+
+export const InputModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  div{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  div > div{
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+
 export const ModalEsquerda = styled.div`
 label{
   margin-left: 10px;

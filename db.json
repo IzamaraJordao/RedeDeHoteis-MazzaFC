@@ -62,5 +62,54 @@
       "note": "",
       "id": 3
     }
+  ],
+  "employees":[
+    {
+      "id": 1,
+      "nome": "Fernanda Baiano",
+      "cpf": "123.456.789-00",
+      "email": "matheus@123",
+      "perfil": "admin"
+    },
+    {
+      "id": 2,
+      "nome": "Matheus Barbosa",
+      "cpf": "123.456.789-00",
+      "email": "matheus@123",
+      "perfil": "admin"
+    },
+    {
+      "id": 3,
+      "nome": "Izamara Jordao",
+      "cpf": "123.456.789-00",
+      "email": "matheus@123",
+      "perfil": "admin"
+    }
+  ], 
+  "quarto": [
+    {
+      "id": 1,
+      "numero": 1,
+      "andar": 1,
+      "tipo": "solteiro",
+      "status": "tertiary",
+      "cor": 1
+    },
+    {
+      "id": 2,
+      "numero": 2,
+      "andar": 1,
+      "tipo": "solteiro",
+      "status": "error",
+      "cor": 2
+    },
+    {
+      "id": 3,
+      "numero": 3,
+      "andar": 1,
+      "tipo": "solteiro",
+      "status": "blue",
+      "cor": 3
+    }
   ]
 }

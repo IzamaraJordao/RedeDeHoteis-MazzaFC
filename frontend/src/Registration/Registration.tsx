@@ -29,22 +29,17 @@ export default function bancoTabela() {
         console.log(err);
       })
   }, []);
-
-
-  
-
  
   return (
     <div>
       <BoxDiv>
-       
        
         <div>
         <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
 
         </div>
         <div>
-          
+       
         </div>
       </BoxDiv>
       {isVisibled && <Modal onClose={()=> setIsVisibled(false)} />}

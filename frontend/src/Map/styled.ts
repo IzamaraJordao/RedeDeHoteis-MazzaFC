@@ -25,12 +25,12 @@ margin-top:80px;
 div{
   margin:2px;
 
-  button{
-    background-color: var(--primary) ;
-    &:hover {
-      background-color: #13E2ED;
-    }
-    }
+  // button{
+  //   background-color: var(--primary) ;
+  //   &:hover {
+  //     background-color: #13E2ED;
+  //   }
+  //   }
   }
 }
 `;

@@ -21,6 +21,8 @@ export default function Card(props: any) {
     }
     if (props.titulo === "CHECK OUT") {
       return <LogoutIcon sx={{ fontSize: 80, color: '#ff877d'}} />
+    }else{
+      return null
     }
   }
   

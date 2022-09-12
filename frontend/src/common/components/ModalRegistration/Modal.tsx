@@ -2,12 +2,13 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { ModalCentral, ModalDireita, ModalEsquerda, ModalExterna } from './styled';
+import { ModalCentral, ModalEsquerda, ModalExterna, InputModal } from './styled';
 import TextField from '@mui/material/TextField';
 /////////////////Botão Select
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import { useForm } from "react-hook-form";
+import {range} from 'ramda'
 
 
 const style = {
@@ -30,23 +31,12 @@ export type TypeEmployees = {
 }
 
 export default function Modal({ onClose }) {
+
+  const [numberOfRoom, setNumberOfRoom] = React.useState<number>(0);
   const [walk, setWalk] = React.useState(false);
   const [age, setAge] = React.useState('');
-  // const handleChange = (event) => {
-  //   setAge(event.target.value);
-  // };
-
 
   const { register, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
-
-  // const onSubmit = (data: TypeEmployees  ) => {
-  //   axios.post('http://localhost:4000/employees', {
-  //     nome: data.nome,
-  //     cpf: data.cpf,
-  //     email: data.email,
-  //     perfil: data.perfil
-  //   })
-  // }
 
   function close() {
     Swal.fire({
@@ -59,6 +49,27 @@ export default function Modal({ onClose }) {
     onClose();
   }
 
+  function formFloorRooms(){
+    const floors = range(1, numberOfRoom + 1 );
+    return(
+      <InputModal>
+        {
+          floors.map(floor => (
+            <div>
+              <div>
+              <label htmlFor={`floorName${floor}`}>Nome/Numero andar</label>
+              <TextField id={`floorName${floor}`}/>
+              </div>
+              <div>
+              <label htmlFor={`numberRooms${floor}`}>Qtde quartos</label>
+              <TextField id={`numberRooms${floor}`}/>
+              </div>
+            </div>
+          ))
+        }
+      </InputModal>
+    )
+  }
 
 
   return (
@@ -76,15 +87,16 @@ export default function Modal({ onClose }) {
             <ModalCentral>
               <ModalEsquerda>
                 <label>Nome fantasia</label>
-                <TextField size='small' id="name" variant="outlined" onBlur={setWalk} {...register("nome")} />
+                <TextField size='small' id="name" variant="outlined" {...register("nome")} />
               </ModalEsquerda>
             </ModalCentral>
 
             <ModalCentral>
               <div>
                 <label>Quantidade de Andares</label>
-                <TextField sx={{ width: '100px', textAlign: 'center' }} size='small' id="andares" type="number" variant="outlined" {...register("andares")} />
+                <TextField sx={{ width: '100px', textAlign: 'center' }} size='small' id="andares" type="number" variant="outlined" {...register("andares")}  onBlur={(e)=> setNumberOfRoom(Number( e.target.value))}/>
               </div>
+              {numberOfRoom > 0 && formFloorRooms()}
 
 
             </ModalCentral>

@@ -8,11 +8,11 @@ export const BodyLogin = styled.div`
   overflow: hidden;
 `
 export const Div = styled.div`
-  height: 100vh;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    height: 100vh;
+      background-size: cover;
+
+    box-sizing: border-box;
+    color: #333;
 `
 
 
@@ -36,20 +36,16 @@ export const Form = styled.form`
   align-items: center;
   background-color: #fff;
   width: 450px;
+  height: 600px;
   margin-left: auto;
   margin-right: auto;
-  padding: 100px 30px;
-  margin-top: 3vh;
-  // margin-top: 20px;
+  // padding: 80px 30px;
+  margin-top: 50px;
   border-radius: 5px;
   
   h2 {
-    
     font-size: 3rem;
-    color: #4d42fa;
-    margin-bottom: 20px;
-    margin-top: -50%;
-    
+    color: #4d42fa; 
   }
   p {
     color: red;
