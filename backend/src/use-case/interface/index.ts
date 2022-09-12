@@ -4,7 +4,7 @@ export type Request<B, P = undefined, Q = undefined> = {
   query: Q
 }
 
-export type Response<T> = {
+export type Response<T> = Promise<{
   status: number
   body: T
-}
+}>

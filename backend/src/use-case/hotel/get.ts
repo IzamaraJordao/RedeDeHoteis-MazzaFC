@@ -1,4 +1,4 @@
-import { HotelRepository } from '../../Models/hotel'
+import { HotelRepository } from '../../models/hotel'
 import { Request } from '../interface'
 
 export class GetHotel {
