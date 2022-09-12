@@ -1,4 +1,4 @@
-//listar,criar, modificar,inativar,pegar um unico registro
+
 
 import { EmployeeRepository } from '../../Models/employees'
 import { Request } from '../interface'

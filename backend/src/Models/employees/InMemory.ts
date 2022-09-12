@@ -31,7 +31,13 @@ export class  EmployeeInMemory implements EmployeeRepository{
         return Promise.resolve(undefined);
     }
     delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        const index = this._data.findIndex((employee) => employee.id === id);
+        if (index !== -1){
+            this._data.splice(index,1);
+            return Promise.resolve();
+        }else{
+            return Promise.reject(new DbError('Empregado não encontrado',404));
+        }
     }
     update(id: string, employee: Employee): Promise<void> {
         throw new Error("Method not implemented.");

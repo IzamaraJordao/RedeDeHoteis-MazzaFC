@@ -1,6 +1,6 @@
 import { HttpError } from './../../exceptions/httpError';
 
-//listar,criar, modificar,inativar,pegar um unico registro
+
 
 import { EmployeeRepository,Employee, EmployeeConstructor } from '../../Models/employees'
 import { Request } from '../interface'
