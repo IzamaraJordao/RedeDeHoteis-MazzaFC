@@ -8,7 +8,9 @@ export class  EmployeeInMemory implements EmployeeRepository{
 
     constructor(){}
     save(employee: Employee): Promise<void> {
-        throw new Error("Method not implemented.");
+        const employeeToSave = new Employee(employee);
+        this._data.push(employeeToSave);
+        return Promise.resolve();
     }
     paginate(): Promise<Employee[]> {
         throw new Error("Method not implemented.");
@@ -21,13 +23,12 @@ export class  EmployeeInMemory implements EmployeeRepository{
             return Promise.reject(new DbError('Empregado não encontrado',404));
         }
     }
-    findByEmail(email: string): Promise<Employee> {
+    findByEmail(email: string): Promise<Employee | undefined> {
         const employee = this._data.find((employee) => employee.email === email);
         if (employee){
             return Promise.resolve(employee);
-        }else{
-            return Promise.reject(new DbError('Empregado não encontrado',404));
         }
+        return Promise.resolve(undefined);
     }
     delete(id: string): Promise<void> {
         throw new Error("Method not implemented.");

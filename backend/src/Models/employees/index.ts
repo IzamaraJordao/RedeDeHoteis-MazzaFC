@@ -8,7 +8,7 @@ export interface EmployeeRepository {
     save(employee: Employee): Promise<void>;
     paginate(): Promise<Employee[]>;
     findById(id: string): Promise<Employee>;
-    findByEmail(email: string): Promise<Employee>;
+    findByEmail(email: string): Promise<Employee| undefined>;
     delete(id: string): Promise<void>;
     update(id: string, employee: Employee): Promise<void>;
     
