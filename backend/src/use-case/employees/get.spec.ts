@@ -9,6 +9,7 @@ function makeSut() {
     email: 'any_email',
     cpf: '999.999.999-99',
     rg: 'any_rg',
+    password: 'any_password',
     phone: 'any_phone',
     address: new Address({
       street: 'any_street',
@@ -18,7 +19,9 @@ function makeSut() {
       city: 'any_city',
       state: 'any_state',
       zipCode: '14400000',
-    }),
+    }
+    
+    ),
   })
   const repository = new EmployeeInMemory()
   repository.data = [employee]
