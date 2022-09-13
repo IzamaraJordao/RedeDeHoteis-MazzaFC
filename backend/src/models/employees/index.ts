@@ -18,6 +18,7 @@ export interface EmployeeRepository {
 export const employeeRepository = new EmployeeInMemory();
 
 const employee = new Employee({
+  id : "1",
   name: 'any_name',
   email: 'any_email',
   cpf: '999.999.999-99',

@@ -59,4 +59,19 @@ export class Employee {
       name: this.name,
     }
   }
+  get publicInfo(){
+    return{
+      id : this.id ,
+      name : this.name,
+      rg : this.rg,
+      cpf : this.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
+      email : this.email,
+      phone : this.phone.replace(/(\d{2})(\d{4|5})(\d{4})/, "($1) $2-$3"),
+      address : this.address,
+      note : this.note,
+      active : this.active,
+      is_first_access : this.is_first_access,
+      hotel : this.hotel
+    }
+  }
 }

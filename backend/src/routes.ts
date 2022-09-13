@@ -11,4 +11,11 @@ router.get('/employee/:id',controllerExpress(getEmployee) )
 /// Auth
 router.post('/login', controllerExpress(login))
 
+///hotel
+
+
+//guest
+
+
+export default router;
 ///

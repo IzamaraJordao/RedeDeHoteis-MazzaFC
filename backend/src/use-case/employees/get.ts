@@ -11,7 +11,7 @@ export class GetEmployee implements UseCase <undefined, { id: string }, undefine
     const employee = await this.employeeRepository.findById(id)
     return {
       status: 200,
-      body: employee,
+      body: employee.publicInfo,
     }
   }
 }

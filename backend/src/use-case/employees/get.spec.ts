@@ -36,7 +36,9 @@ it('should return an employee', async () => {
     body: undefined,
     query: undefined,
   })
-  expect(result).toBe(employee)
+  expect(result.body).toStrictEqual(employee.publicInfo)
+  //@ts-ignore
+  expect(result.body.password).toBeUndefined()
 })
 it('should throw if employee not found', async () => {
   const { sut } = makeSut()
