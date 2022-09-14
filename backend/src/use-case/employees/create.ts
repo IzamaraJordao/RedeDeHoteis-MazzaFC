@@ -1,3 +1,4 @@
+import { UseCase } from './../interface';
 import { HttpError } from './../../exceptions/httpError'
 
 import {
@@ -7,7 +8,7 @@ import {
 } from '../../models/employees'
 import { Request } from '../interface'
 
-export class CreateEmployee {
+export class CreateEmployee implements UseCase<EmployeeConstructor,undefined,undefined,string> {
   constructor(private readonly employeeRepository: EmployeeRepository) {}
   async execute(params: Request<EmployeeConstructor>) {
     const employee = new Employee(params.body)
@@ -18,5 +19,9 @@ export class CreateEmployee {
       throw new HttpError('Email já cadastrado', 400)
     }
     await this.employeeRepository.save(employee)
+    return {  
+      status: 201,
+      body:'Funcionário criado com sucesso'
+    }
   }
 }

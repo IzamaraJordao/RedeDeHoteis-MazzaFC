@@ -32,7 +32,7 @@ it('should return an hotel', async () => {
     body: undefined,
     query: undefined,
   })
-  expect(result).toBe(hotel)
+  expect(result.body).toBe(hotel)
 })
 it('should throw if hotel not found', async () => {
   const { sut } = makeSut()

@@ -71,7 +71,7 @@
     "./**/*.ts",
     "src/common/components/LoginComponent.tsx",
     "src/common/components/Input/Index.tsx"
-  ],
+, "src/database/migrations/001_2022_09_13_create_table_address.js"  ],
   "exclude": [
     "node_modules/**/*",
     ".webpack/**/*",
