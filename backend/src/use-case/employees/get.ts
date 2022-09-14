@@ -1,13 +1,19 @@
-import { EmployeeRepository } from '../../models/employees'
-import { Request } from '../interface'
+import { Employee, EmployeeRepository } from '../../models/employees'
+import { Request, UseCase } from '../interface'
 
-export class GetEmployee {
-  constructor(private readonly employeeRepository: EmployeeRepository) {}
+export class GetEmployee implements UseCase <undefined, { id: string }, undefined, Employee["publicInfo"]>{
+  private readonly employeeRepository : EmployeeRepository
+  constructor( employeeRepository: EmployeeRepository) {
+    this.employeeRepository = employeeRepository
+  }
   async execute(params: Request<undefined, { id: string }>) {
     const { id } = params.params
     const employee = await this.employeeRepository.findById(id)
-    return employee
+    return {
+      status: 200,
+      body: employee.publicInfo,
+    }
   }
 }
 
-export class Employee {}
+

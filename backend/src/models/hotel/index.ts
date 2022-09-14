@@ -1,4 +1,5 @@
 import { Hotel } from "./hotel";
+import { HotelInMemory } from "./InMemory";
 export { Hotel } from "./hotel";
 export {HotelInMemory} from "./InMemory";
 export type { HotelConstructor } from "./hotel";
@@ -12,3 +13,4 @@ export interface HotelRepository{
     update(id: string, hotel: Hotel): Promise<void>;
 }
 
+export const hotelRepository = new HotelInMemory();

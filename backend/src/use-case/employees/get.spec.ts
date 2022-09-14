@@ -9,6 +9,7 @@ function makeSut() {
     email: 'any_email',
     cpf: '999.999.999-99',
     rg: 'any_rg',
+    password: 'any_password',
     phone: 'any_phone',
     address: new Address({
       street: 'any_street',
@@ -18,7 +19,9 @@ function makeSut() {
       city: 'any_city',
       state: 'any_state',
       zipCode: '14400000',
-    }),
+    }
+    
+    ),
   })
   const repository = new EmployeeInMemory()
   repository.data = [employee]
@@ -33,7 +36,9 @@ it('should return an employee', async () => {
     body: undefined,
     query: undefined,
   })
-  expect(result).toBe(employee)
+  expect(result.body).toStrictEqual(employee.publicInfo)
+  //@ts-ignore
+  expect(result.body.password).toBeUndefined()
 })
 it('should throw if employee not found', async () => {
   const { sut } = makeSut()
