@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     passWithNoTests: true,
     coverage: {
-      exclude: ['**/models/**.InMemory.ts', '**/*.spec.ts', '**/exceptions/**'],
+      exclude: ['**/.InMemory.ts', '**/*.spec.ts', '**/exceptions/**'],
       provider: 'c8',
     },
   },

@@ -13,6 +13,7 @@ const db = new Sequelize({
 
 export {
   db,
+   
   // test connection
 }
 ;(async () => {
