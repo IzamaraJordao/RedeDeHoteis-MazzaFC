@@ -1,41 +1,38 @@
-
 'use strict';
-
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const UsersTable = queryInterface.createTable('employee', {
       id: {
         allowNull: false,                                                 
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(36),
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(80),
       },
       cpf: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(11),
       },
       rg: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(9),
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(80),
       },
       phone: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(16),
       } ,
       address_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(36),
         references: {
           model: 'address',
           key: 'id',
@@ -43,7 +40,7 @@ module.exports = {
       },
       note : {
         allowNull: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(200),
       },
       active:{
         allowNull: false,
@@ -57,7 +54,7 @@ module.exports = {
       },
       hotel_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(36),
         references: {
           model: 'hotel',
           key: 'id',
@@ -85,5 +82,3 @@ module.exports = {
 
   down: queryInterface => queryInterface.dropTable('employee'),
 };
-
-  

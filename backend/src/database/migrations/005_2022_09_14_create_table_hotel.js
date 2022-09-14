@@ -2,41 +2,36 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('address', {
+    const UsersTable = queryInterface.createTable('hotel', {
       id: {
         allowNull: false,                                                 
-        autoIncrement: true,
+        type: Sequelize.STRING(36),
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
-      street: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      number: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      complement: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      neighborhood: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      city: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      state: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      zip_code: {
+      cnpj: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER(14),
+      },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING(100),
+      },
+      email: {
+        allowNull: false,
+        type: Sequelize.STRING(80),
+      },
+      phone: {
+        allowNull: false,
+        type: Sequelize.STRING(16),
+      } ,
+      address_id: {
+        allowNull: false,
+        type: Sequelize.STRING(36),
+        references: {
+          model: 'address',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -53,7 +48,6 @@ module.exports = {
     return UsersTable;
   },
 
-  down: queryInterface => queryInterface.dropTable('address'),
+  down: queryInterface => queryInterface.dropTable('hotel'),
 };
 
-  

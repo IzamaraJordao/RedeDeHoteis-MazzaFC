@@ -1,40 +1,41 @@
-
 'use strict';
-
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('hotel', {
+    const UsersTable = queryInterface.createTable('address', {
       id: {
         allowNull: false,                                                 
-        autoIncrement: true,
+        type: Sequelize.STRING(36),
         primaryKey: true,
+      },
+      street: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      number: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
-      cnpj: {
+      complement: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      neighborhood: {
+        allowNull: false,
+        type: Sequelize.STRING(15),
+      },
+      city: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      state: {
+        allowNull: false,
+        type: Sequelize.STRING(2),
+      },
+      zip_code: {
         allowNull: false,
         unique: true,
-        type: Sequelize.INTEGER,
-      },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      phone: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      } ,
-      address_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'address',
-          key: 'id',
-        },
+        type: Sequelize.STRING(8),
       },
       createdAt: {
         allowNull: false,
@@ -51,7 +52,6 @@ module.exports = {
     return UsersTable;
   },
 
-  down: queryInterface => queryInterface.dropTable('hotel'),
+  down: queryInterface => queryInterface.dropTable('address'),
 };
 
-  
