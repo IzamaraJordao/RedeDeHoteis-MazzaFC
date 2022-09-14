@@ -5,7 +5,7 @@ import { Address } from '../address';
 
 
 
-type AddressAttributes = {
+type HotelAttributes = {
   id?: string
   cnpj: number
   name: string
@@ -16,9 +16,9 @@ type AddressAttributes = {
 };
 
 
-type UserCreationAttributes = Optional<AddressAttributes, 'id'>;
+type UserCreationAttributes = Optional<HotelAttributes, 'id'>;
 
-class address extends Model<AddressAttributes, UserCreationAttributes> {
+class Hotel extends Model<HotelAttributes, UserCreationAttributes> {
  declare id?: string
  declare cnpj: number
  declare name: string

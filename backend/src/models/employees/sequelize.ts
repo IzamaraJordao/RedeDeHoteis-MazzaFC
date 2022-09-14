@@ -24,7 +24,7 @@ type EmployeeAttributes = {
 
 type UserCreationAttributes = Optional<EmployeeAttributes, 'id'>;
 
-class address extends Model<EmployeeAttributes, UserCreationAttributes> {
+class Employee extends Model<EmployeeAttributes, UserCreationAttributes> {
    declare id?: string
    declare name: string
    declare rg: string
