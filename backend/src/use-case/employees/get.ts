@@ -1,7 +1,7 @@
-import { EmployeeRepository } from '../../models/employees'
+import { Employee, EmployeeRepository } from '../../models/employees'
 import { Request, UseCase } from '../interface'
 
-export class GetEmployee implements UseCase <undefined, { id: string }, undefined, Employee >{
+export class GetEmployee implements UseCase <undefined, { id: string }, undefined, Employee["publicInfo"]>{
   private readonly employeeRepository : EmployeeRepository
   constructor( employeeRepository: EmployeeRepository) {
     this.employeeRepository = employeeRepository
@@ -16,4 +16,4 @@ export class GetEmployee implements UseCase <undefined, { id: string }, undefine
   }
 }
 
-export class Employee {}
+
