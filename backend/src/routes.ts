@@ -1,13 +1,14 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest } from './composers';
+import { getEmployee, login, getGuest, createEmployee } from './composers';
 
 const router = Router();
 
 
 // Employess
+router.get('/employees', controllerExpress(getEmployee));
 router.get('/employee/:id',controllerExpress(getEmployee) )
-
+router.post('/employee', controllerExpress(createEmployee))
 /// Auth
 router.post('/login', controllerExpress(login))
 

@@ -18,11 +18,8 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
     this.address = sequelize.models.Address
   }
   async save(employee: Employee): Promise<void> {
-    await this.sequelize.create(employee.data , {
-      include: [
-        {association: this.association}
-      ]
-    })
+    await this.address.create(employee.address.data)
+    await this.sequelize.create(employee.data )
   }
   paginate(): Promise<Employee[]> {
     throw new Error('Method not implemented.');
@@ -39,11 +36,7 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
     const response = await this.sequelize.findOne({
       where: {
         email: email,
-      },
-      include:{
-        model: this.address,
-        as: 'address'
-      }
+      },attributes: ['id', 'name', 'rg', 'cpf', 'email', 'phone', 'note', 'active', 'password', 'hotel_id', 'is_first_access', 'address_id'],
     })
     if (response) {
       const employee = response.toJSON()
@@ -51,7 +44,8 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
       employee.address = address
       return new Employee(employee)
     } else {
-      throw new DbError('Email não encontrado')
+      return undefined
+      // throw new DbError('Email não encontrado')
     }
   }
   delete(id: string): Promise<void> {

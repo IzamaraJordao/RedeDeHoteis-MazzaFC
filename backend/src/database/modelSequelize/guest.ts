@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { db as sequelize } from '..'
+import { sequelize } from '../sequelize'
 
 
 type GuestAttributes = {

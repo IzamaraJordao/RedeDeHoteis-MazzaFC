@@ -7,10 +7,13 @@ import {
   EmployeeConstructor,
 } from '../../models/employees'
 import { Request } from '../interface'
+import { Address } from '../../models/address';
 
 export class CreateEmployee implements UseCase<EmployeeConstructor,undefined,undefined,string> {
   constructor(private readonly employeeRepository: EmployeeRepository) {}
   async execute(params: Request<EmployeeConstructor>) {
+    const address = new Address(params.body.address)
+    params.body.address = address
     const employee = new Employee(params.body)
     const employeeFounded = await this.employeeRepository.findByEmail(
       employee.email,

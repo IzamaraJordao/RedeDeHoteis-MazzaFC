@@ -1,43 +1,45 @@
-import { DataTypes, Model, Optional } from 'sequelize';
-import { Address } from '../../models/address';
-import { db as sequelize } from '..'
+import { DataTypes } from 'sequelize';
+// import { Address } from '../../models/address';
+import { sequelize } from '../sequelize'
 
 
-type EmployeeAttributes = {
-  id?: string
-  name: string
-  rg: string
-  cpf: string
-  email: string
-  phone: string
-  address: Address
-  note?: string
-  active?: boolean
-  password: string
-  hotel?: string
-  is_first_access?: boolean
-  address_id?: string
-};
 
-type UserCreationAttributes = Optional<EmployeeAttributes, 'id' | 'address_id'>;
+// type EmployeeAttributes = {
+//   id?: string
+//   name: string
+//   rg: string
+//   cpf: string
+//   email: string
+//   phone: string
+//   address: Address
+//   note?: string
+//   active?: boolean
+//   password: string
+//   hotel?: string
+//   is_first_access?: boolean
+//   address_id?: string
+// };
 
-export class EmployeeSequelize extends Model<EmployeeAttributes, UserCreationAttributes> {
-   declare id?: string
-   declare name: string
-   declare rg: string
-   declare cpf: string
-   declare email: string
-   declare phone: string
-   declare address: Address
-   declare note?: string
-   declare active?: boolean
-   declare  password: string
-   declare hotel?: string
-   declare is_first_access?: boolean
-   declare address_id?: string
-}
+// type UserCreationAttributes = Optional<EmployeeAttributes, 'id' | 'address_id'>;
 
-EmployeeSequelize.init({
+// export class EmployeeSequelize extends Model<EmployeeAttributes, UserCreationAttributes> {
+//    declare id?: string
+//    declare name: string
+//    declare rg: string
+//    declare cpf: string
+//    declare email: string
+//    declare phone: string
+//    declare address: Address
+//    declare note?: string
+//    declare active?: boolean
+//    declare  password: string
+//    declare hotel?: string
+//    declare is_first_access?: boolean
+//    declare address_id?: string
+// }
+
+export const EmployeeSequelize = sequelize.define(
+  'Employee',{
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -64,10 +66,6 @@ EmployeeSequelize.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   note: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -80,8 +78,8 @@ EmployeeSequelize.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  hotel: {
-    type: DataTypes.STRING,
+  hotel_id: {
+    type: DataTypes.STRING(36),
     allowNull: true,
   },
   is_first_access: {
@@ -89,16 +87,24 @@ EmployeeSequelize.init({
     allowNull: true,
   },
   address_id: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'address',
-      key: 'id',
-    }
+    type: DataTypes.STRING(36),
+    allowNull: true,
+   
   },
-}, {
-  sequelize,
-  modelName: 'employee',
-});
+},
+  {
+    underscored: true,
+    modelName: 'Employee',
+    tableName: 'employee',
+  },
+)
+
+
+
+
+// EmployeeSequelize.aggregate = function(models) {
+//   // associations can be defined here
+//   EmployeeSequelize.hasMany(models.address,{as: 'address', foreignKey: 'cityId'})
+// };
 
 
