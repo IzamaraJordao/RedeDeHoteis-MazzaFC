@@ -36,4 +36,14 @@ export class Hotel {
       email: this.email,
     }
   }
+  get data(){
+    return {
+      id: this.id,
+      cnpj: this.cnpj,
+      name: this.name,
+      address_id : this.address.id,
+      phone: this.phone,
+      email: this.email,
+    }
+  }
 }

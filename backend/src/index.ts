@@ -7,7 +7,7 @@ import router from './routes';
 const app = express()
 
 const port = 3000
-app.use(logger('combined'))
+app.use(logger('dev'))
 app.use(helmet());
 app.use(express.json())
 try {

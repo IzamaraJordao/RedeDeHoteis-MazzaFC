@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest, createEmployee } from './composers';
+import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel } from './composers';
 
 const router = Router();
 
@@ -10,10 +10,11 @@ router.get('/employees', controllerExpress(getEmployee));
 router.get('/employee/:id',controllerExpress(getEmployee) )
 router.post('/employee', controllerExpress(createEmployee))
 /// Auth
-router.post('/login', controllerExpress(login))
+router.post('/login' , controllerExpress(login, "PUBLIC"))
 
 ///hotel
-// router.get('/hotel/:id', controllerExpress(getHotel))
+router.post('/hotel', controllerExpress(createHotel))
+router.get('/hotel', controllerExpress(getHotel))
 
 //guest
 router.get('/guest/:id', controllerExpress(getGuest))
