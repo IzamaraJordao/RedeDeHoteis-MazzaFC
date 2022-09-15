@@ -1,20 +1,19 @@
 import { EmployeeRepository } from '.';
 import { Employee } from './employee';
 import { sequelize } from "../../database";
-import { HasOne, Sequelize } from "sequelize/types";
+import { Sequelize } from "sequelize/types";
 import { DbError } from '../../exceptions/dbError';
-import { Address } from '../address';
+import { Address, AddressConstructor } from '../address';
 
 
 
 export class EmployeeRepositorySequelize implements EmployeeRepository {
   sequelize: Sequelize['models']['Employee']
-  association: HasOne<any, any>;
   address: Sequelize['models']['Address'];
   
   constructor() {
     this.sequelize = sequelize.models.Employee
-    this.association = this.sequelize.hasOne(sequelize.models.Address)
+  
     this.address = sequelize.models.Address
   }
   async save(employee: Employee): Promise<void> {
@@ -40,7 +39,8 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
     })
     if (response) {
       const employee = response.toJSON()
-      const address = new Address(employee.address)
+      const res = await this.address.findByPk(employee.address_id)
+      const address = new Address(res?.toJSON() as AddressConstructor)
       employee.address = address
       return new Employee(employee)
     } else {
