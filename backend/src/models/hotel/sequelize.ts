@@ -18,7 +18,7 @@ type HotelAttributes = {
 
 type UserCreationAttributes = Optional<HotelAttributes, 'id'>;
 
-class Hotel extends Model<HotelAttributes, UserCreationAttributes> {
+export class Hotel extends Model<HotelAttributes, UserCreationAttributes> {
  declare id?: string
  declare cnpj: number
  declare name: string

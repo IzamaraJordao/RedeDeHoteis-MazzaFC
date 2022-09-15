@@ -35,4 +35,18 @@ export class Address {
         
     }
 
+    get data(){
+      return {
+        id: this.id,
+        street: this.street,
+        number: this.number,
+        complement: this.complement,
+        neighborhood: this.neighborhood,
+        city: this.city,
+        state: this.state,
+        zipCode: this.zipCode,
+      }
+    }
+
+    
 }

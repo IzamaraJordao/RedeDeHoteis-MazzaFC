@@ -74,4 +74,20 @@ export class Employee {
       hotel : this.hotel
     }
   }
+  get data(){
+    return {
+      id : this.id ,
+      name : this.name,
+      rg : this.rg,
+      cpf : this.cpf,
+      email : this.email,
+      phone : this.phone,
+      note : this.note,
+      active : this.active,
+      is_first_access : this.is_first_access,
+      password : this.password,
+      hotel : this.hotel,
+      address: this.address.data
+  }
+}
 }
