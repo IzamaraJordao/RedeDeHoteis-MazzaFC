@@ -11,7 +11,7 @@ module.exports = {
       cnpj: {
         allowNull: false,
         unique: true,
-        type: Sequelize.INTEGER(14),
+        type: Sequelize.STRING(14),
       },
       name: {
         allowNull: false,
@@ -33,12 +33,12 @@ module.exports = {
           key: 'id',
         },
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
