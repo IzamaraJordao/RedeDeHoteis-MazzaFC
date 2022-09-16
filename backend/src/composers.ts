@@ -4,6 +4,9 @@ import { Login } from './use-case/auth/login';
 import { hotelRepository } from './models/hotel';
 import { tokenGenerator } from './helpers/tokenGenerator';
 import { encrypter } from './helpers/encrypter';
+// import { GetHotel } from './use-case/hotel/get';
+import { GetGuest } from './use-case/guest/get';
+import { guestRepository } from './models/guest';
 
 export const getEmployee = new GetEmployee(employeeRepository);
 //
@@ -11,4 +14,11 @@ export const getEmployee = new GetEmployee(employeeRepository);
 // Auth
 export const login = new Login(employeeRepository, hotelRepository, encrypter, tokenGenerator);
 
-///
+///hotel
+// export const getHotel = new GetHotel(hotelRepository);
+
+///guest
+export const getGuest = new GetGuest(guestRepository);
+
+
+//
