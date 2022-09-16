@@ -1,0 +1,101 @@
+
+{
+    "openapi": "4.13.8",
+    "info": {
+      "version": "4.13.8",
+      "title": "Rede inn hotel",
+      "description": "API for creating a hotel chain"
+    
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "paths": {
+      "/hotels": {
+        "get": {
+          "summary": "Get all hotels",
+          "description": "Get all hotels",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/use-case/hotel"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a hotel",
+          "description": "Create a hotel",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/use-case/hotel"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/use-case/hotel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/hotels/{id}": {
+        "get": {
+          "summary": "Get a hotel",
+          "description": "Get a hotel",
+            "parameters": [
+                {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                    }
+                }]
+            }
+
+        }
+    },
+    "components": {
+        "schemas": {
+          "jwtToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTdmZTQ0YzQzYWQwYjAwMThmOGQ5ZmQiLCJuYW1lIjoiV2FsZGVtYXIgTmV0byIsImVtYWlsIjoid2FsZGVtYXJudEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRsUlZjWkc5d0dIVWJXcHF2TnJNR0F1SnNoWWJTR1RLSElQL3NycDlmTlkzZENFZDBJQjN6TyIsImlhdCI6MTU4NTQ0MDUxNywiZXhwIjoxNTg1NDYwNTE3fQ.JNtzLgCKGTAU9_-QjYUNxtM7X4nMU_pPIsNXDsEM-vP"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345#@$$%"
+          }
+        }
+        }
+}   
+            
+

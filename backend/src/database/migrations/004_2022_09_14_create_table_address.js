@@ -5,9 +5,8 @@ module.exports = {
     const UsersTable = queryInterface.createTable('address', {
       id: {
         allowNull: false,                                                 
-        autoIncrement: true,
+        type: Sequelize.STRING(36),
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
       street: {
         allowNull: false,
@@ -23,7 +22,7 @@ module.exports = {
       },
       neighborhood: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(15),
       },
       city: {
         allowNull: false,
@@ -31,19 +30,18 @@ module.exports = {
       },
       state: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2),
       },
       zip_code: {
         allowNull: false,
-        unique: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(8),
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
@@ -56,4 +54,3 @@ module.exports = {
   down: queryInterface => queryInterface.dropTable('address'),
 };
 
-  
