@@ -11,6 +11,7 @@ export class HotelRepositorySequelize implements HotelRepository {
   sequelize: Sequelize['models']['Hotel']
   address: Sequelize['models']['Address'];
   
+<<<<<<< Updated upstream
   constructor() {
     this.sequelize = sequelize.models.Hotel
   
@@ -48,3 +49,19 @@ export class HotelRepositorySequelize implements HotelRepository {
   }
 }
 
+=======
+};
+
+
+type UserCreationAttributes = Optional<HotelAttributes, 'id'>;
+
+export class Hotel extends Model<HotelAttributes, UserCreationAttributes> {
+ declare id?: string
+ declare cnpj: number
+ declare name: string
+ declare  address: Address
+ declare phone: string
+ declare email: string
+ 
+}
+>>>>>>> Stashed changes

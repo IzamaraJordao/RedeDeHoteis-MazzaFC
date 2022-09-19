@@ -1,11 +1,21 @@
+import { Sequelize } from 'sequelize'
+import * as dotenv from 'dotenv'
+
 import { AddressSequelize } from './modelSequelize/address'
 import { HotelSequelize } from './modelSequelize/hotel'
 import { EmployeeSequelize } from './modelSequelize/employee'
 import { GuestSequelize } from './modelSequelize/guest'
-import { sequelize } from './sequelize'
 
-// AddressSequelize.belongsTo(EmployeeSequelize)
-// EmployeeSequelize.hasOne(AddressSequelize, { foreignKey:'address_id' });
+dotenv.config()
+
+const sequelize = new Sequelize({
+  database: process.env.DB_DATABASE as string,
+  username: process.env.DB_USER as string,
+  password: process.env.DB_PASSWORD as string,
+  host: process.env.DB_HOST as string,
+  port: Number(process.env.DB_PORT as string),
+  dialect: 'mysql',
+})
 
 export {
   sequelize as db,

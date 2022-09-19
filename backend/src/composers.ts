@@ -22,6 +22,7 @@ export const deleteEmployee = new DeleteEmployee(employeeRepository);
 // Auth
 export const login = new Login(employeeRepository, hotelRepository, encrypter, tokenGenerator);
 
+<<<<<<< Updated upstream
 ///hotel
 export const getHotel = new CreateHotel(hotelRepository);
 export const createHotel = new CreateHotel(hotelRepository);
@@ -32,3 +33,9 @@ export const createGuest = new CreateGuest(guestRepository);
 
 
 //
+=======
+//guest
+
+
+///
+>>>>>>> Stashed changes
