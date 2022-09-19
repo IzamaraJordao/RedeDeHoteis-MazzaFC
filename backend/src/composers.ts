@@ -9,12 +9,14 @@ import { GetGuest } from './use-case/guest/get';
 import { guestRepository } from './models/guest';
 import { CreateEmployee } from './use-case/employees/create';
 import { CreateHotel } from './use-case/hotel/create';
+import { DeleteEmployee } from './use-case/employees/delete';
+import { CreateGuest } from './use-case/guest/create';
 
 
 ///Employee
 export const getEmployee = new GetEmployee(employeeRepository);
 export const createEmployee = new CreateEmployee(employeeRepository, encrypter);
-
+export const deleteEmployee = new DeleteEmployee(employeeRepository);
 //
 
 // Auth
@@ -26,6 +28,7 @@ export const createHotel = new CreateHotel(hotelRepository);
 
 ///guest
 export const getGuest = new GetGuest(guestRepository);
+export const createGuest = new CreateGuest(guestRepository);
 
 
 //

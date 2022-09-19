@@ -1,4 +1,4 @@
-import { EmployeeRepository } from '.';
+import { EmployeeRepository, PaginateParams } from '.';
 import { Employee } from './employee';
 import { sequelize } from "../../database";
 import { Sequelize } from "sequelize/types";
@@ -20,9 +20,26 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
     await this.address.create(employee.address.data)
     await this.sequelize.create(employee.data )
   }
-  paginate(): Promise<Employee[]> {
-    throw new Error('Method not implemented.');
+  async paginate({
+    filter, 
+    pageSize,
+    page,
+  }:PaginateParams ): Promise<Employee[] | number> {
+    if(pageSize === 0) {
+      return await this.sequelize.count({
+        where: filter
+      })
+    }
+    const response =  await this.sequelize.findAll(
+      {
+        where: filter,
+        offset: (page - 1) * pageSize,
+        limit: pageSize,
+        });
+    return response.map((employee) => new Employee(employee.toJSON())) ;
   }
+
+
   async findById(id: string): Promise<Employee> {
     const response = await this.sequelize.findByPk(id)
     if (response) {
