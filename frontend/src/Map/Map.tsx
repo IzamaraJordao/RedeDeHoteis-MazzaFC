@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FilterHead, BoxDiv } from './styled';
+import { BoxDiv } from './styled';
 import Button from '@mui/material/Button';
 import Modal from '../common/components/ModalEmployees/Modal';
 import {useSelector} from 'react-redux';
@@ -28,26 +28,14 @@ export default function bancoTabela() {
       })
   }, []);
 
-  
+
   return (
     <div>
       <BoxDiv>
         <div>
         <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
+        </div>
       
-        </div>
-        <div>
-          <button className="btn btn-primary ">Test</button>
-          <button className="btn btn-secondary ">Test</button>
-          
-
-
-          <div className="form-group">
-            <label className="form-group form-group__label"></label>
-            <input className="form-group form-group_input" type="text" />
-            <input className="form-group form-group_input form-group_input--error" type="text" />
-          </div>
-        </div>
       </BoxDiv>
       {isVisibled && <Modal onClose={()=> setIsVisibled(false)} />}
     </div>

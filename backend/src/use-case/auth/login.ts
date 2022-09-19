@@ -50,14 +50,14 @@ export class Login {
     if (!passwordIsValid) {
       throw new HttpError('Usuário/senha incorretos', 400)
     }
-    if (!employeeFounded.hotel) {
+    if (!employeeFounded.hotel_id) {
       throw new HttpError('Usuário inativo', 400)
     }
 
-    const hotel = await this.hotelRepository.findById(employeeFounded.hotel)
+    const hotel = await this.hotelRepository.findById(employeeFounded.hotel_id)
     const token = this.tokenGenerator.encode({
       id_user: employeeFounded.id,
-      id_hotel: employeeFounded.hotel,
+      id_hotel: employeeFounded.hotel_id,
     })
 
     return {

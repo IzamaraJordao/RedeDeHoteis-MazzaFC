@@ -45,4 +45,15 @@ export class Guest {
 
     }
   }
+  get data() {
+    return {
+      id: this.id,
+      name: this.name,
+      cpf: this.cpf,
+      rg: this.rg,
+      email: this.email,
+      phone: this.phone,
+      address: this.address,
+    }
+  }
 }

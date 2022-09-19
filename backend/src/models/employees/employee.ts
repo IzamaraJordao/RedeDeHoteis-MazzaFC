@@ -1,6 +1,5 @@
 import { uuid } from '../../helpers/uuid'
 import { Address } from '../address/address'
-import { Hotel } from '../hotel'
 
 export type EmployeeConstructor = {
   id?: string
@@ -13,7 +12,7 @@ export type EmployeeConstructor = {
   note?: string
   active?: boolean
   password: string
-  hotel?: string
+  hotel_id: string
   is_first_access?: boolean
 }
 
@@ -28,7 +27,7 @@ export class Employee {
   note: string
   active: boolean
   password: string
-  _hotel?: string
+  hotel_id: string
   is_first_access: boolean
 
   constructor(props: EmployeeConstructor) {
@@ -43,15 +42,10 @@ export class Employee {
     this.active = props.active || true
     this.is_first_access = props.is_first_access || false
     this.password = props.password
-    this._hotel = props.hotel || undefined
+    this.hotel_id = props.hotel_id
   }
 
-  assignToHotel(hotel: Hotel['id']): void {
-    this._hotel = hotel
-  }
-  get hotel() {
-    return this._hotel
-  }
+
 
   get loginInfo() {
     return {
@@ -59,19 +53,40 @@ export class Employee {
       name: this.name,
     }
   }
-  get publicInfo(){
-    return{
-      id : this.id ,
-      name : this.name,
-      rg : this.rg,
-      cpf : this.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
-      email : this.email,
-      phone : this.phone.replace(/(\d{2})(\d{4|5})(\d{4})/, "($1) $2-$3"),
-      address : this.address,
-      note : this.note,
-      active : this.active,
-      is_first_access : this.is_first_access,
-      hotel : this.hotel
+  get publicInfo() {
+    return {
+      id: this.id,
+      name: this.name,
+      rg: this.rg,
+      cpf: this.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
+      email: this.email,
+      phone: this.phone.replace(/(\d{2})(\d{4|5})(\d{4})/, "($1) $2-$3"),
+      address: this.address,
+      note: this.note,
+      active: this.active,
+      is_first_access: this.is_first_access,
+      hotel: this.hotel_id
     }
   }
+  get data() {
+    return {
+      id: this.id,
+      name: this.name,
+      rg: this.rg,
+      cpf: this.cpf,
+      email: this.email,
+      phone: this.phone,
+      note: this.note,
+      active: this.active,
+      is_first_access: this.is_first_access,
+      password: this.password,
+      hotel_id: this.hotel_id,
+      address_id: this.address.id
+    }
+  }
+
+  static filter() {
+    return ['id', 'name', 'email', 'cpf', 'rg', 'phone', 'hotel', 'active']
+  }
+
 }
