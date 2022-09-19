@@ -14,4 +14,4 @@ export interface UseCase <B, P, Q, T> {
   execute (request: Request<B, P, Q>) : Response<T>
 }
 
-////
+

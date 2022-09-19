@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import axios from 'axios'
 
+
 import {
   ContainerButton,
   Modal,
@@ -12,7 +13,7 @@ import '../../components/Input/Index'
 import { ButtonC } from '../Button/Index'
 import { InputS } from '../../components/Input/Index'
 ;
-import { TextField } from '@mui/material'
+
 
 
 export type ModalProps = {
@@ -60,7 +61,7 @@ export default function ModalC({ onClose }) {
 
   const onSubmit = (data: ModalProps) => {
     axios
-      .post('http://localhost:4000/hospedes', {
+      .post('http://localhost:4000/guest', {
         nome: data.name,
         cpf: data.cpf,
         rg: data.rg,

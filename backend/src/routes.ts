@@ -7,6 +7,8 @@ const router = Router();
 
 // Employess
 router.get('/employee/:id',controllerExpress(getEmployee) )
+router.get('/employee' , controllerExpress(getEmployee) )
+
 
 /// Auth
 router.post('/login', controllerExpress(login))

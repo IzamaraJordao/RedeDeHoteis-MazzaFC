@@ -43,7 +43,7 @@ export default function Login() {
 
   //funcão para guardar os dados do formulario e validar se estão corretos
   async function handleRegister(email: string, password: string) {
-    await axios.post('http://localhost:3000/login', {
+    await axios.post('http://localhost:4000/login', {
       email: email,
       password: password,
     })

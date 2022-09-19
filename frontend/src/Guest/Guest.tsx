@@ -19,7 +19,7 @@ export default function bancoTabela() {
   const [guest, setGuest] = useState<BancoGuest[]>([]);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/hospedes")
+    axios.get("http://localhost:4000/guest")
       .then(res => {
         setGuest(res.data);
       }).catch(err => {

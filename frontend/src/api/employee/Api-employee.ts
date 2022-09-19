@@ -31,7 +31,7 @@ export async function save({
   return response.data
 }
 
-export async function get(id: number) {
+export async function getById(id: number) {
   return await api.get('/employee/' + id)
 }
 export async function paginate() {

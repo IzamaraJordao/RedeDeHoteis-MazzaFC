@@ -74,4 +74,7 @@ export class Employee {
       hotel : this.hotel
     }
   }
+  static filter(){
+    return ['id','name', 'email', 'cpf', 'rg', 'phone','hotel', 'active']
+  }
 }
