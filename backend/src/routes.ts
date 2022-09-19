@@ -1,7 +1,6 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
 import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest } from './composers';
-import { CreateGuest } from './use-case/guest/create';
 
 const router = Router();
 
