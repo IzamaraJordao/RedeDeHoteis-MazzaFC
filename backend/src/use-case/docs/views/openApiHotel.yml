@@ -1,0 +1,114 @@
+openapi: '3.0.2'
+info:
+  title: API Hotel
+  version: '1.0'
+
+paths:
+   /hotel:
+    get:
+      operationId: getHotel
+      summary: Get Hotel
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            application/json:
+              examples:
+                foo:
+                  value:
+                    {
+                      "hotel": [
+                        {
+                          "id": "1",
+                          "name": "Hotel 1",
+                          "cnpj": "123456789",
+                          "email":"hotel2@gmail.com",
+                          "address":[
+                            {
+                              "street":"Rua 1",
+                              "number":"1",
+                              "complement":"Casa 1",
+                              "neighborhood":"Bairro 1",
+                              "city":"Cidade 1",
+                              "state":"Estado 1",
+                              "zipCode":"12345678"
+                            }
+                          ],
+                          
+                        },
+                        {
+                          "id": "2",
+                         "name": "Hotel 2",
+                          "cnpj": "1234567899",
+                          "email":"hotel3@gmail.com",
+                          "address":[
+                            {
+                              "street":"Rua 2",
+                              "number":"12",
+                              "complement":"Casa 13",
+                              "neighborhood":"Bairro 14",
+                              "city":"Cidade 2",
+                              "state":"Estado 3",
+                              "zipCode":"12345679"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+               
+        '400':
+          description: |-
+            400 response
+          content:
+            application/json:
+              examples:
+                foo:
+                  value: |
+                    {
+                      "hotel": [
+                        {
+                          "id": "1",
+                          "name": "Hotel 1",
+                          "address": "Address 1",
+                          "city": "City 1",
+                          "country": "Country 1",
+                          "phone": "Phone 1",
+
+components:
+  schemas:
+    Hotel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        cnpj:
+          type: string
+        email:
+          type: string
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        number:
+          type: string
+        complement:
+          type: string
+        neighborhood:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+
+
+

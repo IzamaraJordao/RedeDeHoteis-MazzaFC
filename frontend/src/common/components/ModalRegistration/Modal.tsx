@@ -55,7 +55,7 @@ export default function Modal({ onClose }) {
       <InputModal>
         {
           floors.map(floor => (
-            <div>
+            <div key={floor}>
               <div>
               <label htmlFor={`floorName${floor}`}>Nome/Numero andar</label>
               <TextField id={`floorName${floor}`}/>
