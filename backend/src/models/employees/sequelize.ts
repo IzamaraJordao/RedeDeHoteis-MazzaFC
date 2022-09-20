@@ -1,6 +1,6 @@
 import { EmployeeRepository, PaginateParams } from '.';
 import { Employee } from './employee';
-import { sequelize } from "../../database";
+import { AddressSequelize, EmployeeSequelize } from "../../database";
 import { Sequelize } from "sequelize/types";
 import { DbError } from '../../exceptions/dbError';
 import { Address, AddressConstructor } from '../address';
@@ -12,9 +12,9 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
   address: Sequelize['models']['Address'];
   
   constructor() {
-    this.sequelize = sequelize.models.Employee
+    this.sequelize = EmployeeSequelize
   
-    this.address = sequelize.models.Address
+    this.address = AddressSequelize
   }
   async save(employee: Employee): Promise<void> {
     await this.address.create(employee.address.data)
@@ -41,7 +41,11 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
 
 
   async findById(id: string): Promise<Employee> {
-    const response = await this.sequelize.findByPk(id)
+    console.log(id)
+    const response = await this.sequelize.findByPk(id,{
+      attributes: ['id', 'name', 'rg', 'cpf', 'email', 'phone', 'note', 'active', 'password', 'hotel_id', 'is_first_access', 'address_id'],
+    })
+    console.log(response)
     if (response) {
       return new Employee(response.toJSON())
     } else {
@@ -65,8 +69,12 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
       // throw new DbError('Email não encontrado')
     }
   }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    await this.sequelize.destroy({
+      where: {
+        id: id,
+    }})
+  
   }
   async update(id: string, employee: Employee): Promise<void> {
     await this.sequelize.update(employee.data, {

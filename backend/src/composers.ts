@@ -11,9 +11,12 @@ import { CreateEmployee } from './use-case/employees/create';
 import { CreateHotel } from './use-case/hotel/create';
 import { DeleteEmployee } from './use-case/employees/delete';
 import { CreateGuest } from './use-case/guest/create';
+import { GetHotel } from './use-case/hotel/get';
+import { PaginateEmployee } from './use-case/employees/paginate';
 
 
 ///Employee
+export const paginateEmployee = new PaginateEmployee(employeeRepository);
 export const getEmployee = new GetEmployee(employeeRepository);
 export const createEmployee = new CreateEmployee(employeeRepository, encrypter);
 export const deleteEmployee = new DeleteEmployee(employeeRepository);
@@ -23,7 +26,7 @@ export const deleteEmployee = new DeleteEmployee(employeeRepository);
 export const login = new Login(employeeRepository, hotelRepository, encrypter, tokenGenerator);
 
 ///hotel
-export const getHotel = new CreateHotel(hotelRepository);
+export const getHotel = new GetHotel(hotelRepository);
 export const createHotel = new CreateHotel(hotelRepository);
 
 ///guest
