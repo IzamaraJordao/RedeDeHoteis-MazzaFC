@@ -8,19 +8,7 @@ export function controllerExpress(useCase: UseCase <any, any, any, any>, isPubli
   
   return async (req: Request, res: Response) => {
     let dataToken = null
-    // if(isPublic === "PRIVATE") {
-    //   try {
-    //     const token =  req.headers.authorization 
-    //     if(!token) {
-    //       res.status(401).json("Token não informado")
-    //       return
-    //     } 
-    //     dataToken = tokenGenerator.decode(token.replace("Bearer ", ""))
 
-    //   } catch (error) {
-    //     res.status(401).json("Token inválido")
-    //   }
-    // }
     try {
       const response = await useCase.execute({
         body: req.body,  /// corpo da requisição

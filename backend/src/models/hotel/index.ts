@@ -1,5 +1,6 @@
 import { Hotel } from "./hotel";
-import { HotelInMemory } from "./InMemory";
+import { HotelRepositorySequelize } from "./sequelize";
+
 export { Hotel } from "./hotel";
 export {HotelInMemory} from "./InMemory";
 export type { HotelConstructor } from "./hotel";
@@ -13,4 +14,4 @@ export interface HotelRepository{
     update(id: string, hotel: Hotel): Promise<void>;
 }
 
-export const hotelRepository = new HotelInMemory();
+export const hotelRepository = new HotelRepositorySequelize();
