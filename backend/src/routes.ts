@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest } from './composers';
+import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom } from './composers';
 
 const router = Router();
 
@@ -21,6 +21,11 @@ router.get('/hotel', controllerExpress(getHotel))
 //guest
 router.get('/guest/:id', controllerExpress(getGuest))
 router.post('/guest', controllerExpress(createGuest))
+
+//bedroom
+router.get('/bedroom', controllerExpress(getBedroom))
+router.post('/bedroom', controllerExpress(createBedroom))
+router.delete('/bedroom/:id', controllerExpress(deleteBedroom))
 
 
 export default router;

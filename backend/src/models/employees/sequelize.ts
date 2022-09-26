@@ -68,6 +68,8 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
   delete(id: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
+
+  
   async update(id: string, employee: Employee): Promise<void> {
     await this.sequelize.update(employee.data, {
       where: {

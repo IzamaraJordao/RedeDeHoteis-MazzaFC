@@ -11,6 +11,10 @@ import { CreateEmployee } from './use-case/employees/create';
 import { CreateHotel } from './use-case/hotel/create';
 import { DeleteEmployee } from './use-case/employees/delete';
 import { CreateGuest } from './use-case/guest/create';
+import { GetBedroom } from './use-case/bedroom/get';
+import { CreateBedroom } from './use-case/bedroom/create';
+import { DeleteBedroom } from './use-case/bedroom/delete';
+import { bedroomRepository } from './models/bedroom';
 
 
 ///Employee
@@ -31,4 +35,7 @@ export const getGuest = new GetGuest(guestRepository);
 export const createGuest = new CreateGuest(guestRepository);
 
 
-//
+// bedroom
+export const getBedroom = new GetBedroom(bedroomRepository);
+export const createBedroom = new CreateBedroom(bedroomRepository);
+export const deleteBedroom = new DeleteBedroom(bedroomRepository);

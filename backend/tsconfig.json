@@ -70,8 +70,8 @@
   "include": [
     "./**/*.ts",
     "src/common/components/LoginComponent.tsx",
-    "src/common/components/Input/Index.tsx"
-, "src/database/migrations/004_2022_09_14_create_table_address.js"  ],
+    "src/common/components/Input/Index.tsx",
+  ],
   "exclude": [
     "node_modules/**/*",
     ".webpack/**/*",
