@@ -76,6 +76,8 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
     }})
   
   }
+
+  
   async update(id: string, employee: Employee): Promise<void> {
     await this.sequelize.update(employee.data, {
       where: {
