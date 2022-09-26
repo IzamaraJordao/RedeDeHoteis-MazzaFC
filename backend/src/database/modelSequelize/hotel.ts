@@ -55,6 +55,7 @@ HotelSequelize.init({
 }, {
   sequelize,
   modelName: 'hotel', 
+  tableName: 'hotel',
 });
 
 //

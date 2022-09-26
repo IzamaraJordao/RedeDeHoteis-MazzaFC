@@ -2,7 +2,7 @@ import { PaginateParams } from './../../models/employees/index'
 import { Employee, EmployeeRepository } from '../../models/employees'
 import { Request, ReturnPaginate, UseCase } from '../interface'
 
-export class GetEmployee
+export class PaginateEmployee
   implements
     UseCase<
       undefined,
@@ -17,9 +17,10 @@ export class GetEmployee
   }
   async execute(params: Request<undefined, undefined, PaginateParams>) {
     let { page, pageSize, filter } = params.query
-    page = page || 1  // se existr page, se não 1 (como se fosse um if ternario)
-    pageSize = pageSize || 10 // se existir pageSize, se não 10
-    filter = filter || {}
+    page = Number (page) || 1  // se existr page, se não 1 (como se fosse um if ternario)
+    pageSize = Number (pageSize) || 10 // se existir pageSize, se não 10
+    filter = JSON.parse (filter as unknown as string) || {}
+    console.log(typeof filter)
     let filterSanitized = {}
     const keys = Object.keys(filter).filter((current, index) => {
       if (Employee.filter().includes(current)) {

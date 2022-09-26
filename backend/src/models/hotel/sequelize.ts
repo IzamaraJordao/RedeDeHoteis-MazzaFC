@@ -1,6 +1,6 @@
 import { HotelRepository } from '.';
 import { Hotel } from './hotel';
-import { sequelize } from "../../database";
+import { AddressSequelize, HotelSequelize} from "../../database";
 import { Sequelize } from "sequelize/types";
 import { DbError } from '../../exceptions/dbError';
 
@@ -11,11 +11,10 @@ export class HotelRepositorySequelize implements HotelRepository {
   sequelize: Sequelize['models']['Hotel']
   address: Sequelize['models']['Address'];
   
-<<<<<<< Updated upstream
   constructor() {
-    this.sequelize = sequelize.models.Hotel
+    this.sequelize = HotelSequelize
   
-    this.address = sequelize.models.Address
+    this.address = AddressSequelize
   }
   findByCnpj(cnpj: number): Promise<Hotel | undefined> {
     throw new Error('Method not implemented.');
@@ -49,19 +48,3 @@ export class HotelRepositorySequelize implements HotelRepository {
   }
 }
 
-=======
-};
-
-
-type UserCreationAttributes = Optional<HotelAttributes, 'id'>;
-
-export class Hotel extends Model<HotelAttributes, UserCreationAttributes> {
- declare id?: string
- declare cnpj: number
- declare name: string
- declare  address: Address
- declare phone: string
- declare email: string
- 
-}
->>>>>>> Stashed changes

@@ -1,21 +1,22 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom } from './composers';
+import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom, paginateEmployee } from './composers';
 
 const router = Router();
 
 
 // Employess
-router.get('/employees', controllerExpress(getEmployee));
+router.get('/employee', controllerExpress(paginateEmployee));
 router.get('/employee/:id',controllerExpress(getEmployee) )
 router.post('/employee', controllerExpress(createEmployee))
 router.delete('/employee/:id', controllerExpress(deleteEmployee))
+
 /// Auth
 router.post('/login' , controllerExpress(login, "PUBLIC"))
 
 ///hotel
 router.post('/hotel', controllerExpress(createHotel))
-router.get('/hotel', controllerExpress(getHotel))
+router.get('/hotel/:id', controllerExpress(getHotel))
 
 
 //guest
