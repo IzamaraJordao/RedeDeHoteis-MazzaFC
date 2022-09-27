@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const External = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: -80px;
+  `;
+
 export const CardHome = styled.div`
   display: flex;
   flex-direction: row;
@@ -8,12 +14,22 @@ export const CardHome = styled.div`
 
 export const CardHomeInterno = styled.div`
   display: flex;
-  // flex-direction: row wrap;
-  margin:0.3em;
+  flex-direction: row;
+
+  // justify-content: center;
+  margin: 13px;
   
   div{
-    margin: 0.5em; 
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-right: 1em;
+
+    // justify-content: center;
+    // align-items: center;
+    // margin: 0.5em; 
+    // align-items: center;
   }
   `;
 

@@ -1,28 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { TabelaCentral, BoxDiv } from './styled';
+import { TabelaCentral } from './styled';
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
 import Modal from '../Modal/Modal';
 import Button from '@mui/material/Button';
-import { Box, Typography } from "@mui/material";
-import Popover from "../Informativo/Popover";
+import {Typography } from "@mui/material";
 
-
-export type BancoHospedes = {
-  id: Number;
-  nome: String;
-  cpf: String;
-  email: String;
-  observacao: String;
-  telefone: String;
-}
-
-export type BancoReserva = {
-  id: Number;
-  consumo: String;
-  checkin: Date;
-  checkout: Date;
-}
 
 export type BancoQuarto = {
   id: Number;
@@ -34,30 +17,9 @@ export type BancoQuarto = {
 export default function App() {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [hospedes, setHospedes] = useState<BancoHospedes[]>([]);
-  const [reserva, setReserva] = useState<BancoReserva[]>([]);
   const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
 
   const size = quartos.length;
-
-
-  useEffect(() => {
-    axios.get("http://localhost:4000/hospedes")
-      .then(res => {
-        setHospedes(res.data);
-      }).catch(err => {
-        console.log(err);
-      })
-  }, []);
-
-  useEffect(() => {
-    axios.get("http://localhost:4000/reserva")
-      .then(res => {
-        setReserva(res.data);
-      }).catch(err => {
-        console.log(err);
-      })
-  }, []);
 
   useEffect(() => {
     axios.get("http://localhost:4000/quarto")
@@ -164,17 +126,13 @@ export default function App() {
     }
   ];
 
-
   return (
     <div>
-
-      <BoxDiv>
         <TabelaCentral>
-          <div
-            style={{ height: 350, width: '84.2%', color: '#222' }}>
+          <div>
             <DataGrid rows={quartos} columns={columns}
               sx={{
-                height: 300,
+                height: 400,
                 width: '100%', '& .super-app-theme--header': {
                   backgroundColor: '#dcdff4', color: '#858485'
                 },
@@ -192,11 +150,7 @@ export default function App() {
               }} />
           </div>
         </TabelaCentral>
-      </BoxDiv>
-
-
       {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
-
     </div>
   )
 }

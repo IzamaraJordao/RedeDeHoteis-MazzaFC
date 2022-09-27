@@ -1,19 +1,12 @@
 import React from 'react';
-
-import Tabela from '../common/components/Tabela/Tabela';
-
+import BoxHome from '../common/components/BoxHome';
 
 
 
 export default function home() {
 
   return (
-    <div>
-      <div>
-      </div>
-
-      <Tabela />
-    </div>
+      <BoxHome/>
   )
 }
  
