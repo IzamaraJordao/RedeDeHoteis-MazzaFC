@@ -16,7 +16,13 @@ import { CreateBedroom } from './use-case/bedroom/create';
 import { DeleteBedroom } from './use-case/bedroom/delete';
 import { bedroomRepository } from './models/bedroom';
 import { PaginateEmployee } from './use-case/employees/paginate';
+import { PaginateBedroom } from './use-case/bedroom/paginate';
 import { GetHotel } from './use-case/hotel/get';
+import { PaginateReservations } from './use-case/reversations/paginate';
+import { reservationsRepository } from './models/reservations';
+import { GetReservations } from './use-case/reversations/get';
+import { CreateReservations } from './use-case/reversations/create';
+import { DeleteReservations } from './use-case/reversations/delete';
 
 
 ///Employee
@@ -39,6 +45,14 @@ export const createGuest = new CreateGuest(guestRepository);
 
 
 // bedroom
+export const paginateBedroom = new PaginateBedroom(bedroomRepository);
 export const getBedroom = new GetBedroom(bedroomRepository);
 export const createBedroom = new CreateBedroom(bedroomRepository);
 export const deleteBedroom = new DeleteBedroom(bedroomRepository);
+
+// reservations
+export const paginateReservations = new PaginateReservations(reservationsRepository);
+export const getReservations = new GetReservations(reservationsRepository);
+export const createReservations = new CreateReservations(reservationsRepository);
+export const deleteReservations = new DeleteReservations(reservationsRepository);
+

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Address } from '../../models/address/address'
-import { GuestInMemory, Guest } from '../../models/guest'
-import { DeleteGuest } from './delete'
+import { EmployeeInMemory, Employee } from '../../models/employees'
+import { DeleteEmployee } from './delete'
 
 function makeSut() {
   const data = {
@@ -21,27 +21,27 @@ function makeSut() {
       zipCode: '14400000',
     }),
   }
-  const guest = new Guest(data)
-  const repository = new GuestInMemory()
-  repository.data = [guest]
-  const sut = new DeleteGuest(repository)
-  return { sut, repository, guest, data }
+  const employee = new Employee(data)
+  const repository = new EmployeeInMemory()
+  repository.data = [employee]
+  const sut = new DeleteEmployee(repository)
+  return { sut, repository, employee, data }
 }
 
-describe('Delete Guest', () => {
-  it('Should delete an guest', async () => {
-    const { sut, repository, guest } = makeSut()
+describe('Delete Employee', () => {
+  it('Should delete an employee', async () => {
+    const { sut, repository, employee } = makeSut()
     await sut.execute({
-      params: { id: guest.id },
+      params: { id: employee.id },
       body: undefined,
       query: undefined,
     })
 
-    const result = async () => await repository.findById(guest.id)
+    const result = async () => await repository.findById(employee.id)
     expect(result).rejects.toThrow()
   })
-  it('Should throw if any guest not founded', async () => {
-    const { sut, guest } = makeSut()
+  it('Should throw if any employee not founded', async () => {
+    const { sut, employee } = makeSut()
     expect(
       sut.execute({
         params: { id: 'new_id' },

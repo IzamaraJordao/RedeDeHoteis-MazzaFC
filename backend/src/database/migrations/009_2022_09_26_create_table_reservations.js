@@ -2,20 +2,23 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('bedroom', {
+    const UsersTable = queryInterface.createTable('reservations', {
       id: {
         allowNull: false,                                                 
         primaryKey: true,
         type: Sequelize.STRING(36),
       },
-      status: {
+      
+      check_in: {
         allowNull: false,
-        type: Sequelize.STRING(80),
+        type: Sequelize.DATE,
       },
-      tipo: {
+      check_out: {
         allowNull: false,
-        type: Sequelize.STRING(100),
+        type: Sequelize.DATE,
       },
+      
+    
       guest_id: {
         allowNull: false,
         type: Sequelize.STRING(36),
@@ -35,10 +38,9 @@ module.exports = {
         defaultValue: new Date(),
       },
     });
-    
 
     return UsersTable;
   },
 
-  down: queryInterface => queryInterface.dropTable('bedroom'),
+  down: queryInterface => queryInterface.dropTable('reservations'),
 };

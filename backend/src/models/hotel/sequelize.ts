@@ -36,8 +36,12 @@ export class HotelRepositorySequelize implements HotelRepository {
   }
  
   
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    await this.sequelize.destroy({
+      where: {
+        id: id,
+    }})
+  
   }
   async update(id: string, hotel: Hotel): Promise<void> {
     await this.sequelize.update(hotel.data, {
