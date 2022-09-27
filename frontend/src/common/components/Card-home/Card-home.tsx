@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { CardHome } from './styled';
+import { CardHome, External } from './styled';
 import Card from './Card';
 
 export default function BoxComponent() {
   return (
+    <External>
     <CardHome>
       <div>
         <Card titulo={"HOSPEDES"}/>
@@ -18,6 +19,7 @@ export default function BoxComponent() {
         <Card titulo={"CHECK OUT"}/>
       </div>
     </CardHome>
+    </External>
   );
 }
 

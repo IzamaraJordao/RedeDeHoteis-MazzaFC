@@ -31,16 +31,17 @@ export default function Card(props: any) {
               <Box
            sx={{
             display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
+            // flexDirection: 'column',
+            // flexWrap: 'wrap',
             width: 250,
-            height: 100,
+            height: 120,
             backgroundColor: '#fff',
-            marginLeft: '20px',
+            // marginLeft: '20px',
+            margin: '20px',
             borderRadius: '5px',
           }}
         >
-          <CardHomeInterno>
+          <CardHomeInterno>          
             <div>
               {icon()}
             </div>

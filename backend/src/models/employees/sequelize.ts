@@ -69,12 +69,13 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
       // throw new DbError('Email não encontrado')
     }
   }
+
+
   async delete(id: string): Promise<void> {
     await this.sequelize.destroy({
       where: {
         id: id,
     }})
-  
   }
 
   
