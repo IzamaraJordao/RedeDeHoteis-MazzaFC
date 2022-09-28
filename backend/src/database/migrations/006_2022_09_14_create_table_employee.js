@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('employee', {
+    const EmployeeTable = queryInterface.createTable('employee', {
       id: {
         allowNull: false,                                                 
         primaryKey: true,
@@ -77,7 +77,7 @@ module.exports = {
       },
     });
 
-    return UsersTable;
+    return EmployeeTable;
   },
 
   down: queryInterface => queryInterface.dropTable('employee'),
