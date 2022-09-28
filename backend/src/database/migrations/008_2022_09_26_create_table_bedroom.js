@@ -4,25 +4,20 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const BedroomTable = queryInterface.createTable('bedroom', {
       id: {
-        allowNull: false,                                                 
+        allowNull: false,  
+        increment: true,                                               
         primaryKey: true,
         type: Sequelize.STRING(36),
+      
+
       },
       status: {
         allowNull: false,
         type: Sequelize.STRING(80),
       },
-      room_types: {
+      room_type: {
         allowNull: false,
         type: Sequelize.STRING(100),
-      },
-      guest_id: {
-        allowNull: false,
-        type: Sequelize.STRING(36),
-        references: {
-          model: 'guest',
-          key: 'id',
-        },
       },
       hotel_id: {
         allowNull: false,
@@ -32,6 +27,15 @@ module.exports = {
           key: 'id',
         },
       },
+      position_X:{
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      position_Y:{
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

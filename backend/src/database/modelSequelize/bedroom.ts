@@ -1,4 +1,6 @@
 import { DataTypes } from 'sequelize';
+import { ReservationsSequelize,ReservationGuestSequelize  } from './reservations';
+
 // import { Address } from '../../models/address';
 import { sequelize } from '../sequelize'
 
@@ -8,7 +10,7 @@ export const BedroomSequelize = sequelize.define(
     type: DataTypes.UUID,
     primaryKey: true,
   },
-  tipo: {
+  room_type: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -16,17 +18,20 @@ export const BedroomSequelize = sequelize.define(
     type: DataTypes.STRING,
     allowNull: false,
   },
-  guest_id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
   bedroom_id: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
-  //hotel andar posição x e y;
+  position_X: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  position_Y: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  
 },
   {
     underscored: true,
@@ -34,3 +39,12 @@ export const BedroomSequelize = sequelize.define(
     tableName: 'reservations',
   },
 )
+BedroomSequelize.belongsToMany(ReservationsSequelize,{through: 'reservationGuest'});
+ReservationsSequelize.belongsToMany(BedroomSequelize,{through: 'reservationGuest'});
+ReservationGuestSequelize.belongsTo(ReservationsSequelize);
+ReservationGuestSequelize.belongsTo(BedroomSequelize);
+BedroomSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'id' });
+ReservationsSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'id' });
+
+
+

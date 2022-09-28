@@ -4,9 +4,12 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const EmployeeTable = queryInterface.createTable('employee', {
       id: {
-        allowNull: false,                                                 
+        allowNull: false,  
+        increment: true,                                               
         primaryKey: true,
         type: Sequelize.STRING(36),
+       
+
       },
       name: {
         allowNull: false,
