@@ -1,30 +1,10 @@
-import { DataTypes, Model, Optional } from 'sequelize';
+import { DataTypes} from 'sequelize';
 import { sequelize } from '../sequelize'
 
 
-type GuestAttributes = {
-  id?: string
-  name: string
-  cpf: string
-  rg: string
-  email?: string
-  phone: string
-  address_id?: string
-};
 
-type GuestCreationAttributes = Optional<GuestAttributes, 'id'|'email'>;
-
-export class GuestSequelize extends Model<GuestAttributes, GuestCreationAttributes> {
-   declare id?: string
-   declare name: string
-   declare cpf: string
-   declare rg: string
-   declare email?: string
-   declare phone: string
-   declare address_id?: string
-}
-
-GuestSequelize.init({
+export const GuestSequelize = sequelize.define(
+  'Guest',{
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -57,10 +37,13 @@ GuestSequelize.init({
       model: 'address',
       key: 'id',
     }
-  },
-}, {
-  sequelize,
-  modelName: 'guest',
-});
+  }
+},
+    {
+      underscored: true,
+      modelName: 'guest',
+      tableName: 'guest',
+    },
+);
 
 //

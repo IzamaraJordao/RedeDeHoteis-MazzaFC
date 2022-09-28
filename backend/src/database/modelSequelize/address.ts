@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../sequelize'
 
-
 export const AddressSequelize = sequelize.define(
   'Address',
   {

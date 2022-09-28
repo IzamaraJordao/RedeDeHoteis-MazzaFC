@@ -2,40 +2,40 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const BedroomTable = queryInterface.createTable('bedroom', {
+    const ReservationTable = queryInterface.createTable('reservations', {
       id: {
         allowNull: false,  
         increment: true,                                               
         primaryKey: true,
         type: Sequelize.STRING(36),
+      },
       
-
-      },
-      status: {
+      check_in: {
         allowNull: false,
-        type: Sequelize.STRING(80),
+        type: Sequelize.DATE,
       },
-      room_type: {
+      check_out: {
         allowNull: false,
-        type: Sequelize.STRING(100),
+        type: Sequelize.DATE,
       },
-      hotel_id: {
+      check_in_static: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        
+      },
+      check_out_static: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        
+      },
+      bedroom_id:{
         allowNull: false,
         type: Sequelize.STRING(36),
         references: {
-          model: 'hotel',
+          model: 'bedroom',
           key: 'id',
         },
       },
-      position_X:{
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      position_Y:{
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -47,10 +47,9 @@ module.exports = {
         defaultValue: new Date(),
       },
     });
-    
 
-    return BedroomTable;
+    return ReservationTable;
   },
 
-  down: queryInterface => queryInterface.dropTable('bedroom'),
+  down: queryInterface => queryInterface.dropTable('reservations'),
 };

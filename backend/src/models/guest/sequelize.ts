@@ -39,9 +39,13 @@ export class GuestRepositorySequelize implements GuestRepository {
     }
     return undefined;
 }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
-  }
+async delete(id: string): Promise<void> {
+  await this.sequelize.destroy({
+    where: {
+      id: id,
+  }})
+
+}
   async update(id: string, guest: Guest): Promise<void> {
     await this.sequelize.update(guest.data, {
       where: {

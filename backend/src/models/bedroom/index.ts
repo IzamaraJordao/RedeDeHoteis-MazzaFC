@@ -5,9 +5,18 @@ export { Bedroom} from "./bedroom";
 export {BedroomInMemory} from "./InMemory";
 export type { BedroomConstructor } from "./bedroom";
 
+export type PaginateParams = {
+    page: number;
+    pageSize: number;
+    filter:{
+      [key:string] :string | number | boolean
+    }
+  }
+  
+
 export interface BedroomRepository {
     save(bedroom: Bedroom): Promise<void>;
-    paginate(): Promise<Bedroom[]>;
+    paginate(params: PaginateParams): Promise<Bedroom[] | number>;
     findById(id: string): Promise<Bedroom>;
     findBytipo(tipo: string): Promise<Bedroom| undefined>;
     delete(id: string): Promise<void>;

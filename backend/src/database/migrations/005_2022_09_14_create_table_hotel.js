@@ -2,11 +2,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('hotel', {
+    const HotelTable = queryInterface.createTable('hotel', {
       id: {
-        allowNull: false,                                                 
+        allowNull: false,
+        increment: true,                                                 
         type: Sequelize.STRING(36),
         primaryKey: true,
+       
+
       },
       cnpj: {
         allowNull: false,
@@ -20,6 +23,10 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING(80),
+      },
+      floors: {
+        allowNull: false,
+        type: Sequelize.STRING(20),
       },
       phone: {
         allowNull: false,
@@ -45,7 +52,7 @@ module.exports = {
       },
     });
 
-    return UsersTable;
+    return HotelTable;
   },
 
   down: queryInterface => queryInterface.dropTable('hotel'),

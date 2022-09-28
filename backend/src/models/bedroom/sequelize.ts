@@ -1,6 +1,8 @@
-import { BedroomRepository } from '.'
+import { Guest, GuestConstructor } from './../guest/guest';
+import { BedroomSequelize } from './../../database/modelSequelize/bedroom';
+import { BedroomRepository, PaginateParams } from '.'
 import { Bedroom } from './bedroom'
-import { sequelize } from '../../database'
+import { GuestSequelize} from '../../database'
 import { Sequelize } from 'sequelize/types'
 import { DbError } from '../../exceptions/dbError'
 
@@ -10,18 +12,38 @@ export class BedroomRepositorySequelize implements BedroomRepository {
   sequelize: Sequelize['models']['Bedroom']
   guest: Sequelize['models']['Guest'];
   constructor() {
-    this.sequelize = sequelize.models.Bedroom
-    this.guest = sequelize.models.Guest
+    this.sequelize = BedroomSequelize
+    this.guest = GuestSequelize
   }
     async save(bedroom: Bedroom): Promise<void> {
-    await this.guest.create(bedroom.guest_id.data)
+    await this.guest.create(bedroom.guest.data)
     await this.sequelize.create(bedroom.data)
   }
-  paginate(): Promise<Bedroom[]> {
-    throw new Error('Method not implemented.')
+  async paginate({
+    filter,
+    pageSize,
+    page,
+  }:PaginateParams): Promise<Bedroom[] | number> {
+    if(pageSize === 0) {
+      return await this.sequelize.count({
+        where: filter
+      })
+    }
+    const response =  await this.sequelize.findAll(
+      {
+        where: filter,
+        offset: (page - 1) * pageSize,
+        limit: pageSize,
+        });
+    return response.map((bedroom) => new Bedroom(bedroom.toJSON())) ;
+   
   }
   async findById(id: string): Promise<Bedroom> {
-    const response = await this.sequelize.findByPk(id)
+    console.log(id)
+    const response = await this.sequelize.findByPk(id,{
+      attributes:['id','tipo','status','guest_id'],
+    })
+    console.log(response)
     if (response) {
       return new Bedroom(response.toJSON())
     } else {
@@ -29,18 +51,26 @@ export class BedroomRepositorySequelize implements BedroomRepository {
     }
   }
   async findBytipo(tipo: string): Promise<Bedroom | undefined> {
-    const bedroom = await this.sequelize.findOne({
+    const response = await this.sequelize.findOne({
       where: {
         tipo: tipo,
-    } 
+    }, attributes:['id','tipo','status','guest_id'],
     })
-    if (bedroom) {
-      return new Bedroom(bedroom.toJSON())
+    if (response) {
+      const bedroom = response.toJSON()
+      const res = await this.guest.findByPk(bedroom.guest_id)
+      const guest = new Guest(res?.toJSON() as GuestConstructor)
+      bedroom.guest = guest
+      return new Bedroom(bedroom)
     }
     return undefined;
 }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: string): Promise<void> {
+    await this.sequelize.destroy({
+      where: {
+        id: id,
+    }})
+  
   }
 
   async update(id: string, bedroom: Bedroom): Promise<void> {

@@ -4,11 +4,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('guest', {
+    const GuestTable = queryInterface.createTable('guest', {
       id: {
-        allowNull: false,                                                 
+        allowNull: false,
+        increment: true,                                                 
         primaryKey: true,
         type: Sequelize.STRING(36),
+       
+
       },
       name: {
         allowNull: false,
@@ -52,7 +55,7 @@ module.exports = {
       },
     });
 
-    return UsersTable;
+    return GuestTable;
   },
 
   down: queryInterface => queryInterface.dropTable('guest'),

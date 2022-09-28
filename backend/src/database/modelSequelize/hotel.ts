@@ -1,28 +1,10 @@
 
-import { DataTypes, Model, Optional } from 'sequelize';
+import { DataTypes} from 'sequelize';
 import { sequelize } from '../sequelize'
 
-type HotelAttributes = {
-  id?: string
-  cnpj: number
-  name: string
-  phone: string
-  email: string
-  address_id?: string
-};
 
-type HotelCreationAttributes = Optional<HotelAttributes, 'id'>;
-
-export class HotelSequelize extends Model<HotelAttributes, HotelCreationAttributes> {
- declare id?: string
- declare cnpj: string
- declare name: string
- declare phone: string
- declare email: string
-  declare address_id?: string
-}
-
-HotelSequelize.init({
+export const HotelSequelize = sequelize.define(
+  'hotel',{
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -53,7 +35,7 @@ HotelSequelize.init({
     }
   },
 }, {
-  sequelize,
+  underscored: true,
   modelName: 'hotel', 
   tableName: 'hotel',
 });

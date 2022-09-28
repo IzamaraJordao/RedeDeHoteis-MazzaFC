@@ -2,11 +2,13 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    const UsersTable = queryInterface.createTable('address', {
+    const AddressTable = queryInterface.createTable('address', {
       id: {
+        increment: true,
         allowNull: false,                                                 
         type: Sequelize.STRING(36),
         primaryKey: true,
+       
       },
       street: {
         allowNull: false,
@@ -48,7 +50,7 @@ module.exports = {
       },
     });
 
-    return UsersTable;
+    return AddressTable;
   },
 
   down: queryInterface => queryInterface.dropTable('address'),

@@ -5,7 +5,7 @@ import { uuid } from '../../helpers/uuid'
 
 export type BedroomConstructor = {
   id?: string
-  guest_id: Guest
+  guest: Guest
   status: string
   tipo: string
 
@@ -14,7 +14,7 @@ export type BedroomConstructor = {
 
 export class Bedroom {
   id: string
-  guest_id: Guest
+  guest: Guest
   status: string
   tipo: string
 
@@ -22,7 +22,7 @@ export class Bedroom {
 
   constructor(props: BedroomConstructor) {
     this.id = props.id || uuid()
-    this.guest_id = props.guest_id
+    this.guest = props.guest
     this.status = props.status
     this.tipo = props.tipo
     
@@ -32,7 +32,7 @@ export class Bedroom {
   get publicInfo(){
     return{
       id : this.id ,
-      guest_id : this.guest_id,
+      guest : this.guest,
       status : this.status,
       tipo : this.tipo,
      
@@ -42,9 +42,13 @@ export class Bedroom {
   get data() {
     return {
       id: this.id,
-      guest_id: this.guest_id,
+      guest: this.guest,
       status: this.status,
       tipo: this.tipo,
     }
   }
+  static filter() {
+    return ['id', 'guest', 'status', 'tipo']
+  }
+
 }
