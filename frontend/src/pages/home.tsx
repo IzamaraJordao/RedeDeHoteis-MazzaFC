@@ -6,9 +6,6 @@ import Home from '../Home/home'
 
 export default function home() {
   return (
-    // <div>  
-    //    <Home />
-    // </div>
    
     <Layout header={<CardHome />}>   
       <Home />

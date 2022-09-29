@@ -4,6 +4,8 @@ import Tabela from "../common/components/MultTabela/index";
 import ModalF from "../common/components/ModalC/index";
 import { Button } from "@mui/material";
 import { BoxDiv, BoxExternal } from './styled';
+import Modal from '../common/components/ModalRegistration/Modal';
+
 
 // import '../common/components/ModalC/index.css'
 
@@ -17,7 +19,7 @@ type BancoGuest = {
 }
 
 export default function bancoTabela() {
-  const[isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [guest, setGuest] = useState<BancoGuest[]>([]);
 
   useEffect(() => {
@@ -31,8 +33,8 @@ export default function bancoTabela() {
 
   const columns = [{
     field: 'id',
-    headerName: 'CÓDIGO',    
-  }, 
+    headerName: 'CÓDIGO',
+  },
   {
     field: 'nome',
     headerName: 'NOME',
@@ -46,17 +48,18 @@ export default function bancoTabela() {
     headerName: 'EMAIL',
   },
   {
-   field: 'telefone',
+    field: 'telefone',
     headerName: 'PERFIL',
   },
   {
     field: 'acoes',
     headerName: 'AÇÕES',
   }
-];
+  ];
   return (
     <div>
-   
+      <div>
+
       <BoxExternal>
         <BoxDiv>
           <div>
@@ -67,9 +70,9 @@ export default function bancoTabela() {
           </div>
         </BoxDiv>
       </BoxExternal>
-  
-   
-    {isModalVisible ?<ModalF onClose={() => setIsModalVisible(false)}/>: null}
+
+      </div>
+      {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
     </div>
   )
 }

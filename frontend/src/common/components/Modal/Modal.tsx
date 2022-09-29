@@ -1,6 +1,6 @@
 import React , {useState } from 'react';
 import Swal from 'sweetalert2'
-import { Modal, ModalCentral, ModalDireita, ModalEsquerda } from './styled';
+import {ModalCentral, ModalDireita, ModalEsquerda, External } from './styled';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import Box from '@mui/material/Box';
@@ -36,11 +36,6 @@ export type BancoReserva = {
   checkout: Date;
 }
 
-// export type BancoQuarto = {
-//   id_quarto: Number;
-//   tipo: String;
-//   status: String;
-// }
 
 const schema = Yup.object({
   nome: Yup.string().required("Nome é obrigatório"),
@@ -55,7 +50,6 @@ export default function BasicModal({ onClose }) {
 
   const [hospedes, setHospedes] = useState<ModalProps[]>([]);
   const [reserva, setReserva] = useState<ModalProps[]>([]);
-  // const [quartos, setQuartos] = useState<BancoQuarto[]>([]);
 
   const { register, handleSubmit, formState: { errors } } = useForm<ModalProps>({ resolver: yupResolver(schema) });
 
@@ -102,16 +96,17 @@ export default function BasicModal({ onClose }) {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 700,
+    // transform: 'translate(-50%, -50%)',
+    width: 1200,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
+
     p: 4,
   };
 
   return(
-    <div>
+    <External>
       <Box sx={style}>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>          
@@ -180,6 +175,6 @@ export default function BasicModal({ onClose }) {
           <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
         </div>
       </Box >
-      </div>
+      </External>
       )
     }

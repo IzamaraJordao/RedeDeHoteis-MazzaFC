@@ -11,26 +11,28 @@ export const FilterHead = styled.div`
   }
 `;
 
-export const BoxDiv = styled.div`
-
-margin: 2em;
-margin-top:80px;
+export const BoxExternal = styled.div`
+  margin: 2em;
   width: 95%;
   height: 450px;
   border-radius: 5px;
-  background-color: #f5f5f5;
+  background-color: #e1dddd;
+  display: flex;
+  justify-content: center;
+`;
 
-
-
+export const BoxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
 div{
-  margin:2px;
+  margin-top: 2px;
 
-  // button{
-  //   background-color: var(--primary) ;
-  //   &:hover {
-  //     background-color: #13E2ED;
-  //   }
-  //   }
+  button{
+    margin-top: 2px;
+    background-color: var(--text);
+    &:hover {
+      background-color: var(--secondary);
+    }
+    }
   }
-}
 `;

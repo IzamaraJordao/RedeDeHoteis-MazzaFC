@@ -28,6 +28,22 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
           width: 250,
           height: '100vh',
           backgroundColor: '#f5f5f5',
+
+          '@media (max-width: 1435px)': {
+            width: 200,
+          },
+          '@media (max-width: 1330px)': {
+            width: 175,
+          },
+
+          '@media (max-width: 1230px)': {
+            width: 150,
+           
+            // margin:0
+          },
+          '@media (max-width: 1030px)': {
+            width: 100,       
+          }
         }}
       >
         <Menu>
@@ -41,7 +57,7 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
           <h3>MENU</h3>
           <Button size="large" onClick={() => { router.push("/home") }} style={{ textAlign: 'left' }} startIcon={<HomeIcon />}>Home</Button>
           <Button size="large" startIcon={<BedIcon />}>Mapa Dos Quartos</Button>
-          <Button size="large" startIcon={<EventAvailableIcon />}>Reserva</Button>
+          <Button size="large" onClick={() => { router.push("/reservation") }} startIcon={<EventAvailableIcon />}>Reserva</Button>
           <Button size="large" onClick={() => { router.push("/guest") }} startIcon={<PermContactCalendarIcon />}>Hopedes</Button>
           <Button size="large" onClick={() => { router.push("/employees") }} startIcon={<PersonIcon />}>Funcionários</Button>
           <InputAd />

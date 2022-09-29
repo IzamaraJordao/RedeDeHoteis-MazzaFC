@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const Modal = styled.div`
-  // display: flex;
-  // flex-direction: row;
 
+export const External = styled.div`
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ModalCentral = styled.div`
@@ -28,4 +29,5 @@ export const ModalEsquerda = styled.div`
     width: 350px;
   }
 `;
+
 

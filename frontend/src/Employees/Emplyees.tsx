@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Tabela from "../common/components/MultTabela/index";
 import TextField from '@mui/material/TextField';
-import { FilterHead, BoxDiv } from './styled';
+import { FilterHead, BoxDiv, BoxExternal } from './styled';
 import { GridColumnHeaderParams } from "@mui/x-data-grid";
 import Button from '@mui/material/Button';
 import Modal from '../common/components/ModalEmployees/Modal';
-import {useSelector} from 'react-redux';
-
 
 
 type BancoEmployees = {
@@ -24,7 +22,17 @@ export default function bancoTabela(): JSX.Element {
   const [isVisibled, setIsVisibled] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/employees")
+    axios.get("http://localhost:3000/employee", {
+      params: {
+        page: 1,
+        pageSize: 10,
+        filter: "",
+      },
+      headers: {
+
+      }
+
+    })
       .then(res => {
         setEmployees(res.data);
       }).catch(err => {
@@ -79,16 +87,17 @@ export default function bancoTabela(): JSX.Element {
   ];
   return (
     <div>
-      <BoxDiv>
-        <div>
-        <Button variant="contained" onClick={()=> setIsVisibled(true)} >NOVO CADASTRO</Button>
-
-        </div>
-        <div>
-          <Tabela banco={employees} columns={columns} />
-        </div>
-      </BoxDiv>
-      {isVisibled && <Modal onClose={()=> setIsVisibled(false)} />}
+      <BoxExternal>
+        <BoxDiv>
+          <div>
+            <Button variant="contained" onClick={() => setIsVisibled(true)} >NOVO CADASTRO</Button>
+          </div>
+          <div>
+            <Tabela banco={employees} columns={columns} />
+          </div>
+        </BoxDiv>
+      </BoxExternal>
+      {isVisibled && <Modal onClose={() => setIsVisibled(false)} />}
     </div>
   )
 }
