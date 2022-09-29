@@ -15,21 +15,28 @@ export const CardHome = styled.div`
 export const CardHomeInterno = styled.div`
   display: flex;
   flex-direction: row;
-
-  // justify-content: center;
   margin: 13px;
   
+  p{
+    
+    @media (max-width: 1435px) {
+      font-size: 12px;
+    };
+    @media (max-width: 1230px) {
+      font-size: 15px;
+      margin: 5px;
+    };
+    @media (max-width: 1030px) {
+      font-size: 12px;
+      
+
+    };
+
+  }
+
   div{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    margin-right: 1em;
-
-    // justify-content: center;
-    // align-items: center;
-    // margin: 0.5em; 
-    // align-items: center;
   }
   `;
-

@@ -1,15 +1,16 @@
-import { Typography } from '@mui/material'
 import React from 'react'
 import { Layout } from '../common/layout'
-import MapHotel from '../Map/Map'
+import Map from '../Map'
+import  Header from '../common/components/Header'
 
 // import Home from '../Home/home'
 
-export default function home() {
+export default function map() {
+  const header = () => {return <Header title="Cadastrar quarto"/>}
   return (
     <div>
-      <Layout header={<Typography>Funcionários</Typography>}>
-        <MapHotel />
+      <Layout header={header()}>
+        <Map />
       </Layout>
     </div>
   )
