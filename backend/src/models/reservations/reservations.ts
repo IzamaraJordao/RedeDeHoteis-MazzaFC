@@ -1,4 +1,3 @@
-import { Guest } from '../guest/guest';
 import { Bedroom } from '../bedroom/bedroom';
 import { uuid } from '../../helpers/uuid'
 
@@ -6,10 +5,10 @@ import { uuid } from '../../helpers/uuid'
 
 export type ReservationsConstructor = {
   id?: string
-  guest_consumption: string
   check_in: Date
   check_out: Date
-  guest: Guest
+  check_in_static: Date
+  check_out_static: Date
   bedroom: Bedroom
 
 
@@ -18,19 +17,19 @@ export type ReservationsConstructor = {
 
 export class Reservations {
   id: string
- guest_consumption: string
   check_in: Date
   check_out: Date
-  guest: Guest
+  check_in_static: Date
+  check_out_static: Date
   bedroom: Bedroom
  
 
   constructor(props: ReservationsConstructor) {
     this.id = props.id || uuid()
-    this.guest_consumption = props.guest_consumption
     this.check_in = props.check_in
     this.check_out = props.check_out
-    this.guest = props.guest
+    this.check_in_static = props.check_in_static
+    this.check_out_static = props.check_out_static
     this.bedroom = props.bedroom
     
 
@@ -39,10 +38,10 @@ export class Reservations {
   get publicInfo(){
     return{
       id : this.id ,
-      guest_consumption: this.guest_consumption,
       check_in: this.check_in,
       check_out: this.check_out,
-      guest: this.guest,
+      check_in_static: this.check_in_static,
+      check_out_static:this.check_out_static,
       bedroom: this.bedroom,
      
 
@@ -51,16 +50,16 @@ export class Reservations {
   get data() {
     return {
       id: this.id,
-      guest_consumption: this.guest_consumption,
       check_in: this.check_in,
       check_out: this.check_out,
-      guest: this.guest,
+      check_in_static: this.check_in_static,
+      check_out_static:this.check_out_static,
       bedroom: this.bedroom,
 
     }
   }
   static filter() {
-    return ['id', 'guest_consumption', 'check_in', 'check_out', 'guest', 'bedroom']
+    return ['id', 'check_in', 'check_out', 'bedroom']
   }
 
 }

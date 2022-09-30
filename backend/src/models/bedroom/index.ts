@@ -18,7 +18,7 @@ export interface BedroomRepository {
     save(bedroom: Bedroom): Promise<void>;
     paginate(params: PaginateParams): Promise<Bedroom[] | number>;
     findById(id: string): Promise<Bedroom>;
-    findBytipo(tipo: string): Promise<Bedroom| undefined>;
+    findByroom_types(room_types: string): Promise<Bedroom| undefined>;
     delete(id: string): Promise<void>;
     update(id: string, bedroom: Bedroom): Promise<void>;
 }

@@ -5,7 +5,7 @@ import { ReservationsSequelize,ReservationGuestSequelize  } from './reservations
 import { sequelize } from '../sequelize'
 
 export const BedroomSequelize = sequelize.define(
-  'bedroom',{
+  'Bedroom',{
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -35,8 +35,8 @@ export const BedroomSequelize = sequelize.define(
 },
   {
     underscored: true,
-    modelName: 'Reservations',
-    tableName: 'reservations',
+    modelName: 'Bedroom',
+    tableName: 'bedroom',
   },
 )
 BedroomSequelize.belongsToMany(ReservationsSequelize,{through: 'reservationGuest'});

@@ -41,7 +41,7 @@ export class BedroomRepositorySequelize implements BedroomRepository {
   async findById(id: string): Promise<Bedroom> {
     console.log(id)
     const response = await this.sequelize.findByPk(id,{
-      attributes:['id','tipo','status','guest_id'],
+      attributes:['id','room_types','status','guest_id'],
     })
     console.log(response)
     if (response) {
@@ -50,11 +50,11 @@ export class BedroomRepositorySequelize implements BedroomRepository {
       throw new DbError('Quarto não encontrado')
     }
   }
-  async findBytipo(tipo: string): Promise<Bedroom | undefined> {
+  async findByroom_types(room_types: string): Promise<Bedroom | undefined> {
     const response = await this.sequelize.findOne({
       where: {
-        tipo: tipo,
-    }, attributes:['id','tipo','status','guest_id'],
+        room_types: room_types,
+    }, attributes:['id','room_types','status','guest_id'],
     })
     if (response) {
       const bedroom = response.toJSON()

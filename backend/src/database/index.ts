@@ -7,6 +7,7 @@ import { EmployeeSequelize } from './modelSequelize/employee'
 import { GuestSequelize } from './modelSequelize/guest'
 import { BedroomSequelize } from './modelSequelize/bedroom'
 import { ReservationsSequelize } from './modelSequelize/reservations'
+import { ReservationGuestSequelize } from './modelSequelize/reservations'
 
 
 
@@ -18,6 +19,7 @@ export {
   GuestSequelize,
   BedroomSequelize,
   ReservationsSequelize,
+  ReservationGuestSequelize,
   sequelize,
 }
 

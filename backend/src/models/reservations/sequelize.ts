@@ -18,7 +18,6 @@ export class ReservationsRepositorySequelize implements ReservationsRepository {
     this.bedroom = BedroomSequelize
   }
     async save(reservations: Reservations): Promise<void> {
-    await this.guest.create(reservations.guest.data)
     await this.bedroom.create(reservations.bedroom.data)
     await this.sequelize.create(reservations.data)
   }
@@ -44,7 +43,7 @@ export class ReservationsRepositorySequelize implements ReservationsRepository {
   async findById(id: string): Promise<Reservations> {
     console.log(id)
     const response = await this.sequelize.findByPk(id,{
-      attributes:['id','guest_consumption','checkin','checkout','guest_id','bedroom_id'],
+      attributes:['id','checkin','checkout','bedroom_id'],
     })
     console.log(response)
     if (response) {
@@ -53,21 +52,7 @@ export class ReservationsRepositorySequelize implements ReservationsRepository {
       throw new DbError('Reserva não encontrada')
     }
   }
-//   async findBytipo(tipo: string): Promise<Bedroom | undefined> {
-//     const response = await this.sequelize.findOne({
-//       where: {
-//         tipo: tipo,
-//     }, attributes:['id','tipo','status','guest_id'],
-//     })
-//     if (response) {
-//       const bedroom = response.toJSON()
-//       const res = await this.guest.findByPk(bedroom.guest_id)
-//       const guest = new Guest(res?.toJSON() as GuestConstructor)
-//       bedroom.guest = guest
-//       return new Bedroom(bedroom)
-//     }
-//     return undefined;
-// }
+
   async delete(id: string): Promise<void> {
     await this.sequelize.destroy({
       where: {
