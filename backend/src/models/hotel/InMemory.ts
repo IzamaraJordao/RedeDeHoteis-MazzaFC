@@ -24,7 +24,7 @@ export class HotelInMemory implements HotelRepository{
             return Promise.reject(new DbError('Hotel não encontrado',404));
         }
     }
-    findByCnpj(cnpj: number): Promise<Hotel | undefined> {
+    findByCnpj(cnpj: string): Promise<Hotel | undefined > {
         const hotel = this._data.find((hotel) => hotel.cnpj === cnpj);
         if (hotel){
             return Promise.resolve(hotel);
