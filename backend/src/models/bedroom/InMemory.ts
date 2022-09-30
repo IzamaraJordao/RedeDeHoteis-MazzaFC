@@ -23,8 +23,8 @@ export class  BedroomInMemory implements BedroomRepository{
             return Promise.reject(new DbError('Quarto não encontrado',404));
         }
     }
-    findBytipo(tipo: string): Promise<Bedroom | undefined> {
-        const bedroom = this._data.find((bedroom) => bedroom.tipo === tipo);
+    findByroom_types(room_types: string): Promise<Bedroom | undefined> {
+        const bedroom = this._data.find((bedroom) => bedroom.room_types === room_types);
         if (bedroom){
             return Promise.resolve(bedroom);
         }

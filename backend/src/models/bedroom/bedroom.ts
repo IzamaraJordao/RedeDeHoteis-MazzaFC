@@ -7,7 +7,11 @@ export type BedroomConstructor = {
   id?: string
   guest: Guest
   status: string
-  tipo: string
+  room_types: string
+  hotel_id: string
+  position_X: string
+  position_Y: string
+
 
 }
 
@@ -16,7 +20,10 @@ export class Bedroom {
   id: string
   guest: Guest
   status: string
-  tipo: string
+  room_types: string
+  hotel_id: string
+  position_X: string
+  position_Y: string
 
  
 
@@ -24,8 +31,11 @@ export class Bedroom {
     this.id = props.id || uuid()
     this.guest = props.guest
     this.status = props.status
-    this.tipo = props.tipo
-    
+    this.room_types = props.room_types
+    this.hotel_id = props.hotel_id
+    this.position_X = props.position_X
+    this.position_Y = props.position_Y
+
 
   }
 
@@ -34,7 +44,10 @@ export class Bedroom {
       id : this.id ,
       guest : this.guest,
       status : this.status,
-      tipo : this.tipo,
+      room_types : this.room_types,
+      hotel_id : this.hotel_id,
+      position_X : this.position_X,
+      position_Y : this.position_Y
      
 
     }
@@ -44,11 +57,14 @@ export class Bedroom {
       id: this.id,
       guest: this.guest,
       status: this.status,
-      tipo: this.tipo,
+      room_types: this.room_types,
+      hotel_id: this.hotel_id,
+      position_X: this.position_X,
+      position_Y: this.position_Y
     }
   }
   static filter() {
-    return ['id', 'guest', 'status', 'tipo']
+    return ['id', 'guest', 'status', 'room_types']
   }
 
 }

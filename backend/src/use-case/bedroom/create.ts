@@ -12,8 +12,8 @@ export class CreateBedroom implements UseCase<BedroomConstructor,undefined,undef
   constructor(private readonly bedroomRepository: BedroomRepository) {}
   async execute(params: Request<BedroomConstructor>) {
     const bedroom = new Bedroom(params.body)
-    const bedroomFounded = await this.bedroomRepository.findBytipo(
-      bedroom.tipo,
+    const bedroomFounded = await this.bedroomRepository.findByroom_types(
+      bedroom.room_types,
     )
     if (bedroomFounded) {
       throw new HttpError('Tipo já cadastrado', 400)

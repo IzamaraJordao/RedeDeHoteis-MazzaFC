@@ -1,6 +1,6 @@
-import { DataTypes } from 'sequelize';
-// import { Address } from '../../models/address';
+import { DataTypes} from 'sequelize';
 import { sequelize } from '../sequelize'
+
 
  export const ReservationsSequelize = sequelize.define(
   'reservations',{
@@ -23,14 +23,16 @@ import { sequelize } from '../sequelize'
 },
   {
     underscored: true,
-    modelName: 'Bedroom',
-    tableName: 'bedroom',
+    modelName: 'Reservations',
+    tableName: 'reservations',
   },
 
 )
 
-ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id' });
-ReservationsSequelize.hasOne(sequelize.models.Bedroom, { foreignKey: 'id' });
+ ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id_guest' });
+  // ReservationsSequelize.belongsTo(sequelize.models.bedroom, {foreignKey: 'id_Bedroom'});
+
+
 
 
 export const ReservationGuestSequelize = sequelize.define(
