@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import logger from 'morgan';
 import { sequelize } from './database';
 import router from './routes';
+import cors from 'cors';
 // import compression from 'compression';
 // import Handlebars from 'handlebars';
 
@@ -12,6 +13,7 @@ const app = express()
 const port = 3000
 app.use(logger('dev'))
 app.use(helmet());
+app.use(cors());
 app.use(express.json())
 try {
   sequelize.authenticate();
