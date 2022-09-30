@@ -19,7 +19,7 @@ type LoginResponse = {
     email: string
   }
   hotel: {
-    cnpj: number
+    cnpj: string
     name: string
     address: Address
     phone: string

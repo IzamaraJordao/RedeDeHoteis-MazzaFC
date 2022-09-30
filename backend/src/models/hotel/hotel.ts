@@ -3,7 +3,7 @@ import { uuid } from '../../helpers/uuid'
 
 export type HotelConstructor = {
   id?: string
-  cnpj: number
+  cnpj: string
   name: string
   address: Address
   phone: string
@@ -12,7 +12,7 @@ export type HotelConstructor = {
 
 export class Hotel {
   id: string
-  cnpj: number
+  cnpj: string
   name: string
   address: Address
   phone: string
@@ -36,6 +36,18 @@ export class Hotel {
       email: this.email,
     }
   }
+  get publicInfo() {
+    return {
+      id: this.id,
+      cnpj: this.cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5'),
+      name: this.name,
+      address: this.address,
+      phone: this.phone,
+      email: this.email,
+    }
+  }
+
+
   get data(){
     return {
       id: this.id,
@@ -46,4 +58,9 @@ export class Hotel {
       email: this.email,
     }
   }
+
+  static filter(){
+    return ['id', 'cnpj', 'name', 'address_id', 'phone', 'email']
+  }
+
 }

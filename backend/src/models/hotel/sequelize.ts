@@ -3,6 +3,8 @@ import { Hotel } from './hotel';
 import { AddressSequelize, HotelSequelize} from "../../database";
 import { Sequelize } from "sequelize/types";
 import { DbError } from '../../exceptions/dbError';
+import { Address, AddressConstructor } from '../address';
+import { PaginateParams } from '../employees';
 
 
 
@@ -16,16 +18,45 @@ export class HotelRepositorySequelize implements HotelRepository {
   
     this.address = AddressSequelize
   }
-  findByCnpj(cnpj: number): Promise<Hotel | undefined> {
-    throw new Error('Method not implemented.');
+   async findByCnpj(cnpj: string): Promise<Hotel | undefined> {
+    const response = await this.sequelize.findOne({
+      where: {
+        cnpj: cnpj,
+      },
+      attributes: ['id', 'name', 'cnpj', 'email', 'phone', 'email'],
+    })
+    if(response) {
+      const hotel = response.toJSON()
+      const res = await this.address.findByPk(hotel.address_id)
+      const address = new Address(res?.toJSON() as AddressConstructor)
+      hotel.address = address
+      return new Hotel(hotel)
+    }else {
+      return undefined
+    }
   }
   async save(hotel: Hotel): Promise<void> {
     await this.address.create(hotel.address.data)
     await this.sequelize.create(hotel.data )
   }
-  paginate(): Promise<Hotel[]> {
-    throw new Error('Method not implemented.');
+  async paginate({ filter, pageSize, page, }:PaginateParams ): Promise<Hotel[] | number> {
+    
+    if(pageSize === 0) {
+      return await this.sequelize.count({
+        where: filter
+      })
+    }
+    const response =  await this.sequelize.findAll(
+      {
+        where: filter,
+        offset: (page - 1) * pageSize,
+        limit: pageSize,
+        });
+    return response.map((employee) => new Hotel(employee.toJSON())) ;
   }
+
+
+
   async findById(id: string): Promise<Hotel> {
     const response = await this.sequelize.findByPk(id)
     if (response) {
