@@ -29,7 +29,7 @@ import { sequelize } from '../sequelize'
 
 )
 
- ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id_guest' });
+//  ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id_guest' });
   // ReservationsSequelize.belongsTo(sequelize.models.bedroom, {foreignKey: 'id_Bedroom'});
 
 

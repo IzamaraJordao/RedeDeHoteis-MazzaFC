@@ -30,6 +30,7 @@ export class Guest {
     this.email = props.email
     this.phone = props.phone.replace(/\D/g, '')
     this.address = props.address
+    
 
   }
 
@@ -53,7 +54,8 @@ export class Guest {
       rg: this.rg,
       email: this.email,
       phone: this.phone,
-      address: this.address,
+      address: this.address.data,
+      address_id: this.address.id,
     }
   }
 }

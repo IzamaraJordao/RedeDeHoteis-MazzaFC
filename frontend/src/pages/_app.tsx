@@ -6,14 +6,11 @@ import { wrapper } from "../store/store";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
   
-// export default class MyApp extends App {
-//   render() {
-//     const { Component, pageProps } = this.props
-//     return <Component {...pageProps} />
-//   }
-// }
+  return <Component {...pageProps} />;
+  // <ThemeProvider theme={}> 
+  // </ThemeProvider>
+  
+}
 
 export default wrapper.withRedux(MyApp);

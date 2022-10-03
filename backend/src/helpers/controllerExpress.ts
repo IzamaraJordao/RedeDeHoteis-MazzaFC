@@ -15,6 +15,7 @@ export function controllerExpress(useCase: UseCase <any, any, any, any>, isPubli
         params: req.params, //// apenas um parametro
         query: req.query, /// varios parametros
       }, dataToken)
+      console.log(response)
       res.status(response.status).json(response.body)
     } catch (error) {
       if (error instanceof DbError || error instanceof HttpError) {
