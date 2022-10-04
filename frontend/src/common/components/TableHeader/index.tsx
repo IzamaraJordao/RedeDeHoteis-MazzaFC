@@ -1,54 +1,36 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
-import { useState } from 'react'
+import { TextField } from '@mui/material';
+import React, { useEffect } from 'react'
+import { TableHeade } from './styled';
+import SearchIcon from '@mui/icons-material/Search';
 
 
-type Props = {
-  label: string
-  onSearch: (value: string) => void
-  value: string
-  noFilter: boolean
-}
+export default function tableHeader(props: any) {
+  const [inputValue, setInputValue] = React.useState('');
 
-export function TableHeader(props: Props) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  function handleBlur(event: any) {
-    console.log(event)
-    props.onSearch(props.value)
-  }
-
-  function enableSearch() {
-    document.addEventListener('dblclick', () => {
-      if (isVisible === false) {
-        setIsVisible(true)
-      }
-    })
-  }
+  useEffect(() => {
+    if(props.value) 
+    setInputValue(props.value)
+  }, [props.value])
 
   return (
-    <>
-      <Box
-        onClick={enableSearch}
-        sx={{
-          minHeight: '100%',
-          width: '100px',
-          cursor: 'pointer',
-        }}
-      >
-        {!isVisible && <Typography>{props.label}</Typography>}
+    <TableHeade>
+          <strong>
+            {props.name}
+          </strong>
 
-        <div className="inputFilter">
-          {isVisible && (
-            <input
-              className="inputTable"
-              type="text"
-              name={props.label}
-              onBlur={handleBlur}
+          <div>
+            <input 
+            value={inputValue} 
+            onChange={({ target }) => {setInputValue(target.value)}} 
             />
-          )}
-        </div>
-      </Box>
-    </>
+            <button 
+            onClick={()=>{
+              if(props.onSearch) props.onSearch(inputValue)
+            }}
+            ><SearchIcon   sx={{ fontSize: 10 }} /></button>
+          </div>
+        </TableHeade>
   )
 }
+
+//
