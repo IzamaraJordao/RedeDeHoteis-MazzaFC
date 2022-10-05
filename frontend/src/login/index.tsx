@@ -8,7 +8,8 @@ import router, { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { setAuth} from '../store/authSlice'
 import {createSession} from '../api/login/login'
-
+import { Button } from '@mui/material'
+import { useSnackbar, VariantType, SnackbarProvider } from 'notistack';
 
 
 interface IFormInputs {
@@ -22,10 +23,15 @@ const schema = Yup.object({
     .required('Senha é obrigatória')
     
 }).required()
+ 
+
+
 
 export default function Login() {
+ 
   const router = useRouter()
   const dispatch = useDispatch()
+  const {enqueueSnackbar} = useSnackbar()
 
   const {
     register,
@@ -40,7 +46,7 @@ export default function Login() {
     try{
        response = await createSession(
         data.email,
-        data.password
+        data.password, enqueueSnackbar
        )
       console.log(response.data)
     }catch(e) {
@@ -74,8 +80,17 @@ export default function Login() {
     router.push('/home')
     
   }
+  
+
+  
 
   return (
+    
+
+
+
+
+
     <BodyLogin>
       <Form onSubmit={handleSubmit(onSubmit)}>
       
@@ -86,6 +101,7 @@ export default function Login() {
         <Input
           type="email"
           id="email"
+          color="primary"
           placeholder="Digite o email"
           {...register('email')}
         />
@@ -94,18 +110,18 @@ export default function Login() {
         <Input
           type="password"
           id="password"
+          color="primary"
           placeholder="Digite a senha"
           {...register('password')}
         />
         <p>{errors.password?.message}</p>
-        <button
+        <Button
           type="submit"
-          name="Entrar"
-          className="btn btn-primary btn-block"
-          
-        >
+          variant="contained"
+          color="primary">
+        
           Entrar
-        </button>
+        </Button>
       </Form>
     </BodyLogin>
   )

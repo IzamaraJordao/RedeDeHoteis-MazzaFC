@@ -1,10 +1,15 @@
-import axios from 'axios';
+import { handleRequest } from "../handleRequest";
+import {ProviderContext} from 'notistack';
 
-export const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
-});
-
-export const createSession = async (email: any, password: any)=> {
-    return await api.post('/login', { email, password });
+export async function createSession(
+    email: any,
+    password: any,
+    enqueueSnackbar: ProviderContext['enqueueSnackbar']
+){
+    return await handleRequest({
+        method: "post",
+        url: '/login',
+        data: { email, password }
+    }, enqueueSnackbar);
 
 };

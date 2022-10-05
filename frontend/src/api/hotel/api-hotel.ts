@@ -1,6 +1,6 @@
 import  axios  from 'axios';
 
-export async function save({
+export async function saveHotel({
     id,
     name,
     cnpj,
@@ -18,19 +18,19 @@ export async function save({
     return response.data;
 }
 
-export async function getById(id: number) {
+export async function getByIdHotel(id: number) {
     return await axios.get('/hotel/' + id );
 }
-export async function getByCnpj(cnpj: string) {
+export async function getByCnpjHotel(cnpj: string) {
     return await axios.get('/hotel/cnpj' + cnpj );
 }
 
-export async function paginate() {
+export async function paginateHotel() {
     return await axios.get('/hotel');
 }
-export async function remove(id: number) {
+export async function removeHotel(id: number) {
     return await axios.delete('/hotel/' + id);
 }
-export async function update(id: number) {
+export async function updateHotel(id: number) {
     return await axios.put('/hotel/' + id);
 }

@@ -31,7 +31,7 @@ export default function ColumnEmployee(props: any) {
 
   async function tableMain(page: number, pageSize: number, filter?: object) {
     setIsLoading(true);
-    const response = await axios.get("http://localhost:3000/employee", {
+    const response = await axios.get("http://localhost:3030/employee", {
       params: {
         page,
         pageSize,
@@ -54,7 +54,7 @@ export default function ColumnEmployee(props: any) {
       denyButtonText: `Não Remover`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/employee/${id}`)
+        axios.delete(`http://localhost:3030/employee/${id}`)
         .then(res => {
           tableMain(page, pageSize);
         }).catch(err => {
