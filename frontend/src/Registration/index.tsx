@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Tabela from "../common/components/MultTabela/index";
+// import Tabela from "../common/components/MultTabela/index";
 import ModalF from "../common/components/ModalC/index";
 import { Button } from "@mui/material";
 import { BoxDiv, BoxExternal } from './styled';
@@ -66,7 +66,7 @@ export default function bancoTabela() {
             <Button variant="contained" onClick={() => setIsModalVisible(true)} >NOVO CADASTRO</Button>
           </div>
           <div>
-            <Tabela banco={guest} columns={columns} />
+            {/* <Tabela banco={guest} columns={columns} /> */}
           </div>
         </BoxDiv>
       </BoxExternal>

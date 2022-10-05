@@ -100,13 +100,7 @@ export default function Modal({ onClose }) {
 
 
             </ModalCentral>
-            <ModalCentral>
-              <div>
-                <label>Unidade hoteleira (Quartos por andar)</label>
-                <TextField sx={{ width: '300px' }} size='small' id="unidade" type="number" variant="outlined"  {...register("unidades")} />
-              </div>
-
-            </ModalCentral>
+           
 
             <ModalCentral>
               <div>
