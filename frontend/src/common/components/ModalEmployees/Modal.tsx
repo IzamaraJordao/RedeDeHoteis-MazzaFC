@@ -43,7 +43,7 @@ export default function Modal({ onClose }) {
   const { register, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
 
   const onSubmit = (data: TypeEmployees) => {
-    axios.post('http://localhost:4000/employees', {
+    axios.post('http://localhost:3000/employee', {
       nome: data.nome,
       cpf: data.cpf,
       email: data.email,

@@ -60,7 +60,7 @@ export default function BasicModal({ onClose }) {
   const { register, handleSubmit, formState: { errors } } = useForm<ModalProps>({ resolver: yupResolver(schema) });
 
   const onSubmit = (data: ModalProps ) => {
-    axios.post("http://localhost:4000/hospedes", {
+    axios.post("http://localhost:3000/guest", {
       nome: data.nome,
       cpf: data.cpf
 
@@ -68,7 +68,7 @@ export default function BasicModal({ onClose }) {
       setHospedes([...hospedes, res.data]);
     })
 
-    axios.post("http://localhost:4000/reserva", {
+    axios.post("http://localhost:3000/reservations", {
       checkin: data.checkin,
       checkout: data.checkout,
   }).then((res) => {

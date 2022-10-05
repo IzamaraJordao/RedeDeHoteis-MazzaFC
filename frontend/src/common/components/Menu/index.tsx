@@ -42,7 +42,7 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
           <Button size="large" onClick={() => { router.push("/home") }} style={{ textAlign: 'left' }} startIcon={<HomeIcon />}>Home</Button>
           <Button size="large" startIcon={<BedIcon />}>Mapa Dos Quartos</Button>
           <Button size="large" startIcon={<EventAvailableIcon />}>Reserva</Button>
-          <Button size="large" onClick={() => { router.push("/guest") }} startIcon={<PermContactCalendarIcon />}>Hopedes</Button>
+          <Button size="large" onClick={() => { router.push("/guest") }} startIcon={<PermContactCalendarIcon />}>Hospedes</Button>
           <Button size="large" onClick={() => { router.push("/employees") }} startIcon={<PersonIcon />}>Funcionários</Button>
           <InputAd />
         </MenuButton>

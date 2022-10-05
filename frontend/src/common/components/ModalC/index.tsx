@@ -60,7 +60,7 @@ export default function ModalC({ onClose }) {
 
   const onSubmit = (data: ModalProps) => {
     axios
-      .post('http://localhost:4000/hospedes', {
+      .post('http://localhost:3000/guest', {
         nome: data.name,
         cpf: data.cpf,
         rg: data.rg,

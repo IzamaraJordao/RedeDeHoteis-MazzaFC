@@ -22,7 +22,7 @@ export default function App() {
   const size = quartos.length;
 
   useEffect(() => {
-    axios.get("http://localhost:4000/quarto")
+    axios.get("http://localhost:3000/bedroom")
       .then(res => {
         setQuartos(res.data);
       }).catch(err => {

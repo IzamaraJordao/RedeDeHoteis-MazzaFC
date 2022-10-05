@@ -1,12 +1,21 @@
+
 import React from "react";
+
 import Login from '../login/index'
 
 function home(){
-  return (
-      <div>
+  
+  return ( 
+    
+    <div>
           <Login/>  
       </div>
+    
   )
 }
+
+
+
+
 
 export default home;
