@@ -1,7 +1,6 @@
 import api from 'axios'
 
 export async function save({
-  id,
   name,
   rg,
   cpf,
@@ -9,13 +8,9 @@ export async function save({
   phone,
   address,
   note,
-  active,
   password,
-  hotel,
-  is_first_access,
 }: any) {
   const response = await api.post('/employees', {
-    id,
     name,
     rg,
     cpf,
@@ -23,10 +18,8 @@ export async function save({
     phone,
     address,
     note,
-    active,
     password,
-    hotel,
-    is_first_access,
+
   })
   return response.data
 }

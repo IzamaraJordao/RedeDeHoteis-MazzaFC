@@ -6,12 +6,42 @@ import { AppState } from "./store";
 export interface AuthState {
   authState: boolean;
   email: String;
+  
+
+}
+type LoginAuth = {
+  user: {
+    name: string
+    email: string
+  } | undefined
+  hotel: {
+    cnpj: number
+    name: string
+    address: {
+      street: string
+      number: number
+      complement: string
+      neighborhood: string
+      city: string
+      state: string
+      zip_code: string
+    }
+    phone: string
+    email: string
+  } | undefined
+  
+
+  token: string
+  authState: boolean;
 }
 
+
 // Initial state
-const initialState: AuthState = {
+const initialState: LoginAuth = {
   authState: false,
-  email: "Faça o login para continuar",
+  token: "",
+  user: undefined,
+  hotel: undefined,
 };
 
 // Actual Slice
@@ -24,15 +54,22 @@ export const authSlice = createSlice({ /// Recebe 3 parametros
     setAuthState(state, action) {
       state.authState = action.payload;
     },
-    setEmail(state, action) {
-      state.email = action.payload;
+   
+    setAuth(state, action) {
+      state.authState = true
+      state.token = action.payload.token;
+      state.hotel = action.payload.hotel;
+      state.user = action.payload.user;
     }
   },
 });
 
-export const { setAuthState, setEmail } = authSlice.actions; // Exportando as actions
+export const { setAuthState, setAuth } = authSlice.actions; // Exportando as actions
+
 
 export const selectAuthState = (state: AppState) => state.auth.authState; // Exportando o state, ou pode chamar direto na onde utilizar
-export const selectEmail = (state: AppState) => state.auth.email; // Exportando o state
+export const selectEmail = (state: AppState) => state.auth.user?.email;
+export const selectToken = (state: AppState) => state.auth.token;
+export const selectName = (state: AppState) => state.auth.user?.name;// Exportando o state
 
 export default authSlice.reducer; // Exportando o reducer

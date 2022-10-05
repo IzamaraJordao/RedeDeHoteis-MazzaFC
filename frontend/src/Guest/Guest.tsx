@@ -8,6 +8,14 @@ import TableGuest from '../common/components/TableGuest';
 export default function bancoTabela() {
   const[isModalVisible, setIsModalVisible] = useState(false);
 
+  useEffect(() => {
+    axios.get("http://localhost:3000/guest")
+      .then(res => {
+        setGuest(res.data);
+      }).catch(err => {
+        console.log(err);
+      })
+  }, []);
 
   return (
     <div>

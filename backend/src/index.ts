@@ -10,7 +10,7 @@ import cors from 'cors';
 
 const app = express()
 
-const port = 3000
+const port = 3030
 app.use(logger('dev'))
 app.use(helmet());
 app.use(cors());

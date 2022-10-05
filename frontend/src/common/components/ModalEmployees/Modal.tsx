@@ -52,11 +52,12 @@ export default function Modal({ onClose }) {
   const onSubmit = (data: TypeEmployees) => {
     // handleRequest({ method: 'post', url: '/employee', data },
     // console.log)
-    axios.post('http://localhost:3000/employee', {
+    axios.post('http://localhost:3030/employee', {
       name: data.name,
       rg: data.rg,
       cpf: data.cpf,
       email: data.email,
+      
       phone: data.phone,
       password: data.password,
       address: {

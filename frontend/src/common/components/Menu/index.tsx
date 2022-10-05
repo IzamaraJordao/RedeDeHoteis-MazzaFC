@@ -1,22 +1,22 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Menu, MenuButton, IconSaida, HeaderMenu } from './styled';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
-import PersonIcon from '@mui/icons-material/Person';
-import BedIcon from '@mui/icons-material/Bed';
 import { useRouter } from 'next/router';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useSelector } from 'react-redux';
 import { selectEmail } from '../../../store/authSlice';
 import InputAd from '../InputAdministrativo/InputAdm';
+import { Box,Button} from "@mui/material"
+import {
+  AccountCircle as AccountCircleIcon,
+  Bed as BedIcon,
+  EventAvailable as EventAvailableIcon,
+  Home as HomeIcon,
+  Logout as LogoutIcon,
+  PermContactCalendar as PermContactCalendarIcon,
+  Person as PersonIcon,
+} from "@mui/icons-material"
+import { If } from '../If'
 
-
-
-export function AsideMenu(props: { children: React.ReactNode, header: React.ReactNode | string, name: string, jobTitle: string }) {
+export function AsideMenu(props: { children: React.ReactNode, header: React.ReactNode | string, name: string, jobTitle: string , isAdmin: boolean}) {
   const router = useRouter();
   const email = useSelector(selectEmail);
 
@@ -60,7 +60,9 @@ export function AsideMenu(props: { children: React.ReactNode, header: React.Reac
           <Button size="large" onClick={() => { router.push("/reservation") }} startIcon={<EventAvailableIcon />}>Reserva</Button>
           <Button size="large" onClick={() => { router.push("/guest") }} startIcon={<PermContactCalendarIcon />}>Hopedes</Button>
           <Button size="large" onClick={() => { router.push("/employees") }} startIcon={<PersonIcon />}>Funcionários</Button>
+          <If condition={props.isAdmin}>
           <InputAd />
+          </If>
         </MenuButton>
       </Box>
 
