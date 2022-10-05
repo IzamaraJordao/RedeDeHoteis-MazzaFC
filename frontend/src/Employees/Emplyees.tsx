@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-// import Tabela from "../common/components/MultTabela/index";
-import TextField from '@mui/material/TextField';
 import { Table, BoxDiv, BoxExternal, TableHeade } from './styled';
 import Button from '@mui/material/Button';
 import Modal from '../common/components/ModalEmployees/Modal';
@@ -24,10 +21,8 @@ export default function bancoTabela(props: any) {
         <BoxDiv>
           <div>
             <Button variant="contained" onClick={() => setIsVisibled(true)} >NOVO CADASTRO</Button>
-          </div>
-         
+          </div>   
          <TableMain />
-
         </BoxDiv>
       </BoxExternal>
       {isVisibled && <Modal onClose={() => setIsVisibled(false)} />}

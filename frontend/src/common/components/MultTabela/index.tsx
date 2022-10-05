@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-import TableHeader from '../TableHeader';
+import TableHeader from './TableHeader';
 import { omit } from 'ramda';
 ///GridColDef pode incluir uma função ou combinação para uma deternminada coluna
 
@@ -40,7 +40,7 @@ export default function Tabela(props: Props) {
 
   const columns = [
     ...props.columns.map((column) => ({
-      ...column,
+      ...column,  
       sortable: false,
       renderHeader: () => (
         <TableHeader
@@ -52,9 +52,6 @@ export default function Tabela(props: Props) {
     }))
   ]
 
-
-
-  console.log(filter.name)
   return (
     <div style={{ height: 400, width: '1100px', color: '#222' }}>
 

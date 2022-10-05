@@ -14,6 +14,7 @@ export type GuestConstructor = {
 
 
 export class Guest {
+  
   id: string
   name: string
   cpf: string
@@ -58,4 +59,9 @@ export class Guest {
       address_id: this.address.id,
     }
   }
+
+  static filter() {
+    return ['id', 'name', 'email', 'cpf', 'rg', 'phone']
+  }
+
 }

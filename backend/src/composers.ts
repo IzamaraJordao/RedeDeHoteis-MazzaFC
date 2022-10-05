@@ -23,6 +23,8 @@ import { reservationsRepository } from './models/reservations';
 import { GetReservations } from './use-case/reversations/get';
 import { CreateReservations } from './use-case/reversations/create';
 import { DeleteReservations } from './use-case/reversations/delete';
+import { PaginateGuest } from './use-case/guest/paginate';
+import { DeleteGuest } from './use-case/guest/delete';
 
 
 ///Employee
@@ -40,9 +42,10 @@ export const getHotel = new GetHotel(hotelRepository);
 export const createHotel = new CreateHotel(hotelRepository);
 
 ///guest
+export const paginateGuest = new PaginateGuest(guestRepository);
 export const getGuest = new GetGuest(guestRepository);
 export const createGuest = new CreateGuest(guestRepository);
-
+export const deleteGuest = new DeleteGuest(guestRepository);
 
 // bedroom
 export const paginateBedroom = new PaginateBedroom(bedroomRepository);

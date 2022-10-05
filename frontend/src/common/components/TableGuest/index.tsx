@@ -3,24 +3,24 @@ import TableMain from '../MultTabela/index';
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export type BancoEmployees = {
+export type BancoGuest = {
   id: number;
   nome: string;
   rg: string;
   cpf: string;
   email: string;
-  fone: string;
+  phone: string;
+
 }
 
 
-export default function ColumnEmployee(props: any) {
+export default function ColumnGuest() {
 
-  const [employees, setEmployees] = useState<BancoEmployees[]>([]);
+  const [guest, setGuest] = useState<BancoGuest[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
@@ -30,14 +30,14 @@ export default function ColumnEmployee(props: any) {
 
   async function tableMain(page: number, pageSize: number, filter?: object) {
     setIsLoading(true);
-    const response = await axios.get("http://localhost:3000/employee", {
+    const response = await axios.get("http://localhost:3000/guest", {
       params: {
         page,
         pageSize,
         filter,
     }
     });
-    setEmployees(response.data.result);
+    setGuest(response.data.result);
     setPage(response.data.current);
     setPageSize(response.data.pageSize);
     setTotal(response.data.total);
@@ -53,13 +53,13 @@ export default function ColumnEmployee(props: any) {
       denyButtonText: `Não Remover`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/employee/${id}`)
+        axios.delete(`http://localhost:3000/guest/${id}`)
         .then(res => {
           tableMain(page, pageSize);
         }).catch(err => {
           console.log(err);
         })
-        Swal.fire('Funcionário excluido', '', 'success')
+        Swal.fire('Hospede excluido', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }
@@ -91,7 +91,7 @@ export default function ColumnEmployee(props: any) {
       sortable: false,
       disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
      
-      renderCell: (employee: GridRenderCellParams<BancoEmployees>) => {
+      renderCell: (employee: GridRenderCellParams<BancoGuest>) => {
         return (
           <div style={{ color: 'blue', marginLeft: '15px' }}>
             {employee.row.cpf}
@@ -129,14 +129,16 @@ export default function ColumnEmployee(props: any) {
       disableColumnMenu: true,
     
     },
+
     {
       field: 'id',
-      headerName: 'Deletar',
+      headerName: 'Ações',
       headerAlign: 'center',
-      width: 180,
+   
+      width: 80,
       align: 'center',
       disableColumnMenu: true,
-      renderCell: (employee: GridRenderCellParams<BancoEmployees>) => {
+      renderCell: (employee: GridRenderCellParams<BancoGuest>) => {
         return (
           <div>
             <IconButton color='error' sx={{backgroundColor: '#fff !important'}} onClick={() => { handleDelete(employee.row.id) }}><DeleteIcon/></IconButton>
@@ -151,7 +153,7 @@ export default function ColumnEmployee(props: any) {
 
   return (
     <TableMain 
-      data={employees}
+      data={guest}
       columns={columns}
       search={tableMain} 
       isLoading={isLoading} 

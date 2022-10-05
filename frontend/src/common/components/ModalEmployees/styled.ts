@@ -14,9 +14,7 @@ export const ModalCentral = styled.div`
   input{
     margin: 1px;
     color:var(--text);
-    :hover{
-      box-shadow: 0px 10px 13px -7px #000000, 3px -4px 21px 3px rgba(108,99,255,0);
-    }
+   
   }
   label{
     color: var(--text);
