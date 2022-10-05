@@ -14,7 +14,28 @@ import TableMain from '../common/components/TableEmployee/ColumnEmployee';
 export default function bancoTabela(props: any) {
 
   const [isVisibled, setIsVisibled] = useState(false);
- 
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/employee")
+      .then(res => {
+        setEmployees(res.data);
+      }).catch(err => {
+        console.log(err);
+      })
+  }, []);
+
+  function FilterHeader(props: String) {
+    return (
+      <FilterHead>
+
+        <span>{props}</span>
+
+        <div>
+          <TextField id="standard-basic" label={props} />
+        </div>
+      </FilterHead>
+    )
+  }
 
 
 
