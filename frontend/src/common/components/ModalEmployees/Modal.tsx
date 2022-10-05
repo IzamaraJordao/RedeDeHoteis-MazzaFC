@@ -2,24 +2,19 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { ModalCentral, ModalDireita, ModalEsquerda } from './styled';
+import { ModalCentral, InputNomeModal } from './styled';
 import TextField from '@mui/material/TextField';
-/////////////////Botão Select
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import { useForm } from "react-hook-form";
-
+import { handleRequest } from '../../../api';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: 800,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -27,10 +22,22 @@ const style = {
 };
 
 export type TypeEmployees = {
-  nome: String,
-  cpf: String,
-  email: String,
-  perfil: String,
+  name: string,
+  rg: string,
+  cpf: string,
+  email: string,
+  phone: string,
+  password: string,
+  address: {
+    street: string,
+    number: string,
+    complement: string,
+    neighborhood: string,
+    city: string,
+    state: string,
+    zipCode: string
+  },
+  hotel_id: string,
 }
 
 export default function Modal({ onClose }) {
@@ -40,16 +47,56 @@ export default function Modal({ onClose }) {
   };
 
 
-  const { register, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
 
   const onSubmit = (data: TypeEmployees) => {
-    axios.post('http://localhost:4000/employees', {
-      nome: data.nome,
+    // handleRequest({ method: 'post', url: '/employee', data },
+    // console.log)
+    axios.post('http://localhost:3000/employee', {
+      name: data.name,
+      rg: data.rg,
       cpf: data.cpf,
       email: data.email,
-      perfil: data.perfil
+      phone: data.phone,
+      password: data.password,
+      address: {
+        street: data.address.street,
+        number: data.address.number,
+        complement: data.address.complement,
+        neighborhood: data.address.neighborhood,
+        city: data.address.city,
+        state: data.address.state,
+        zipCode: data.address.zipCode
+      },
+      hotel_id: data.hotel_id
     })
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Funcionário cadastrado com sucesso!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
+    onClose();
   }
+
+
+
+  function handleCep(cep: string) {
+
+    if (cep.length === 8) {
+      axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => {
+          setValue('address.street', response.data.logradouro)
+          setValue('address.neighborhood', response.data.bairro)
+          setValue('address.city', response.data.localidade)
+          setValue('address.state', response.data.uf)
+        })
+    }
+
+  }
+
 
   function close() {
     Swal.fire({
@@ -68,120 +115,117 @@ export default function Modal({ onClose }) {
     <div>
 
       <Box sx={style}>
-        <div>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Typography id="modal-modal-title" variant="h4" component="h2" color={'var(--text)'}>
             Cadastro de Funcionário
           </Typography>
         </div>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <InputNomeModal>
+              <label>Nome</label>
+              <TextField
+                size='small' id="name"  {...register("name")} />
+            </InputNomeModal>
+
             <ModalCentral>
-              <ModalEsquerda>
-                <span>Nome</span>
-                <TextField size='small' id="name" label="Name" variant="outlined" {...register("nome")} />
-              </ModalEsquerda>
+              <div>
+                <InputNomeModal>
+                  <label>CPF</label>
+                  <TextField size='small' id="cpf" type="number" variant="outlined" maxRows={11} {...register("cpf")} />
+                </InputNomeModal>
+              </div>
+              <div>
+                <InputNomeModal>
+                  <label>RG</label>
+                  <TextField size='small' id="rg" type="text" variant="outlined" maxRows={11} {...register("rg")} />
+                </InputNomeModal>
+              </div>
+
+              <div>
+                <InputNomeModal>
+                  <label>Telefone</label>
+                  <TextField size='small' id="phone" type="number" variant="outlined" {...register("phone")} />
+                </InputNomeModal>
+              </div>
 
             </ModalCentral>
-
             <ModalCentral>
               <div>
-                <label>CPF</label>
-                <TextField size='small' id="cpf" type="number" label="CPF" variant="outlined" maxRows={11} {...register("cpf")} />
-              </div>
-              <div>
-                <label>RG</label>
-                <TextField size='small' id="cpf" type="number" label="RG" variant="outlined" maxRows={11} />
-              </div>
-              <div>
-                <label>Data de Nasc.</label>
-                <TextField size='small' id="cpf" type="number" label="Data de Nascimento" variant="outlined" maxRows={11} />
-              </div>
-
-            </ModalCentral>
-            <ModalCentral>
-              <div>
+              <InputNomeModal>
                 <label>Email</label>
-                <TextField sx={{ width: '360px' }} size='small' id="email" type="email" variant="outlined" label='Email' {...register("email")} />
+                <TextField sx={{ width: '360px', color: 'var(--text)' }} size='small' id="email" variant="outlined" {...register("email")} />
+                </InputNomeModal>
               </div>
               <div>
-                <label>Telefone</label>
-                <TextField size='small' id="number" type="number" variant="outlined" />
+              <InputNomeModal>
+                <label>Senha</label>
+                <TextField size='small' type="number" variant="outlined" maxRows={11} {...register("password")} />
+                </InputNomeModal>
               </div>
             </ModalCentral>
 
             <ModalCentral>
               <div>
+              <InputNomeModal>
                 <label>CEP</label>
-                <TextField size='small' id="outlined-basic" label="CEP" variant="outlined" />
+                <TextField size='small' variant="outlined" {...register("address.zipCode")} onChange={(e) => handleCep(e.target.value)} />
+                </InputNomeModal>
               </div>
               <div>
-                <label>Lougradouro</label>
-                <TextField sx={{ width: '360px' }} size='small' id="outlined-basic" label="Logradouro" variant="outlined" />
+              <InputNomeModal>
+                <label>Rua</label>
+                <TextField sx={{ width: '360px', color: 'var(--text)' }} size='small' id="outlined-basic" variant="outlined" {...register("address.street")} />
+                </InputNomeModal>
               </div>
             </ModalCentral>
             <ModalCentral>
               <div>
+              <InputNomeModal>
                 <label>Bairro</label>
-                <TextField sx={{ width: '360px' }} size='small' id="outlined-basic" label="CEP" variant="outlined" />
+                <TextField sx={{ width: '160px' }} size='small' variant="outlined" {...register("address.neighborhood")} />
+                </InputNomeModal>
               </div>
               <div>
+              <InputNomeModal>
                 <label>Número</label>
-                <TextField size='small' id="outlined-basic" label="Logradouro" variant="outlined" />
+                <TextField size='small' id="outlined-basic" variant="outlined" {...register("address.number")} />
+                </InputNomeModal>
+              </div>
+              <div>
+              <InputNomeModal>
+                <label>Hotel</label>
+                <TextField size='small' id="outlined-basic" variant="outlined" {...register("hotel_id")} />
+                </InputNomeModal>
               </div>
             </ModalCentral>
             <ModalCentral>
               <div>
+              <InputNomeModal>
                 <label>Cidade</label>
-                <TextField sx={{ width: '260px' }} size='small' id="cpf" type="text" label="Cidade" variant="outlined" maxRows={11} />
+                <TextField sx={{ width: '260px' }} size='small' id="cpf" type="text" variant="outlined" maxRows={11} {...register("address.city")} />
+                </InputNomeModal>
               </div>
               <div>
+              <InputNomeModal>
                 <label>UF</label>
-                <TextField sx={{ width: '100px' }} size='small' id="cpf" type="text" label="UF" variant="outlined" maxRows={11} />
+                <TextField sx={{ width: '100px' }} size='small' id="cpf" type="text" variant="outlined" maxRows={11} {...register("address.state")} />
+                </InputNomeModal>
               </div>
               <div>
+              <InputNomeModal>
                 <label>Complemento</label>
-                <TextField size='small' id="cpf" type="text" label="Complemento" variant="outlined" maxRows={11} />
+                <TextField size='small' id="cpf" type="text" variant="outlined" maxRows={11} {...register("address.complement")} />
+                </InputNomeModal>
               </div>
             </ModalCentral>
-            <ModalCentral>
-              <div>
-                <label>Perfil</label>
-                <FormControl fullWidth sx={{ width: '260px' }}>
-                  <InputLabel id="demo-simple-select-label"  >Age</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    /////////
-                    onChange={handleChange}
-                  // {...register("perfil")}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                    {/* <MenuItem >Recepcionista</MenuItem>
-                    <MenuItem>Auxiliar de Limpeza</MenuItem>
-                    <MenuItem>Camareira</MenuItem> */}
-                  </Select>
-                </FormControl>
-              </div>
-              <div>
-                <TextField
-                  sx={{ width: '320px' }}
-                  id="outlined-multiline-static"
-                  label="Observação"
-                  multiline
-                  rows={4}
-                  defaultValue="Observação"
-                />
-              </div>
-            </ModalCentral>
-            <Button color="success" variant="contained" type='submit'  >Enviar</Button>
-            <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
+
+            <Button sx={{bgcolor: 'var(--text)'}} variant="contained" type='submit'  >Enviar</Button>
+            <Button variant="contained" color="error" onClick={close}>Cancelar</Button>
           </form>
         </div>
       </Box>
     </div>
   )
 }
+         
