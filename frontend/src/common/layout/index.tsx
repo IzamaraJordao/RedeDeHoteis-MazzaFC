@@ -14,8 +14,8 @@ export function Layout({ children, header }):any {
     try{
       const token = localStorage.getItem('@token')
       const hotel = JSON.parse(localStorage.getItem('@hotel') as string)
-     const user = JSON.parse(localStorage.getItem('@user') as string)
-     dispatch(setAuth({token, hotel, user}))
+      const user = JSON.parse(localStorage.getItem('@user') as string)
+      dispatch(setAuth({token, hotel, user}))
     }
     catch(e){
       console.log(e)
@@ -37,7 +37,7 @@ export function Layout({ children, header }):any {
 
 
   return (
-      <AsideMenu name={name as string} jobTitle="Gerente" header={header} >
+      <AsideMenu name={name as string} jobTitle="Gerente" header={header} isAdmin={true} >
       {children}
       </AsideMenu>
     
