@@ -72,7 +72,7 @@
   "include": [
     "./**/*.ts",
     "src/common/components/LoginComponent.tsx"
-, "src/common/components/Input/Index.tsx", "src/common/components/MenuHome/index.tsx", "src/common/components/themeProvider/MyThemeProvider.tsx", "src/common/components/contexts/index.tsx"  ],
+, "src/common/components/Input/Index.tsx", "src/common/components/MenuHome/index.tsx", "src/common/components/themeProvider/MyThemeProvider.tsx", "src/common/components/contexts/index.tsx", "src/common/layout/index.ts"  ],
   "exclude": [
     "node_modules/**/*",
     ".webpack/**/*",

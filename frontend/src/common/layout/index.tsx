@@ -1,11 +1,11 @@
-import { unstable_deprecatedPropType } from '@mui/utils'
+
 import router from 'next/router'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectName, selectToken, setAuth } from '../../store/authSlice'
 import { AsideMenu } from '../components'
 
-export function Layout({ children, header }) {
+export function Layout({ children, header }):any {
   const name = useSelector(selectName)
   const token = useSelector(selectToken)
   const dispatch = useDispatch()
