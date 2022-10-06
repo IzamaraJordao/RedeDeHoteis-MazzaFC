@@ -22,7 +22,7 @@ export function InputS(props: Props) {
           />
         )}
       />
-         <p>{errors[props.name]?.message}</p>
+         <p>{errors[props.name]?.message as string}</p>
     </>
   )
 }

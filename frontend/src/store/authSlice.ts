@@ -60,16 +60,25 @@ export const authSlice = createSlice({ /// Recebe 3 parametros
       state.token = action.payload.token;
       state.hotel = action.payload.hotel;
       state.user = action.payload.user;
+
+      
+    },
+    setLogout (state, action) {
+      state.authState = false
+      state.token = "";
+      state.hotel = undefined;
+      state.user = undefined;
     }
   },
 });
 
-export const { setAuthState, setAuth } = authSlice.actions; // Exportando as actions
+export const { setAuthState, setAuth, setLogout } = authSlice.actions; // Exportando as actions
 
 
 export const selectAuthState = (state: AppState) => state.auth.authState; // Exportando o state, ou pode chamar direto na onde utilizar
 export const selectEmail = (state: AppState) => state.auth.user?.email;
 export const selectToken = (state: AppState) => state.auth.token;
 export const selectName = (state: AppState) => state.auth.user?.name;// Exportando o state
+
 
 export default authSlice.reducer; // Exportando o reducer

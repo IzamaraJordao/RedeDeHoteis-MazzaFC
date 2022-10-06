@@ -5,7 +5,6 @@ import Guest from '../Guest/Guest'
 import  Header from '../common/components/Header'
 
 
-// import Home from '../Home/home'
 
 export default function guest() {
   const header = () => {return <Header title="Hospedes"/>}
