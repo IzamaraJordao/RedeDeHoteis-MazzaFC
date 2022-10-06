@@ -6,7 +6,7 @@ export const BodyLogin = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 97vh;
+  height: 95vh;
   overflow: hidden;
 
   
@@ -20,23 +20,23 @@ export const Div = styled.div`
   color: #333;
 `
 
-export const Input = styled.input`
-  // border-bottom: 2px solid var(--text);
-  width: 250px;
-  height: 40px;
-  padding: 5px;
-  font-size: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+// export const Input = styled.input`
+//   // border-bottom: 2px solid var(--text);
+//   width: 250px;
+//   height: 40px;
+//   padding: 5px;
+//   font-size: 15px;
+//   margin-bottom: 10px;
+//   border-radius: 5px;
  
-`
+// `
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #fff;
   width: 350px;
-  height: 450px;
+  height: 350px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
@@ -45,11 +45,13 @@ export const Form = styled.form`
   h2 {
     font-size: 2rem;
     color: #4d42fa;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Arial, Helvetica;
+    margin-top: 20px;
   }
   p {
     color: red;
     font-size: 18px;
+    margin-top: 10px;
     
 
   }
@@ -58,18 +60,20 @@ export const Form = styled.form`
     background-color: #4d42fa;
     color: #fff;
     width: 150px;
-    height: 60px;
+    height: 40px;
     padding: 2px;
     border-radius: 5px;
     font-size: 15px;
     border: none;
     cursor: pointer;
+    margin-top: 20px;
   }
   label {
-    margin-right: 200px;
+    margin-right: 20px;
     font-family: Arial, Helvetica;
     font-size: 15px;
     font-weight: bold;
+    margin-top: 20px;
     
   }
 `

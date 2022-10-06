@@ -20,7 +20,7 @@ export default function bancoTabela() {
   const [isVisibled, setIsVisibled] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/employee")
+    axios.get("http://localhost:3030/employee")
       .then(res => {
         setEmployees(res.data);
       }).catch(err => {
