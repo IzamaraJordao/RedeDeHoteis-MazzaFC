@@ -131,7 +131,7 @@ export default function ColumnEmployee(props: any) {
     },
     {
       field: 'id',
-      headerName: 'Deletar',
+      headerName: 'Ações',
       headerAlign: 'center',
       width: 180,
       align: 'center',

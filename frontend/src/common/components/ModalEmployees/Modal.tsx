@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { ModalCentral, InputNomeModal } from './styled';
+import { ModalCentral, InputNomeModal, ModalExterna } from './styled';
 import TextField from '@mui/material/TextField';
 import Swal from 'sweetalert2'
 import axios from 'axios';
@@ -113,8 +113,7 @@ export default function Modal({ onClose }) {
 
 
   return (
-    <div>
-
+    <ModalExterna>
       <Box sx={style}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography id="modal-modal-title" variant="h4" component="h2" color={'var(--text)'}>
@@ -226,7 +225,7 @@ export default function Modal({ onClose }) {
           </form>
         </div>
       </Box>
-    </div>
+    </ModalExterna>
   )
 }
          

@@ -25,6 +25,7 @@ import { CreateReservations } from './use-case/reversations/create';
 import { DeleteReservations } from './use-case/reversations/delete';
 import { PaginateGuest } from './use-case/guest/paginate';
 import { DeleteGuest } from './use-case/guest/delete';
+import { UpdateGuest } from './use-case/guest/update';
 
 
 ///Employee
@@ -46,6 +47,7 @@ export const paginateGuest = new PaginateGuest(guestRepository);
 export const getGuest = new GetGuest(guestRepository);
 export const createGuest = new CreateGuest(guestRepository);
 export const deleteGuest = new DeleteGuest(guestRepository);
+export const updateGuest = new UpdateGuest(guestRepository);
 
 // bedroom
 export const paginateBedroom = new PaginateBedroom(bedroomRepository);
