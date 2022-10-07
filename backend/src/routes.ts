@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom, paginateEmployee, paginateBedroom, paginateReservations, getReservations, createReservations, deleteReservations } from './composers';
+import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom, paginateEmployee, paginateBedroom, paginateReservations, getReservations, createReservations, deleteReservations, paginateGuest, deleteGuest, updateGuest } from './composers';
 
 const router = Router();
 
@@ -20,9 +20,11 @@ router.get('/hotel/:id', controllerExpress(getHotel))
 
 
 //guest
+router.get('/guest', controllerExpress(paginateGuest))
 router.get('/guest/:id', controllerExpress(getGuest))
 router.post('/guest', controllerExpress(createGuest))
-
+router.delete('/guest/:id', controllerExpress(deleteGuest))
+router.put('/guest/:id', controllerExpress(updateGuest))
 //bedroom
 router.get('/bedroom', controllerExpress(paginateBedroom));
 router.get('/bedroom/:id', controllerExpress(getBedroom))

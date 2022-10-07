@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Table, BoxDiv, BoxExternal, FilterHead} from './styled';
+import React, { useState } from "react";
+import { BoxDiv, BoxExternal } from './styled';
 import Button from '@mui/material/Button';
 import Modal from '../common/components/ModalEmployees/Modal';
 import TableMain from '../common/components/TableEmployee/ColumnEmployee';
@@ -17,10 +17,8 @@ export default function bancoTabela(props: any) {
         <BoxDiv>
           <div>
             <Button variant="contained" onClick={() => setIsVisibled(true)} >NOVO CADASTRO</Button>
-          </div>
-         
+          </div>   
          <TableMain />
-
         </BoxDiv>
       </BoxExternal>
       {isVisibled && <Modal onClose={() => setIsVisibled(false)} />}

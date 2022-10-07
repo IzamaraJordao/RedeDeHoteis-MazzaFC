@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { ModalCentral, InputNomeModal } from './styled';
+import { ModalCentral, InputNomeModal, ModalExterna } from './styled';
 import TextField from '@mui/material/TextField';
 import Swal from 'sweetalert2'
 import axios from 'axios';
@@ -113,8 +113,7 @@ export default function Modal({ onClose }) {
 
 
   return (
-    <div>
-
+    <ModalExterna>
       <Box sx={style}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography id="modal-modal-title" variant="h4" component="h2" color={'var(--text)'}>
@@ -124,9 +123,9 @@ export default function Modal({ onClose }) {
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <InputNomeModal>
-              <label>Nome</label>
+              <label style={{marginLeft:'10px', color: 'var(--text)'}}>Nome</label>
               <TextField
-                size='small' id="name"  {...register("name")} />
+                size='small' id="name" sx={{width: '757px'}}  {...register("name")} />
             </InputNomeModal>
 
             <ModalCentral>
@@ -155,7 +154,7 @@ export default function Modal({ onClose }) {
               <div>
               <InputNomeModal>
                 <label>Email</label>
-                <TextField sx={{ width: '360px', color: 'var(--text)' }} size='small' id="email" variant="outlined" {...register("email")} />
+                <TextField sx={{ width: '500px', color: 'var(--text)' }} size='small' id="email" variant="outlined" {...register("email")} />
                 </InputNomeModal>
               </div>
               <div>
@@ -176,7 +175,7 @@ export default function Modal({ onClose }) {
               <div>
               <InputNomeModal>
                 <label>Rua</label>
-                <TextField sx={{ width: '360px', color: 'var(--text)' }} size='small' id="outlined-basic" variant="outlined" {...register("address.street")} />
+                <TextField sx={{ width: '500px', color: 'var(--text)' }} size='small' id="outlined-basic" variant="outlined" {...register("address.street")} />
                 </InputNomeModal>
               </div>
             </ModalCentral>
@@ -184,7 +183,7 @@ export default function Modal({ onClose }) {
               <div>
               <InputNomeModal>
                 <label>Bairro</label>
-                <TextField sx={{ width: '160px' }} size='small' variant="outlined" {...register("address.neighborhood")} />
+                <TextField sx={{ width: '360px' }} size='small' variant="outlined" {...register("address.neighborhood")} />
                 </InputNomeModal>
               </div>
               <div>
@@ -204,7 +203,7 @@ export default function Modal({ onClose }) {
               <div>
               <InputNomeModal>
                 <label>Cidade</label>
-                <TextField sx={{ width: '260px' }} size='small' id="cpf" type="text" variant="outlined" maxRows={11} {...register("address.city")} />
+                <TextField sx={{ width: '460px' }} size='small' id="cpf" type="text" variant="outlined" maxRows={11} {...register("address.city")} />
                 </InputNomeModal>
               </div>
               <div>
@@ -226,7 +225,7 @@ export default function Modal({ onClose }) {
           </form>
         </div>
       </Box>
-    </div>
+    </ModalExterna>
   )
 }
          

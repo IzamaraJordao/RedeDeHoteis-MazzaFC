@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-import TableHeader from '../TableHeader';
+import TableHeader from './TableHeader';
 import { omit } from 'ramda';
+import { Pagination } from "../../../template/types/pagination";
 ///GridColDef pode incluir uma função ou combinação para uma deternminada coluna
 
 interface Props {
   data: GridRowsProp<any>
   columns: GridColDef[]
-  search: (page: number, pageSize: number, filter?: object) => void
+  search: (pagination: Pagination<any>) => void
   isLoading: boolean // pagina sendo carregada
   page: number // pagina atual
   pageSize: number // tamanho da pagina
@@ -35,12 +36,12 @@ export default function Tabela(props: Props) {
   }
 
   useEffect(() => {
-    props.search(1, pageSize, filter);
+    props.search({page, pageSize, filter});
   }, [filter, pageSize])
 
-  const columns = [
+   const columns =  [
     ...props.columns.map((column) => ({
-      ...column,
+      ...column,  
       sortable: false,
       renderHeader: () => (
         <TableHeader
@@ -52,9 +53,6 @@ export default function Tabela(props: Props) {
     }))
   ]
 
-
-
-  console.log(filter.name)
   return (
     <div style={{ height: 400, width: '1100px', color: '#222' }}>
 

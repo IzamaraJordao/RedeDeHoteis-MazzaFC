@@ -1,6 +1,5 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { Table } from './styled';
-import TableMain from './index';
+import TableMain from '../MultTabela/index';
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -132,7 +131,7 @@ export default function ColumnEmployee(props: any) {
     },
     {
       field: 'id',
-      headerName: 'Deletar',
+      headerName: 'Ações',
       headerAlign: 'center',
       width: 180,
       align: 'center',

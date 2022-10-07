@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ModalF from "../common/components/ModalC/index";
+// import ModalF from "../common/components/ModalC/index";
 import { Button } from "@mui/material";
 import { BoxDiv, BoxExternal } from './styled';
 
@@ -19,7 +19,7 @@ export default function bancoTabela() {
       </BoxExternal>
   
    
-    {isModalVisible ?<ModalF onClose={() => setIsModalVisible(false)}/>: null}
+    {/* {isModalVisible ?<ModalF onClose={() => setIsModalVisible(false)}/>: null} */}
     </div>
   )
 }

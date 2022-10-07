@@ -3,6 +3,7 @@ import { Guest } from './guest'
 import { sequelize } from '../../database'
 import { Sequelize } from 'sequelize/types'
 import { DbError } from '../../exceptions/dbError'
+import { PaginateParams } from '../employees'
 
 
 
@@ -13,13 +14,27 @@ export class GuestRepositorySequelize implements GuestRepository {
     this.sequelize = sequelize.models.Guest
     this.address = sequelize.models.Address
   }
-    async save(guest: Guest): Promise<void> {
+  async save(guest: Guest): Promise<void> {
     await this.address.create(guest.address.data)
     await this.sequelize.create(guest.data)
   }
-  paginate(): Promise<Guest[]> {
-    throw new Error('Method not implemented.')
+
+  async paginate({ filter, pageSize, page }: PaginateParams): Promise<Guest[] | number> {
+    if (pageSize === 0) {
+      return await this.sequelize.count({
+        where: filter
+      })
+    }
+    const response = await this.sequelize.findAll(
+      {
+        where: filter,
+        offset: (page - 1) * pageSize,
+        limit: pageSize,
+      });
+    return response.map((guest) => new Guest(guest.toJSON()));
   }
+
+
   async findById(id: string): Promise<Guest> {
     const response = await this.sequelize.findByPk(id)
     if (response) {
@@ -32,27 +47,30 @@ export class GuestRepositorySequelize implements GuestRepository {
     const guest = await this.sequelize.findOne({
       where: {
         cpf: cpf,
-    } 
+      }
     })
-    if (guest){
+    if (guest) {
       return new Guest(guest.toJSON())
     }
     return undefined;
-}
-async delete(id: string): Promise<void> {
-  await this.sequelize.destroy({
-    where: {
-      id: id,
-  }})
+  }
+  async delete(id: string): Promise<void> {
+    await this.sequelize.destroy({
+      where: {
+        id: id,
+      }
+    })
 
-}
+  }
   async update(id: string, guest: Guest): Promise<void> {
     await this.sequelize.update(guest.data, {
       where: {
         id: id,
       },
     })
-  }
+
 }
+}
+
 
 //
