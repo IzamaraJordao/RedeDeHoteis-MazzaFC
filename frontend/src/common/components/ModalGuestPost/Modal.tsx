@@ -22,7 +22,7 @@ const style = {
   p: 4,
 }
 
-export type TypeEmployees = {
+export type TypeGuest = {
   name: string
   cpf: string
   rg: string
@@ -49,11 +49,10 @@ export default function Modal({ onClose }) {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeEmployees>()
+  } = useForm<TypeGuest>()
 
-  const onSubmit = (data: TypeEmployees) => {
-    // handleRequest({ method: 'post', url: '/employee', data },
-    // console.log)
+  
+  const onSubmit = (data: TypeGuest) => {
     axios
       .post('http://localhost:3030/guest', {
         name: data.name,
@@ -78,8 +77,8 @@ export default function Modal({ onClose }) {
           showConfirmButton: false,
           timer: 1500,
         })
+        onClose()
       })
-    onClose()
     
   }
 

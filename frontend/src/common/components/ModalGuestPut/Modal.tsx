@@ -23,7 +23,9 @@ const style = {
   p: 4,
 }
 
-export type TypeEmployees = {
+
+
+export type TypeGuest = {
   name: string
   cpf: string
   rg: string
@@ -41,6 +43,8 @@ export type TypeEmployees = {
   hotel_id: string
 }
 
+
+
 export default function Modal(props : any) {
   const [age, setAge] = React.useState('')
   const { enqueueSnackbar } = useSnackbar()
@@ -51,7 +55,7 @@ export default function Modal(props : any) {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeEmployees>()
+  } = useForm<TypeGuest>()
 
 
   async function getGuestBanco(id: string) {
@@ -65,11 +69,11 @@ export default function Modal(props : any) {
   } 
 
   useEffect(() => {
-    getGuestBanco(props.idGuest)
-  },[ props.idGuest ])
+    getGuestBanco(props.id)
+  },[ props.id ])
 
 
-  const onSubmit = (data: TypeEmployees) => {
+  const onSubmit = (data: TypeGuest) => {
     axios
       .put('http://localhost:3030/guest', {
         name: data.name,

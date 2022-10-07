@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ModalGuest from '../common/components/ModalGuestPost/Modal'
-import ModalGuestPut from '../common/components/ModalGuestPut/Modal'
+import ModalGuestPut, { TypeGuest } from '../common/components/ModalGuestPut/Modal'
 import { Button } from '@mui/material'
 import { BoxDiv, BoxExternal } from './styled'
 import { guestPaginate, guestDelete } from '../api/guest/api-guest'
@@ -23,6 +23,7 @@ import { Pagination } from '../template/types/pagination'
 import EditIcon from '@mui/icons-material/Edit'
 import axios from 'axios'
 import { If } from '../common/components/If'
+import { useRouter } from 'next/router'
 
 export type BancoGuest = {
   id: number
@@ -31,24 +32,36 @@ export type BancoGuest = {
   cpf: string
   email: string
   phone: string
+  address
 }
 
 export default function PageGuest() {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
+
   const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar()
+  const router = useRouter()
+
   const pagination = useSelector(selectPaginate)
   const data = useSelector(selectData)
   const guest = useSelector(selectGuest)
   const isLoading = useSelector(selectIsLoading)
   const isFormLoading = useSelector(selectIsFormLoading)
+  
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
   const [value, setValue] = useState<BancoGuest>()
-  const [idModal, setIdModal] = useState<string>()
+  const [idModal, setIdModal] = useState<any>()
+  
 
   useEffect(() => {
     guestPaginate(pagination, enqueueSnackbar, dispatch)
   }, [])
+
+  useEffect(() => {
+    if(router.query.id){
+      setIsModalVisiblePut(true)
+    }
+  },[router.query.id])
 
   function handleDelete(id: string) {
     Swal.fire({
@@ -69,12 +82,6 @@ export default function PageGuest() {
     })
   }
 
-  function ModalPutGuest(id: string) {
-    setIsModalVisiblePut(true)
-    axios.get(`http://localhost:3030/guest/${id}`).then((response) => {
-      setValue(response.data)
-    })
-  }
 
   const columns: GridColDef[] = [
     {
@@ -158,7 +165,7 @@ export default function PageGuest() {
                 color: 'var(--tertiary)',
               }}
               onClick={() => {
-                setIsModalVisiblePut(true), setIdModal(guest.row.id)
+                setIdModal(guest.row.id) , setIsModalVisiblePut(true)
               }}
             >
               <EditIcon />
@@ -168,6 +175,8 @@ export default function PageGuest() {
       },
     },
   ]
+
+  console.log('idModal', idModal)
 
   return (
     <div>
@@ -192,23 +201,30 @@ export default function PageGuest() {
         </BoxDiv>
       </BoxExternal>
 
-      {isModalVisible ? (
+
+      {/* <If condition={isModalVisiblePut}>
         <ModalGuest
           onClose={async () => {
-            setIsModalVisible(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
-          }}
+            setIsModalVisiblePut(false)
+            router.replace({
+              pathname: '/guest',
+            })
+          } }
+          
         />
-      ) : null}
-      <If condition={isModalVisiblePut}>
+      </If> */}
+     {isModalVisiblePut && 
         <ModalGuestPut
           onClose={async () => {
-            setIsModalVisible(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
-          }}
-          idGuest={idModal}
+            setIsModalVisible(false)
+            router.replace({
+              pathname: '/guest',
+            })
+          } }
+          id={idModal}
         />
-      </If>
+       
+        }
     </div>
   )
 }

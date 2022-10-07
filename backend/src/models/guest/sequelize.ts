@@ -63,7 +63,14 @@ export class GuestRepositorySequelize implements GuestRepository {
 
   }
   async update(id: string, guest: Guest): Promise<void> {
-    await this.sequelize.update(guest.data, {
+    
+    await this.sequelize.update({
+      name: guest.name,
+      cpf: guest.cpf,
+      rg: guest.rg,
+      phone: guest.phone,
+      email: guest.email,
+    }, {
       where: {
         id: id,
       },
