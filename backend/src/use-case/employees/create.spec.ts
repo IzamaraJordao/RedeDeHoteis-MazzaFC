@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { encrypter } from '../../helpers/encrypter'
 import { Address } from '../../models/address/address'
 import { EmployeeInMemory, Employee } from '../../models/employees'
 import { CreateEmployee } from './create'
@@ -12,6 +13,7 @@ function makeSut() {
     rg: 'any_rg',
     phone: 'any_phone',
     password: 'any_password',
+    hotel_id: 'any_hotel_id',
     address: new Address({
       street: 'any_street',
       number: 'any_number',
@@ -25,7 +27,7 @@ function makeSut() {
   const employee = new Employee(data)
   const repository = new EmployeeInMemory()
   repository.data = [employee]
-  const sut = new CreateEmployee(repository)
+  const sut = new CreateEmployee(repository, encrypter)
   return { sut, repository, employee, data }
 }
 

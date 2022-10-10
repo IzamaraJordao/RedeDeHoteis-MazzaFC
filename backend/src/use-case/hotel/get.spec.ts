@@ -5,7 +5,7 @@ import { HotelInMemory, Hotel } from '../../models/hotel'
 
 function makeSut() {
   const hotel = new Hotel({
-    cnpj: 123456789,
+    cnpj: '123456789',
     name: 'any_name',
     address: new Address({
       street: 'any_street',

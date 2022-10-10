@@ -26,6 +26,8 @@ import { DeleteReservations } from './use-case/reversations/delete';
 import { PaginateGuest } from './use-case/guest/paginate';
 import { DeleteGuest } from './use-case/guest/delete';
 import { UpdateGuest } from './use-case/guest/update';
+import { UpdateEmployee } from './use-case/employees/update';
+import { UpdateReservations } from './use-case/reversations/update';
 
 
 ///Employee
@@ -33,6 +35,7 @@ export const paginateEmployee = new PaginateEmployee(employeeRepository);
 export const getEmployee = new GetEmployee(employeeRepository);
 export const createEmployee = new CreateEmployee(employeeRepository, encrypter);
 export const deleteEmployee = new DeleteEmployee(employeeRepository);
+export const updateEmployee = new UpdateEmployee(employeeRepository);
 //
 
 // Auth
@@ -60,4 +63,5 @@ export const paginateReservations = new PaginateReservations(reservationsReposit
 export const getReservations = new GetReservations(reservationsRepository);
 export const createReservations = new CreateReservations(reservationsRepository);
 export const deleteReservations = new DeleteReservations(reservationsRepository);
+export const updateReservations = new UpdateReservations(reservationsRepository);
 

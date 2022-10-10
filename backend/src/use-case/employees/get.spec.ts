@@ -11,6 +11,7 @@ function makeSut() {
     rg: 'any_rg',
     password: 'any_password',
     phone: 'any_phone',
+    hotel_id: 'any_hotel_id',
     address: new Address({
       street: 'any_street',
       number: 'any_number',

@@ -7,7 +7,7 @@ import { Address } from '../../models/address/address'
 
 function makeSut() {
   const hotel = new Hotel({
-    cnpj: 123456789,
+    cnpj: '123456789',
     name: 'any_name',
     address: new Address({
       street: 'any_street',
