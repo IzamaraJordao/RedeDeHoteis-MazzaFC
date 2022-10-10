@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import Tabela from "../common/components/MultTabela/index";
-import ModalF from "../common/components/ModalC/index";
 import { Button } from "@mui/material";
 import { BoxDiv, BoxExternal } from './styled';
 import Modal from '../common/components/ModalRegistration/Modal';
