@@ -52,7 +52,7 @@ export class HotelRepositorySequelize implements HotelRepository {
         offset: (page - 1) * pageSize,
         limit: pageSize,
         });
-    return response.map((employee) => new Hotel(employee.toJSON())) ;
+    return response.map((hotel) => new Hotel(hotel.toJSON())) ;
   }
 
 
