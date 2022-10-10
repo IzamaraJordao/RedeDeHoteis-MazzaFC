@@ -203,7 +203,7 @@ export default function PageGuest() {
       <If condition={isModalVisiblePut}>
         <ModalGuestPut
           onClose={async () => {
-            setIsModalVisible(false),
+            setIsModalVisiblePut(false),
               await guestPaginate(pagination, enqueueSnackbar, dispatch)
           }}
           idGuest={idModal}

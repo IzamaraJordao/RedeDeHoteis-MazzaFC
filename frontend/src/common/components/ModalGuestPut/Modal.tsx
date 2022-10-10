@@ -23,22 +23,13 @@ const style = {
   p: 4,
 }
 
-export type TypeEmployees = {
+export type TypeGuest = {
   name: string
   cpf: string
   rg: string
   email: string
   phone: string
-  address: {
-    street: string
-    number: string
-    complement: string
-    neighborhood: string
-    city: string
-    state: string
-    zipCode: string
-  }
-  hotel_id: string
+  address: string
 }
 
 export default function Modal(props : any) {
@@ -51,17 +42,18 @@ export default function Modal(props : any) {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeEmployees>()
+  } = useForm<TypeGuest>()
 
 
   async function getGuestBanco(id: string) {
-    const data = await guestById(id, enqueueSnackbar, dispatch)
-      setValue('name', data.name)
-      setValue('cpf', data.cpf)
-      setValue('rg', data.rg)
-      setValue('phone', data.phone)
-      setValue('email',data.email)
-  
+    axios.get(`http://localhost:3030/guest/${id}`)
+    .then((res) => {
+      setValue('name', res.data.name)
+      setValue('cpf', res.data.cpf)
+      setValue('rg', res.data.rg)
+      setValue('phone', res.data.phone)
+      setValue('email',res.data.email)
+    })
   } 
 
   useEffect(() => {
@@ -69,7 +61,7 @@ export default function Modal(props : any) {
   },[ props.idGuest ])
 
 
-  const onSubmit = (data: TypeEmployees) => {
+  const onSubmit = (data: TypeGuest) => {
     axios
       .put('http://localhost:3030/guest', {
         name: data.name,
@@ -77,6 +69,7 @@ export default function Modal(props : any) {
         cpf: data.cpf,
         email: data.email,
         phone: data.phone,
+        address: data.address,
       })
       .then(() => {
         Swal.fire({
@@ -88,6 +81,7 @@ export default function Modal(props : any) {
       })
     props.onClose()
   }
+
 
   function close() {
     Swal.fire({
@@ -134,9 +128,7 @@ export default function Modal(props : any) {
                   <TextField
                     size="small"
                     id="cpf"
-                    type="number"
                     variant="outlined"
-                    maxRows={11}
                     {...register('cpf')}
                   />
                 </InputNomeModal>
@@ -182,99 +174,20 @@ export default function Modal(props : any) {
                 </InputNomeModal>
               </div>
             </ModalCentral>
-
-            {/* <ModalCentral>
+            <ModalCentral>
               <div>
                 <InputNomeModal>
-                  <label>CEP</label>
+                  <label>Endereço</label>
                   <TextField
+                    sx={{ width: '695px', color: 'var(--text)' }}
                     size="small"
+                    id="address"
                     variant="outlined"
-                    {...register('address.zipCode')}
-                    
-                  />
-                </InputNomeModal>
-              </div>
-              <div>
-                <InputNomeModal>
-                  <label>Rua</label>
-                  <TextField
-                    sx={{ width: '500px', color: 'var(--text)' }}
-                    size="small"
-                    id="outlined-basic"
-                    variant="outlined"
-                    {...register('address.street')}
+                    {...register('address')}
                   />
                 </InputNomeModal>
               </div>
             </ModalCentral>
-            <ModalCentral>
-              <div>
-                <InputNomeModal>
-                  <label>Bairro</label>
-                  <TextField
-                    sx={{ width: '560px' }}
-                    size="small"
-                    variant="outlined"
-                    {...register('address.neighborhood')}
-                  />
-                </InputNomeModal>
-              </div>
-              <div>
-                <InputNomeModal>
-                  <label>Número</label>
-                  <TextField
-                    size="small"
-                    id="outlined-basic"
-                    variant="outlined"
-                    {...register('address.number')}
-                  />
-                </InputNomeModal>
-              </div>
-            </ModalCentral>
-            <ModalCentral>
-              <div>
-                <InputNomeModal>
-                  <label>Cidade</label>
-                  <TextField
-                    sx={{ width: '360px' }}
-                    size="small"
-                    id="cpf"
-                    type="text"
-                    variant="outlined"
-                    maxRows={11}
-                    {...register('address.city')}
-                  />
-                </InputNomeModal>
-              </div>
-              <div>
-                <InputNomeModal>
-                  <label>UF</label>
-                  <TextField
-                    sx={{ width: '100px' }}
-                    size="small"
-                    id="cpf"
-                    type="text"
-                    variant="outlined"
-                    maxRows={11}
-                    {...register('address.state')}
-                  />
-                </InputNomeModal>
-              </div>
-              <div>
-                <InputNomeModal>
-                  <label>Complemento</label>
-                  <TextField
-                    size="small"
-                    id="cpf"
-                    type="text"
-                    variant="outlined"
-                    maxRows={11}
-                    {...register('address.complement')}
-                  />
-                </InputNomeModal>
-              </div>
-            </ModalCentral> */}
 
             <Button
               sx={{ bgcolor: 'var(--text)' }}
