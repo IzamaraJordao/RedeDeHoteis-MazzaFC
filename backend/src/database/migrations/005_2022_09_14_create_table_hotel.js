@@ -8,8 +8,6 @@ module.exports = {
         increment: true,                                                 
         type: Sequelize.STRING(36),
         primaryKey: true,
-       
-
       },
       cnpj: {
         allowNull: false,

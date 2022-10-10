@@ -56,8 +56,7 @@ export default function Modal({ onClose }) {
       name: data.name,
       rg: data.rg,
       cpf: data.cpf,
-      email: data.email,
-      
+      email: data.email,     
       phone: data.phone,
       password: data.password,
       address: {
@@ -103,7 +102,7 @@ export default function Modal({ onClose }) {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: 'Hospede não cadastrado!',
+      title: 'Funcionario não cadastrado!',
       showConfirmButton: false,
       timer: 1500
     })

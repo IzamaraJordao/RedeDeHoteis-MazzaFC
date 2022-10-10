@@ -70,6 +70,31 @@ export default function ColumnEmployee(props: any) {
   useEffect(() => {
     tableMain(1,10);
   },[])
+  
+// função para editar os dados do funcionário
+  const handleEdit = (id: number,data:any) => {
+     axios.put(`http://localhost:3030/employee/${id}`,{
+      name: data.name,
+      rg: data.rg,
+      cpf: data.cpf,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+      address: {
+        street: data.address.street,
+        number: data.address.number,
+        complement: data.address.complement,
+        neighborhood: data.address.neighborhood,
+        city: data.address.city,
+        state: data.address.state,
+        zipCode: data.address.zipCode
+      },
+      hotel_id: data.hotel_id
+
+
+     })
+
+  }
 
   const columns: GridColDef[] = [
 
@@ -140,6 +165,7 @@ export default function ColumnEmployee(props: any) {
         return (
           <div>
             <IconButton color='error' sx={{backgroundColor: '#fff !important'}} onClick={() => { handleDelete(employee.row.id) }}><DeleteIcon/></IconButton>
+
           </div>
         )
       }

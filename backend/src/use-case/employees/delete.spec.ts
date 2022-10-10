@@ -11,6 +11,8 @@ function makeSut() {
     cpf: '999.999.999-99',
     rg: 'any_rg',
     phone: 'any_phone',
+    password: 'any_password',
+    hotel_id: 'any_hotel_id',
     address: new Address({
       street: 'any_street',
       number: 'any_number',
