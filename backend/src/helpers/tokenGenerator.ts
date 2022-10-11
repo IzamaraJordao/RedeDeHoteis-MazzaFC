@@ -19,7 +19,7 @@ class TokenGeneratorJWT implements ITokenGenerator {
   encode(toEncode: object): string {
     return jwt.sign(toEncode, this.privateKey, { expiresIn: '2h' })
   }
-  decode(toDecode: string): object {
+  decode<T>(toDecode: string): object | T {
     return jwt.verify(toDecode, this.privateKey) as JwtPayload
   }
 }
