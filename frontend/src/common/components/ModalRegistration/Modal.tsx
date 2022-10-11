@@ -6,7 +6,6 @@ import { ModalCentral, ModalEsquerda, ModalExterna, InputModal } from './styled'
 import TextField from '@mui/material/TextField';
 /////////////////Botão Select
 import Swal from 'sweetalert2'
-import axios from 'axios';
 import { useForm } from "react-hook-form";
 import {range} from 'ramda'
 
@@ -86,7 +85,7 @@ export default function Modal({ onClose }) {
             {/* <form onSubmit={handleSubmit(onSubmit)}> */}
             <ModalCentral>
               <ModalEsquerda>
-                <label>Nome fantasia</label>
+                <label>Nome do hotel</label>
                 <TextField size='small' id="name" variant="outlined" {...register("nome")} />
               </ModalEsquerda>
             </ModalCentral>
@@ -94,11 +93,9 @@ export default function Modal({ onClose }) {
             <ModalCentral>
               <div>
                 <label>Quantidade de Andares</label>
-                <TextField sx={{ width: '100px', textAlign: 'center' }} size='small' id="andares" type="number" variant="outlined" {...register("andares")}  onBlur={(e)=> setNumberOfRoom(Number( e.target.value))}/>
+                <TextField sx={{ width: '100px', textAlign: 'center' }} size='small' id="andares"  variant="outlined" {...register("andares")}  onBlur={(e)=> setNumberOfRoom(Number( e.target.value))}/>
               </div>
               {numberOfRoom > 0 && formFloorRooms()}
-
-
             </ModalCentral>
            
 

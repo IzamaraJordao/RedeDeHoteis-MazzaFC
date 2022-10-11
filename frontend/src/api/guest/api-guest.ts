@@ -29,8 +29,6 @@ export async function guestPaginate(
 
 };
 
-
-
 export async function guestById(
      id: Guest['id'],
     enqueueSnackbar: ProviderContext['enqueueSnackbar'],
@@ -42,19 +40,10 @@ export async function guestById(
         method: "get",
         url: `/guest/${id}`,
     }, enqueueSnackbar );
-    
-    enqueueSnackbar(response?.data, {
-      anchorOrigin: {
-        vertical: 'top',
-        horizontal: 'center'
-      },
-      variant: 'success'
-    })
+   
     dispatch(setIsLoading(false));
     return response?.data;
 };
-
-
 
 
 export async function guestDelete(

@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { authSlice } from "./authSlice";
 import { createWrapper } from "next-redux-wrapper";
 import {guestSlice} from "./guestSlice";
+import {hotelSlice} from "./hotelSlice";
 
 const makeStore = () =>
   configureStore({
@@ -9,6 +10,8 @@ const makeStore = () =>
     
       [authSlice.name]: authSlice.reducer,
       [guestSlice.name]: guestSlice.reducer,
+      [hotelSlice.name]: hotelSlice.reducer,
+
     },
 
     devTools: true,

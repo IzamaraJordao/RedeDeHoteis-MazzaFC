@@ -45,14 +45,16 @@ export default function Modal(props : any) {
   } = useForm<TypeGuest>()
 
 
+
   async function getGuestBanco(id: string) {
-    axios.get(`http://localhost:3030/guest/${id}`)
+    guestById(id, enqueueSnackbar, dispatch)
     .then((res) => {
-      setValue('name', res.data.name)
-      setValue('cpf', res.data.cpf)
-      setValue('rg', res.data.rg)
-      setValue('phone', res.data.phone)
-      setValue('email',res.data.email)
+      console.log(res)
+      setValue('name', res.name)
+      setValue('cpf', res.cpf)
+      setValue('rg', res.rg)
+      setValue('phone', res.phone)
+      setValue('email',res.email)
     })
   } 
 
