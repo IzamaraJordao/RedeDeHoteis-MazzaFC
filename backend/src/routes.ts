@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom, paginateEmployee, paginateBedroom, paginateReservations, getReservations, createReservations, deleteReservations, paginateGuest, deleteGuest, updateGuest, updateEmployee, updateReservations } from './composers';
+import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, createBedroom, deleteBedroom, paginateEmployee, paginateBedroom, paginateReservations, getReservations, createReservations, deleteReservations, paginateGuest, deleteGuest, updateGuest, updateEmployee, updateReservations, paginateHotel, deleteHotel } from './composers';
 
 const router = Router();
 
@@ -18,7 +18,8 @@ router.post('/login' , controllerExpress(login, "PUBLIC"))
 ///hotel
 router.post('/hotel', controllerExpress(createHotel))
 router.get('/hotel/:id', controllerExpress(getHotel))
-
+router.get('/hotel', controllerExpress(paginateHotel))
+router.delete('/hotel/:id', controllerExpress(deleteHotel))
 
 //guest
 router.get('/guest', controllerExpress(paginateGuest))
@@ -26,6 +27,8 @@ router.get('/guest/:id', controllerExpress(getGuest))
 router.post('/guest', controllerExpress(createGuest))
 router.delete('/guest/:id', controllerExpress(deleteGuest))
 router.put('/guest/:id', controllerExpress(updateGuest))
+
+
 //bedroom
 router.get('/bedroom', controllerExpress(paginateBedroom));
 router.get('/bedroom/:id', controllerExpress(getBedroom))
