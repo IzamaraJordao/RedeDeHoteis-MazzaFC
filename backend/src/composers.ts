@@ -28,6 +28,8 @@ import { DeleteGuest } from './use-case/guest/delete';
 import { UpdateGuest } from './use-case/guest/update';
 import { UpdateEmployee } from './use-case/employees/update';
 import { UpdateReservations } from './use-case/reversations/update';
+import { PaginateHotel } from './use-case/hotel/paginate';
+import { DeleteHotel } from './use-case/hotel/delete';
 
 
 ///Employee
@@ -42,8 +44,11 @@ export const updateEmployee = new UpdateEmployee(employeeRepository);
 export const login = new Login(employeeRepository, hotelRepository, encrypter, tokenGenerator);
 
 ///hotel
+export const paginateHotel = new PaginateHotel(hotelRepository);
 export const getHotel = new GetHotel(hotelRepository);
 export const createHotel = new CreateHotel(hotelRepository);
+export const deleteHotel = new DeleteHotel(hotelRepository);
+
 
 ///guest
 export const paginateGuest = new PaginateGuest(guestRepository);

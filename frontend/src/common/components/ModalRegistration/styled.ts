@@ -47,7 +47,7 @@ label{
   font-size: 1.2rem;
 }
   input{
-    width: 560px;
+    width: 480px;
   }
 `;
 
