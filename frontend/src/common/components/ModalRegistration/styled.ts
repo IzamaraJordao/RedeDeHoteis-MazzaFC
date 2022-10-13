@@ -1,53 +1,26 @@
 import styled from "styled-components";
 
 export const ModalExterna = styled.div`
-
-`;
-
-export const ModalCentral = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin:2px;
-  div{
-    margin: 2px;
-    display: flex;
-    flex-direction: column;
-  }
-  label{
-    margin-left: 10px;
-    font-size: 1.2rem;
-  }
-`;
-export const ModalDireita = styled.div`
-
-  input{
-    width: 350px;
-  }
+display: flex;
+flex-direction: row;
 `;
 
 
-export const InputModal = styled.div`
+export const ModalInterna = styled.div`
   display: flex;
   flex-direction: column;
-  div{
-    display: flex;
-    flex-direction: row;
-  }
-  
-  div > div{
-    display: flex;
-    flex-direction: column;
-  }
+  margin:2px;
+  color: var(--text);
 `;
+export const ModalInternaFloors = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-
-export const ModalEsquerda = styled.div`
-label{
-  margin-left: 10px;
-  font-size: 1.2rem;
-}
   input{
-    width: 480px;
-  }
+  width: 100px;
+  height: 1px;
+}
+
 `;
 
