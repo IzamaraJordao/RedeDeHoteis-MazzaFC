@@ -150,7 +150,7 @@ function ModalPutGuest(id: string) {
         return (
           <div>
             <IconButton color='error' sx={{backgroundColor: '#fff !important'}} onClick={() => { handleDelete(employee.row.id) }}><DeleteIcon/></IconButton>
-            <IconButton color='primary' sx={{backgroundColor: '#fff !important'}} onClick={() => {setIsModalVisiblePut(true), setIdModal(employee.row.id) }}><EditIcon/></IconButton>
+            {/* <IconButton color='primary' sx={{backgroundColor: '#fff !important'}} onClick={() => {setIsModalVisiblePut(true), setIdModal(employee.row.id) }}><EditIcon/></IconButton> */}
           </div>
         )
       }

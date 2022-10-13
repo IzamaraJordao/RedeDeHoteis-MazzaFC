@@ -12,6 +12,7 @@ import { Request } from '../interface'
 
 export class CreateBedroom implements UseCase<BedroomConstructor,undefined,undefined,string> {
   hotelRepository: any;
+ 
   constructor(private readonly bedroomRepository: BedroomRepository) {}
   async execute(params: Request<BedroomConstructor>, token: DataToken) {
     const bedroom = new Bedroom(params.body)

@@ -40,7 +40,14 @@ export class  GuestInMemory implements GuestRepository{
         }
     }
     update(id: string, guest: Guest): Promise<void> {
-        throw new Error("Method not implemented.");
+        const index = this._data.findIndex((guest) => guest.id === id);
+        if (index !== -1){
+            this._data[index] = guest;
+            return Promise.resolve();
+        }else{
+            return Promise.reject(new DbError('Cliente não encontrado',404));
+        }
+        
     }
 
     set data(data: Guest[]){

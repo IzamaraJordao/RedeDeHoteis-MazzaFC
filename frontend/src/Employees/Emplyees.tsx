@@ -11,11 +11,6 @@ import TableMain from '../common/components/TableEmployee/ColumnEmployee';
 export default function bancoTabela(props: any) {
 
   const [isVisibled, setIsVisibled] = useState(false);
-
-
-
-
-
   return (
     <div>
       <BoxExternal>

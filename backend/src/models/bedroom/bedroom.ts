@@ -32,7 +32,7 @@ export class Bedroom {
     this.guest = props.guest
     this.status = props.status
     this.room_types = props.room_types
-    this.hotel_id = props.hotel_id
+    this.hotel_id = props.hotel_id 
     this.position_X = props.position_X
     this.position_Y = props.position_Y
 
