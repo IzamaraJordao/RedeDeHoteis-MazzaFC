@@ -1,41 +1,44 @@
 import React from 'react'
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { ModalCentral, ModalEsquerda, ModalExterna, InputModal } from './styled';
-import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { ModalInterna, ModalExterna, ModalInternaFloors } from './styled'
+import TextField from '@mui/material/TextField'
 /////////////////Botão Select
 import Swal from 'sweetalert2'
-import { useForm } from "react-hook-form";
-import {range} from 'ramda'
-
+import { useForm } from 'react-hook-form'
+import { range } from 'ramda'
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: 900,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid #00000047',
   boxShadow: 24,
   p: 4,
-};
+  scroll: 'auto',
+}
 
 export type TypeEmployees = {
-  nome: String,
-  andares: Number,
-  unidades: Number,
-  perfil: String,
+  nome: String
+  andares: Number
+  unidades: Number
+  perfil: String
 }
 
 export default function Modal({ onClose }) {
+  const [numberOfRoom, setNumberOfRoom] = React.useState<number>(0)
+  const [walk, setWalk] = React.useState(false)
+  const [age, setAge] = React.useState('')
 
-  const [numberOfRoom, setNumberOfRoom] = React.useState<number>(0);
-  const [walk, setWalk] = React.useState(false);
-  const [age, setAge] = React.useState('');
-
-  const { register, handleSubmit, formState: { errors } } = useForm<TypeEmployees>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TypeEmployees>()
 
   function close() {
     Swal.fire({
@@ -43,102 +46,149 @@ export default function Modal({ onClose }) {
       icon: 'error',
       title: 'Hotel não cadastrado!',
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     })
-    onClose();
+    onClose()
   }
 
-  function formFloorRooms(){
-    const floors = range(1, numberOfRoom + 1 );
-    return(
-      <InputModal>
-        {
-          floors.map(floor => (
-            <div key={floor}>
-              <div>
-              <label htmlFor={`floorName${floor}`}>Nome/Numero andar</label>
-              <TextField id={`floorName${floor}`}/>
-              </div>
-              <div>
-              <label htmlFor={`numberRooms${floor}`}>Qtde quartos</label>
-              <TextField id={`numberRooms${floor}`}/>
-              </div>
-            </div>
-          ))
-        }
-      </InputModal>
+  function formFloorRooms() {
+    const floors = range(1, numberOfRoom + 1)  
+    return (
+      <div>
+        {floors.map((floor) => (
+            <ModalInternaFloors key={floor}>
+              <ModalExterna>
+                <ModalInterna>
+                  <label htmlFor={`floorName${floor}`}>Nome do andar</label>
+                  <TextField id={`floorName${floor}`} />
+                </ModalInterna>
+                <ModalInterna>
+                  <label htmlFor={`numberRooms${floor}`}>Qtde quartos</label>
+                  <TextField id={`numberRooms${floor}`} />
+                </ModalInterna>
+              </ModalExterna>
+            </ModalInternaFloors>
+           
+        ))}
+      </div>
     )
   }
 
 
-  return (
-    <ModalExterna>
 
+  return (
+    <div>
       <Box sx={style}>
         <div>
-          <Typography sx={{textAlign:'center'}} id="modal-modal-title" variant="h4" component="h2">
-           Cadastro do Hotel
+          <Typography
+            sx={{ textAlign: 'center', color: 'var(--text)' }}
+            id="modal-modal-title"
+            variant="h4"
+            component="h2"
+          >
+            Cadastro do Hotel
           </Typography>
         </div>
         <div>
-          <form >
+          <form>
             {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-            <ModalCentral>
-              <ModalEsquerda>
+            <ModalInterna>
+              <ModalInterna>
                 <label>Nome do hotel</label>
-                <TextField size='small' id="name" variant="outlined" {...register("nome")} />
-              </ModalEsquerda>
-            </ModalCentral>
+                <TextField size="small" id="name" {...register('nome')} />
+              </ModalInterna>
+            </ModalInterna>
 
-            <ModalCentral>
-              <div>
-                <label>Quantidade de Andares</label>
-                <TextField sx={{ width: '100px', textAlign: 'center' }} size='small' id="andares"  variant="outlined" {...register("andares")}  onBlur={(e)=> setNumberOfRoom(Number( e.target.value))}/>
-              </div>
+            <ModalInterna>
+              <label>Quantidade de Andares</label>
+              <TextField
+                sx={{ width: '100px' }}
+                size="small"
+                id="andares"
+                variant="outlined"
+                {...register('andares')}
+                onChange={(e) => setNumberOfRoom(Number(e.target.value))}
+              />
               {numberOfRoom > 0 && formFloorRooms()}
-            </ModalCentral>
-           
-
-            <ModalCentral>
-              <div>
+            </ModalInterna>
+            <ModalExterna>
+              <ModalInterna>
                 <label>CEP</label>
-                <TextField size='small' id="outlined-basic" type="number"  variant="outlined" />
-              </div>
-              <div>
-                <label>Lougradouro</label>
-                <TextField sx={{ width: '360px' }} size='small' id="outlined-basic" variant="outlined" />
-              </div>
-            </ModalCentral>
-            <ModalCentral>
-              <div>
-                <label>Bairro</label>
-                <TextField sx={{ width: '360px' }} size='small' id="outlined-basic" variant="outlined" />
-              </div>
-              <div>
-                <label>Número</label>
-                <TextField size='small' id="outlined-basic" variant="outlined" />
-              </div>
-            </ModalCentral>
-            <ModalCentral>
-              <div>
-                <label>Cidade</label>
-                <TextField sx={{ width: '260px' }} size='small' id="cpf" type="text" variant="outlined" maxRows={11} />
-              </div>
-              <div>
-                <label>UF</label>
-                <TextField sx={{ width: '100px' }} size='small' id="cpf" type="text" variant="outlined" maxRows={11} />
-              </div>
-              <div>
-                <label>Complemento</label>
-                <TextField size='small' id="cpf" type="text" variant="outlined" maxRows={11} />
-              </div>
-            </ModalCentral>
+                <TextField size="small" />
+              </ModalInterna>
 
-            <Button color="success" variant="contained" type='submit'  >Enviar</Button>
-            <Button variant="outlined" color="error" onClick={close}>Voltar</Button>
+              <ModalInterna>
+                <label>Lougradouro</label>
+                <TextField
+                  sx={{ width: '600px' }}
+                  size="small"
+                  id="outlined-basic"
+                  variant="outlined"
+                />
+              </ModalInterna>
+            </ModalExterna>
+            <ModalExterna>
+              <ModalInterna>
+                <label>Bairro</label>
+                <TextField
+                  sx={{ width: '360px' }}
+                  size="small"
+                  id="outlined-basic"
+                  variant="outlined"
+                />
+              </ModalInterna>
+
+
+              <ModalInterna>
+                <label>Número</label>
+                <TextField size="small" id="outlined-basic" variant="outlined" />
+              </ModalInterna>
+              <ModalInterna>
+                <label>Cidade</label>
+                <TextField
+                  sx={{ width: '260px' }}
+                  size="small"
+                  id="cpf"
+                  type="text"
+                  variant="outlined"
+                  maxRows={11}
+                />
+              </ModalInterna>
+            </ModalExterna>
+
+            <ModalExterna>
+              <ModalInterna>
+                <label>UF</label>
+                <TextField
+                  sx={{ width: '100px' }}
+                  size="small"
+                  id="cpf"
+                  type="text"
+                  variant="outlined"
+                  maxRows={11}
+                />
+              </ModalInterna>
+              <ModalInterna>
+                <label>Complemento</label>
+                <TextField
+                  size="small"
+                  id="cpf"
+                  type="text"
+                  variant="outlined"
+                  maxRows={11}
+                />
+              </ModalInterna>
+            </ModalExterna>
+
+            <Button color="success" variant="contained" type="submit" sx={{ marginRight: '10px', marginTop: '10px' }}>
+              Enviar
+            </Button>
+            <Button variant="contained" color="error" onClick={close} sx={{ marginTop: '10px' }}>
+              Voltar
+            </Button>
           </form>
         </div>
       </Box>
-    </ModalExterna>
+    </div>
   )
 }
