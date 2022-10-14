@@ -30,7 +30,6 @@ export function AsideMenu(props: {
     //@ts-ignore
     localStorage.clear()
     router.push('/')
-
   }
 
   return (

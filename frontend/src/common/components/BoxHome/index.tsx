@@ -27,7 +27,7 @@ export default function BoxSx() {
       <EventAvailableIcon sx={{marginLeft: 5, fontSize:45, marginBottom: -2.5}}/>
       </div>
       <div>
-      <Table/>
+        <Table/>
       </div>
       </External>
     </Box>
