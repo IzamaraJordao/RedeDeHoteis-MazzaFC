@@ -6,8 +6,9 @@ import { ModalInterna, ModalExterna, ModalInternaFloors } from './styled'
 import TextField from '@mui/material/TextField'
 /////////////////Botão Select
 import Swal from 'sweetalert2'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { range } from 'ramda'
+import axios from 'axios'
 
 const style = {
   position: 'absolute',
@@ -23,10 +24,24 @@ const style = {
 }
 
 export type TypeEmployees = {
-  nome: String
-  andares: Number
+
+  name: String
+  floor: Number
   unidades: Number
   perfil: String
+  address: {
+    street: string
+    number: string
+    complement: string
+    neighborhood: string
+    city: string
+    state: string
+    zipCode: string
+  }
+  floors:{
+    floor: Number
+    units: Number
+  }[]
 }
 
 export default function Modal({ onClose }) {
@@ -37,8 +52,17 @@ export default function Modal({ onClose }) {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
+    control,
     formState: { errors },
   } = useForm<TypeEmployees>()
+
+  
+  const { fields, append, remove } = useFieldArray({
+    name: "floors", 
+    control,
+  })
 
   function close() {
     Swal.fire({
@@ -51,31 +75,45 @@ export default function Modal({ onClose }) {
     onClose()
   }
 
+  function handleCep(cep: string) {
+    if (cep.length === 8) {
+      axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
+        setValue('address.street', response.data.logradouro)
+        setValue('address.neighborhood', response.data.bairro)
+        setValue('address.city', response.data.localidade)
+        setValue('address.state', response.data.uf)
+      })
+    }
+  }
+
+
   function formFloorRooms() {
     const floors = range(1, numberOfRoom + 1)  
+    console.log(floors)
     return (
       <div>
-        {floors.map((floor) => (
+        {floors.map((floor, index) => (
             <ModalInternaFloors key={floor}>
               <ModalExterna>
                 <ModalInterna>
                   <label htmlFor={`floorName${floor}`}>Nome do andar</label>
-                  <TextField id={`floorName${floor}`} />
+                  <TextField {...register(`floors.${index}.floor`)} />
+                  {/* <TextField id={`floorName${floor}`} /> */}
                 </ModalInterna>
                 <ModalInterna>
-                  <label htmlFor={`numberRooms${floor}`}>Qtde quartos</label>
-                  <TextField id={`numberRooms${floor}`} />
+                  <label >Qtde quartos</label>
+                  <TextField  {...register(`floors.${index}.units`)} />
                 </ModalInterna>
               </ModalExterna>
             </ModalInternaFloors>
-           
+            
         ))}
-      </div>
+        </div>
+      
     )
   }
-
-
-
+  console.log(watch('floors'))
+  
   return (
     <div>
       <Box sx={style}>
@@ -95,7 +133,7 @@ export default function Modal({ onClose }) {
             <ModalInterna>
               <ModalInterna>
                 <label>Nome do hotel</label>
-                <TextField size="small" id="name" {...register('nome')} />
+                <TextField size="small" id="name" {...register('name')} />
               </ModalInterna>
             </ModalInterna>
 
@@ -106,7 +144,7 @@ export default function Modal({ onClose }) {
                 size="small"
                 id="andares"
                 variant="outlined"
-                {...register('andares')}
+                {...register('floor')}
                 onChange={(e) => setNumberOfRoom(Number(e.target.value))}
               />
               {numberOfRoom > 0 && formFloorRooms()}
@@ -114,7 +152,8 @@ export default function Modal({ onClose }) {
             <ModalExterna>
               <ModalInterna>
                 <label>CEP</label>
-                <TextField size="small" />
+                <TextField size="small"  {...register('address.zipCode')}
+                    onChange={(e) => handleCep(e.target.value)}  />
               </ModalInterna>
 
               <ModalInterna>
@@ -124,6 +163,7 @@ export default function Modal({ onClose }) {
                   size="small"
                   id="outlined-basic"
                   variant="outlined"
+                  {...register('address.street')}
                 />
               </ModalInterna>
             </ModalExterna>
@@ -135,13 +175,20 @@ export default function Modal({ onClose }) {
                   size="small"
                   id="outlined-basic"
                   variant="outlined"
+                  {...register('address.neighborhood')}
                 />
               </ModalInterna>
 
 
               <ModalInterna>
                 <label>Número</label>
-                <TextField size="small" id="outlined-basic" variant="outlined" />
+                <TextField 
+                  size="small"
+                  id="outlined-basic"
+                  variant="outlined"
+                  {...register('address.number')}
+                  />
+                  
               </ModalInterna>
               <ModalInterna>
                 <label>Cidade</label>
@@ -151,7 +198,8 @@ export default function Modal({ onClose }) {
                   id="cpf"
                   type="text"
                   variant="outlined"
-                  maxRows={11}
+                  {...register('address.city')}
+               
                 />
               </ModalInterna>
             </ModalExterna>
@@ -165,7 +213,7 @@ export default function Modal({ onClose }) {
                   id="cpf"
                   type="text"
                   variant="outlined"
-                  maxRows={11}
+                  {...register('address.state')}
                 />
               </ModalInterna>
               <ModalInterna>
@@ -174,8 +222,8 @@ export default function Modal({ onClose }) {
                   size="small"
                   id="cpf"
                   type="text"
-                  variant="outlined"
-                  maxRows={11}
+                  variant="outlined"           
+                  {...register('address.complement')}
                 />
               </ModalInterna>
             </ModalExterna>
