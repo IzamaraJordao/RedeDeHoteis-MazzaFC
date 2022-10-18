@@ -4,6 +4,7 @@ import { HotelConstructor } from '../../models/hotel/hotel'
 import { CreateHotel } from './create'
 import { expect, it, describe } from 'vitest'
 import { Address } from '../../models/address/address'
+import { BedroomInMemory } from '../../models/bedroom'
 
 function makeSut() {
   const hotel = new Hotel({
@@ -20,9 +21,15 @@ function makeSut() {
     }),
     phone: 'any_phone',
     email: 'any_email',
+    floor: 2,
+    floors: [{
+      floor: '2',
+      units: '2',
+    }]
   })
   const repository = new HotelInMemory()
-  const sut = new CreateHotel(repository)
+  const bedroomRepository = new BedroomInMemory()
+  const sut = new CreateHotel(repository, bedroomRepository)
   return { sut, repository, hotel }
 }
 

@@ -8,6 +8,8 @@ export type HotelConstructor = {
   address: Address
   phone: string
   email: string
+  floor: number
+  
 }
 
 export class Hotel {
@@ -17,6 +19,7 @@ export class Hotel {
   address: Address
   phone: string
   email: string
+  floor: number
 
   constructor(props: HotelConstructor) {
     this.id = props.id || uuid()
@@ -25,6 +28,7 @@ export class Hotel {
     this.address = props.address
     this.phone = props.phone
     this.email = props.email
+    this.floor = props.floor
   }
 
   get loginInfo() {
@@ -34,6 +38,8 @@ export class Hotel {
       address: this.address,
       phone: this.phone,
       email: this.email,
+      floor: this.floor
+
     }
   }
   get publicInfo() {
@@ -44,6 +50,7 @@ export class Hotel {
       address: this.address,
       phone: this.phone,
       email: this.email,
+      floor: this.floor
     }
   }
 
@@ -56,11 +63,12 @@ export class Hotel {
       address_id : this.address.id,
       phone: this.phone,
       email: this.email,
+      floor: this.floor
     }
   }
 
   static filter(){
-    return ['id', 'cnpj', 'name', 'address_id', 'phone', 'email']
+    return ['id', 'cnpj', 'name', 'address_id', 'phone', 'email', 'floor']
   }
 
 }

@@ -1,4 +1,4 @@
-import { HttpError } from '../../exceptions/httpError'
+// import { HttpError } from '../../exceptions/httpError'
 import { UseCase } from '../interface';
 
 import {
@@ -12,12 +12,12 @@ export class CreateBedroom implements UseCase<BedroomConstructor,undefined,undef
   constructor(private readonly bedroomRepository: BedroomRepository) {}
   async execute(params: Request<BedroomConstructor>) {
     const bedroom = new Bedroom(params.body)
-    const bedroomFounded = await this.bedroomRepository.findByroom_types(
-      bedroom.room_types,
-    )
-    if (bedroomFounded) {
-      throw new HttpError('Tipo já cadastrado', 400)
-    }
+    // const bedroomFounded = await this.bedroomRepository.findByroom_types(
+    //   bedroom.room_types,
+    // // )
+    // if (bedroomFounded) {
+    //   throw new HttpError('Tipo já cadastrado', 400)
+    // }
   
     await this.bedroomRepository.save(bedroom)
     return {  

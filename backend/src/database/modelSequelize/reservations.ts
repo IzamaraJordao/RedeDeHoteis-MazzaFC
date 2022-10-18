@@ -29,8 +29,7 @@ import { sequelize } from '../sequelize'
 
 )
 
-//  ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id_guest' });
-  // ReservationsSequelize.belongsTo(sequelize.models.bedroom, {foreignKey: 'id_Bedroom'});
+
 
 
 
@@ -57,3 +56,6 @@ export const ReservationGuestSequelize = sequelize.define(
     },
 
 )
+
+ReservationsSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'reservation_id' });
+ReservationGuestSequelize.belongsTo(ReservationsSequelize, { constraints: true ,foreignKey: 'reservation_id'});
