@@ -1,4 +1,4 @@
-import { Guest, GuestConstructor } from './../guest/guest';
+// import { Guest, GuestConstructor } from './../guest/guest';
 import { BedroomSequelize } from './../../database/modelSequelize/bedroom';
 import { BedroomRepository, PaginateParams } from '.'
 import { Bedroom } from './bedroom'
@@ -16,8 +16,10 @@ export class BedroomRepositorySequelize implements BedroomRepository {
     this.guest = GuestSequelize
   }
     async save(bedroom: Bedroom): Promise<void> {
-    await this.guest.create(bedroom.guest.data)
     await this.sequelize.create(bedroom.data)
+  }
+    async saveMany(bedrooms : Bedroom[]): Promise<void> {
+    await this.sequelize.bulkCreate(bedrooms.map((bedroom) => bedroom.data))
   }
   async paginate({
     filter,
@@ -50,21 +52,21 @@ export class BedroomRepositorySequelize implements BedroomRepository {
       throw new DbError('Quarto não encontrado')
     }
   }
-  async findByroom_types(room_types: string): Promise<Bedroom | undefined> {
-    const response = await this.sequelize.findOne({
-      where: {
-        room_types: room_types,
-    }, attributes:['id','room_types','status','guest_id'],
-    })
-    if (response) {
-      const bedroom = response.toJSON()
-      const res = await this.guest.findByPk(bedroom.guest_id)
-      const guest = new Guest(res?.toJSON() as GuestConstructor)
-      bedroom.guest = guest
-      return new Bedroom(bedroom)
-    }
-    return undefined;
-}
+//   async findByroom_types(room_types: string): Promise<Bedroom | undefined> {
+//     const response = await this.sequelize.findOne({
+//       where: {
+//         room_types: room_types,
+//     }, attributes:['id','room_types','status','guest_id'],
+//     })
+//     if (response) {
+//       const bedroom = response.toJSON()
+//       const res = await this.guest.findByPk(bedroom.guest_id)
+//       const guest = new Guest(res?.toJSON() as GuestConstructor)
+//       bedroom.guest = guest
+//       return new Bedroom(bedroom)
+//     }
+//     return undefined;
+// }
   async delete(id: string): Promise<void> {
     await this.sequelize.destroy({
       where: {

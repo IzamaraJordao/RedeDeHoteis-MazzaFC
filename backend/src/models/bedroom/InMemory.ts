@@ -7,6 +7,9 @@ export class  BedroomInMemory implements BedroomRepository{
     private _data: Bedroom[] = [];
 
     constructor(){}
+  saveMany(bedrooms: Bedroom[]): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
     save(bedroom: Bedroom): Promise<void> {
         const BedroomToSave = new Bedroom(bedroom);
         this._data.push(BedroomToSave);
@@ -23,13 +26,13 @@ export class  BedroomInMemory implements BedroomRepository{
             return Promise.reject(new DbError('Quarto não encontrado',404));
         }
     }
-    findByroom_types(room_types: string): Promise<Bedroom | undefined> {
-        const bedroom = this._data.find((bedroom) => bedroom.room_types === room_types);
-        if (bedroom){
-            return Promise.resolve(bedroom);
-        }
-        return Promise.resolve(undefined);
-    }
+    // findByroom_types(room_types: string): Promise<Bedroom | undefined> {
+    //     const bedroom = this._data.find((bedroom) => bedroom.
+    //     if (bedroom){
+    //         return Promise.resolve(bedroom);
+    //     }
+    //     return Promise.resolve(undefined);
+    // }
     delete(id: string): Promise<void> {
         const index = this._data.findIndex((bedroom) => bedroom.id === id);
         if (index !== -1){

@@ -1,5 +1,6 @@
 import { DataTypes} from 'sequelize';
 import { sequelize } from '../sequelize'
+import { ReservationGuestSequelize } from './reservations';
 
 
 
@@ -41,9 +42,14 @@ export const GuestSequelize = sequelize.define(
 },
     {
       underscored: true,
-      modelName: 'guest',
+      modelName: 'Guest',
       tableName: 'guest',
     },
 );
+
+GuestSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'guest_id' });
+ReservationGuestSequelize.belongsTo(GuestSequelize, { constraints: true ,foreignKey: 'guest_id'});
+
+
 
 //

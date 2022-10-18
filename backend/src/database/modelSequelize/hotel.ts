@@ -1,10 +1,11 @@
 
 import { DataTypes} from 'sequelize';
 import { sequelize } from '../sequelize'
+import { BedroomSequelize } from './bedroom';
 
 
 export const HotelSequelize = sequelize.define(
-  'hotel',{
+  'Hotel',{
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -36,8 +37,11 @@ export const HotelSequelize = sequelize.define(
   },
 }, {
   underscored: true,
-  modelName: 'hotel', 
+  modelName: 'Hotel', 
   tableName: 'hotel',
 });
+
+HotelSequelize.hasMany(BedroomSequelize, { foreignKey: 'hotel_id' });
+BedroomSequelize.belongsTo(HotelSequelize, { constraints: true ,foreignKey: 'hotel_id'});
 
 //

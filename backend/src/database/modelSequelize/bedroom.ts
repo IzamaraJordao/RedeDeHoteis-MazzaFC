@@ -10,18 +10,21 @@ export const BedroomSequelize = sequelize.define(
     type: DataTypes.UUID,
     primaryKey: true,
   },
-  room_type: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  hotel_id: {
+    type: DataTypes.STRING(36),
+    allowNull: true,
   },
-  status: {
+  floor: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
-  bedroom_id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+  status_room_id:{
+    type: DataTypes.STRING(36),
+    allowNull: true,
+  },
+  room_type_id:{
+    type: DataTypes.STRING(36),
+    allowNull: true,
   },
   position_X: {
     type: DataTypes.STRING,
@@ -45,6 +48,8 @@ ReservationGuestSequelize.belongsTo(ReservationsSequelize);
 ReservationGuestSequelize.belongsTo(BedroomSequelize);
 BedroomSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'id' });
 ReservationsSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'id' });
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
 

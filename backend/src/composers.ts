@@ -46,7 +46,7 @@ export const login = new Login(employeeRepository, hotelRepository, encrypter, t
 ///hotel
 export const paginateHotel = new PaginateHotel(hotelRepository);
 export const getHotel = new GetHotel(hotelRepository);
-export const createHotel = new CreateHotel(hotelRepository);
+export const createHotel = new CreateHotel(hotelRepository, bedroomRepository);
 export const deleteHotel = new DeleteHotel(hotelRepository);
 
 

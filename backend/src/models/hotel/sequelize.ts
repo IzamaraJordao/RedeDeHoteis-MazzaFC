@@ -12,11 +12,13 @@ import { PaginateParams } from '../employees';
 export class HotelRepositorySequelize implements HotelRepository {
   sequelize: Sequelize['models']['Hotel']
   address: Sequelize['models']['Address'];
+ 
   
   constructor() {
     this.sequelize = HotelSequelize
-  
     this.address = AddressSequelize
+ 
+    
   }
    async findByCnpj(cnpj: string): Promise<Hotel | undefined> {
     const response = await this.sequelize.findOne({
@@ -39,6 +41,8 @@ export class HotelRepositorySequelize implements HotelRepository {
     await this.address.create(hotel.address.data)
     await this.sequelize.create(hotel.data )
   }
+
+
   async paginate({ filter, pageSize, page, }:PaginateParams ): Promise<Hotel[] | number> {
     
     if(pageSize === 0) {

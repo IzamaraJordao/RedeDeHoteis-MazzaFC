@@ -86,6 +86,9 @@ export default function Modal({ onClose }) {
     }
   }
 
+  const onSubmit = (data: TypeEmployees) => {
+    console.log(data)
+  }
 
   function formFloorRooms() {
     const floors = range(1, numberOfRoom + 1)  
@@ -128,8 +131,8 @@ export default function Modal({ onClose }) {
           </Typography>
         </div>
         <div>
-          <form>
-            {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+          {/* <form> */}
+            <form onSubmit={handleSubmit(onSubmit)}>
             <ModalInterna>
               <ModalInterna>
                 <label>Nome do hotel</label>

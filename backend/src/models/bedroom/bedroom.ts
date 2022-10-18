@@ -1,37 +1,29 @@
-import { Guest } from '../guest/guest';
 import { uuid } from '../../helpers/uuid'
 
 
 
 export type BedroomConstructor = {
   id?: string
-  guest: Guest
-  status: string
-  room_types: string
+  floor:number
   hotel_id: string
-  position_X: string
-  position_Y: string
-
-
+  position_X: number
+  position_Y: number
+  
 }
 
 
 export class Bedroom {
   id: string
-  guest: Guest
-  status: string
-  room_types: string
+  floor: number
   hotel_id: string
-  position_X: string
-  position_Y: string
+  position_X: number
+  position_Y: number
 
  
 
   constructor(props: BedroomConstructor) {
     this.id = props.id || uuid()
-    this.guest = props.guest
-    this.status = props.status
-    this.room_types = props.room_types
+    this.floor = props.floor
     this.hotel_id = props.hotel_id
     this.position_X = props.position_X
     this.position_Y = props.position_Y
@@ -42,9 +34,7 @@ export class Bedroom {
   get publicInfo(){
     return{
       id : this.id ,
-      guest : this.guest,
-      status : this.status,
-      room_types : this.room_types,
+      floor: this.floor,
       hotel_id : this.hotel_id,
       position_X : this.position_X,
       position_Y : this.position_Y
@@ -55,16 +45,14 @@ export class Bedroom {
   get data() {
     return {
       id: this.id,
-      guest: this.guest,
-      status: this.status,
-      room_types: this.room_types,
+      floor: this.floor,
       hotel_id: this.hotel_id,
       position_X: this.position_X,
       position_Y: this.position_Y
     }
   }
   static filter() {
-    return ['id', 'guest', 'status', 'room_types']
+    return ['id', 'status', 'room_types']
   }
 
 }

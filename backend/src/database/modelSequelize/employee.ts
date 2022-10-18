@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 // import { Address } from '../../models/address';
 import { sequelize } from '../sequelize'
+import { HotelSequelize } from './hotel';
 
 export const EmployeeSequelize = sequelize.define(
   'Employee',{
@@ -63,12 +64,10 @@ export const EmployeeSequelize = sequelize.define(
   },
 )
 
+HotelSequelize.hasMany(EmployeeSequelize, { foreignKey: 'hotel_id' });
+EmployeeSequelize.belongsTo(HotelSequelize, { constraints: true ,foreignKey: 'hotel_id'});
 
 
 
-// EmployeeSequelize.aggregate = function(models) {
-//   // associations can be defined here
-//   EmployeeSequelize.hasMany(models.address,{as: 'address', foreignKey: 'cityId'})
-// };
 
 
