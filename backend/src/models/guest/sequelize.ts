@@ -36,7 +36,7 @@ export class GuestRepositorySequelize implements GuestRepository {
 
 
   async findById(id: string): Promise<Guest> {
-    const response = await this.sequelize.findByPk(id)
+    const response = await this.sequelize.findByPk(id,{include: this.address})
     if (response) {
       return new Guest(response.toJSON())
     } else {

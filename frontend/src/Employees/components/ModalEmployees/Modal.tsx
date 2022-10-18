@@ -40,7 +40,7 @@ export type TypeEmployees = {
   hotel_id: string,
 }
 
-export default function Modal({ onClose }) {
+export default function ModalEmployee({ onClose }) {
   const [age, setAge] = React.useState('');
   const handleChange = (event) => {
     setAge(event.target.value);

@@ -36,7 +36,11 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
         offset: (page - 1) * pageSize,
         limit: pageSize,
         });
-    return response.map((employee) => new Employee(employee.toJSON())) ;
+    return response.map((employee) => {
+      const employeeData = employee.toJSON() 
+      employeeData.address = {}
+      return new Employee(employeeData)
+    })  ;
   }
 
 
@@ -44,12 +48,15 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
     console.log(id)
     const response = await this.sequelize.findByPk(id,{
       attributes: ['id', 'name', 'rg', 'cpf', 'email', 'phone', 'note', 'active', 'password', 'hotel_id', 'is_first_access', 'address_id'],
+      // include:{model: this.address, as: 'address'}
     })
     console.log(response)
     if (response) {
-      return new Employee(response.toJSON())
+      const employeeData = response.toJSON() 
+      employeeData.address = {}
+      return new Employee(employeeData)
     } else {
-      throw new DbError('Endereço não encontrado')
+      throw new DbError('Empregado não encontrado')
     }
   }
   async findByEmail(email: string): Promise<Employee | undefined> {

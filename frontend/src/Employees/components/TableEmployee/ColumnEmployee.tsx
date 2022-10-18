@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import ModalGuest from './components/ModalGuestPost/Modal'
-import ModalGuestPut from './components/ModalGuestPut/Modal'
+import ModalEmployee from '../ModalEmployees/Modal'
+import ModalEmployeePut from '../ModalEmployeesPut/Modal'
 import { Button } from '@mui/material'
-import { BoxDiv, BoxExternal } from './styled'
-import { guestPaginate, guestDelete } from '../api/guest/api-guest'
+import { employeePaginate, employeeDelete, employeePut } from '../../../api/employee/Api-employee'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Guest,
+  Employee,
   selectData,
-  selectGuest,
+  selectEmployee,
   selectIsFormLoading,
   selectIsLoading,
   selectPaginate,
-} from '../store/guestSlice'
+} from '../../../store/employeeSlice'
 import { useSnackbar } from 'notistack'
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import Swal from 'sweetalert2'
-import TableMain from '../common/components/MultTabela/index'
-import { Pagination } from '../template/types/pagination'
+import TableMain from '../../../common/components/MultTabela/index'
+import { Pagination } from '../../../template/types/pagination'
 import EditIcon from '@mui/icons-material/Edit'
-import axios from 'axios'
-import { If } from '../common/components/If'
+import { If } from '../../../common/components/If'
 
-export type BancoGuest = {
+export type BancoEmployee = {
   id: number
   nome: string
   rg: string
@@ -33,21 +31,21 @@ export type BancoGuest = {
   phone: string
 }
 
-export default function PageGuest() {
+export default function ColumnEmployee() {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
   const pagination = useSelector(selectPaginate)
   const data = useSelector(selectData)  
-  const guest = useSelector(selectGuest)
+  const guest = useSelector(selectEmployee)
   const isLoading = useSelector(selectIsLoading)
   const isFormLoading = useSelector(selectIsFormLoading)
-  const [value, setValue] = useState<BancoGuest>()
+  const [value, setValue] = useState<BancoEmployee>()
   const [idModal, setIdModal] = useState<string>()
 
   useEffect(() => {
-    guestPaginate(pagination, enqueueSnackbar, dispatch)
+    employeePaginate(pagination, enqueueSnackbar, dispatch)
   }, [])
 
   function handleDelete(id: string) {
@@ -59,22 +57,35 @@ export default function PageGuest() {
       denyButtonText: `Não Remover`,
     }).then((result) => {
       if (result.isConfirmed) {
-        guestDelete(id, enqueueSnackbar, dispatch).then(() => {
-          guestPaginate(pagination, enqueueSnackbar, dispatch)
+        employeeDelete(id, enqueueSnackbar, dispatch).then(() => {
+          employeePaginate(pagination, enqueueSnackbar, dispatch)
         })
-        Swal.fire('Hospede excluido', '', 'success')
+        Swal.fire('Funcionário excluido', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }
     })
   }
 
-  function ModalPutGuest(id: string) {
-    setIsModalVisiblePut(true)
-    axios.get(`http://localhost:3030/guest/${id}`).then((response) => {
-      setValue(response.data)
+  function ModalPutEmployee(id: string,data: Employee) {
+    Swal.fire({
+      title: 'Deseja realmente editar?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      denyButtonText: `Não Editar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+    employeePut(id,data,enqueueSnackbar,dispatch).then(() => {
+      employeePaginate(pagination, enqueueSnackbar, dispatch)
     })
+    Swal.fire('Funcionário editado', '', 'success')
+  } else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info')
+
   }
+  }
+  ) }
 
   const columns: GridColDef[] = [
     {
@@ -96,7 +107,7 @@ export default function PageGuest() {
       sortable: false,
       disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
 
-      renderCell: (employee: GridRenderCellParams<BancoGuest>) => {
+      renderCell: (employee: GridRenderCellParams<BancoEmployee>) => {
         return (
           <div style={{ color: 'blue', marginLeft: '15px' }}>
             {employee.row.cpf}
@@ -140,7 +151,7 @@ export default function PageGuest() {
       width: 150,
       align: 'center',
       disableColumnMenu: true,
-      renderCell: (guest: GridRenderCellParams<BancoGuest>) => {
+      renderCell: (guest: GridRenderCellParams<BancoEmployee>) => {
         return (
           <div>
             <IconButton
@@ -171,42 +182,40 @@ export default function PageGuest() {
 
   return (
     <div>
-      <BoxExternal>
-        <BoxDiv>
+      <div>
+        <div>
           <div>
-            <Button variant="contained" onClick={() => setIsModalVisible(true)}>
-              NOVO CADASTRO
-            </Button>
+           
           </div>
           <TableMain
             data={data}
             columns={columns}
-            search={(pagination: Pagination<Guest>) =>
-              guestPaginate(pagination, enqueueSnackbar, dispatch)
+            search={(pagination: Pagination<Employee>) =>
+              employeePaginate(pagination, enqueueSnackbar, dispatch)
             }
             isLoading={isLoading}
             page={pagination.page}
             pageSize={pagination.pageSize}
             total={pagination.total as number}
           />
-        </BoxDiv>
-      </BoxExternal>
+        </div>
+      </div>
 
       {isModalVisible ? (
-        <ModalGuest
+        <ModalEmployee
           onClose={async () => {
             setIsModalVisible(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
+              await employeePaginate(pagination, enqueueSnackbar, dispatch)
           }}
         />
       ) : null}
       <If condition={isModalVisiblePut}>
-        <ModalGuestPut
+        <ModalEmployeePut
           onClose={async () => {
             setIsModalVisiblePut(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
+              await employeePaginate(pagination, enqueueSnackbar, dispatch)
           }}
-          idGuest={idModal}
+          idEmployee={idModal}
         />
       </If>
     </div>

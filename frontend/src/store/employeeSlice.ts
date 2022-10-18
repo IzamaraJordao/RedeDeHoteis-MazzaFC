@@ -1,8 +1,9 @@
 
+
 import { createSlice } from "@reduxjs/toolkit";
 import { Pagination } from "../template/types/pagination";
 import { AppState } from "./store";
-
+import {Address} from './address.type'
 
 export type Employee = {
  id: string
@@ -16,6 +17,7 @@ export type Employee = {
  password: string
  hotel_id: string
  is_first_access: boolean
+ address: Partial<Address> & Required<Pick<Address, 'id'>>
 }
 
 type EmployeeState = {
@@ -65,7 +67,7 @@ export const { setData, setIsLoading,setEmployee } = employeeSlice.actions; // E
 // Selectors
 export const selectEmployee = (state: AppState) => state.employee; // Exportando o estado
 export const selectData = (state: AppState) => state.employee.data; // Exportando o estado
-export const selectPagination = (state: AppState) => state.employee.pagination; // Exportando o estado
+export const selectPaginate = (state: AppState) => state.employee.pagination; // Exportando o estado
 export const selectIsLoading = (state: AppState) => state.employee.isLoading; // Exportando o estado
 export const selectIsFormLoading = (state: AppState) => state.employee.isFormLoading; // Exportando o estado
 

@@ -19,6 +19,20 @@ import { sequelize } from '../sequelize'
   check_out: {
     type: DataTypes.DATE,
     allowNull: false,
+  },
+  check_in_static:{
+    type: DataTypes.DATE,
+    allowNull: false,
+
+  },
+  check_out_static:{
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  bedroom_id:{
+    type: DataTypes.UUID,
+    allowNull: false,
+    
   }
 },
   {
@@ -29,8 +43,8 @@ import { sequelize } from '../sequelize'
 
 )
 
-//  ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id_guest' });
-  // ReservationsSequelize.belongsTo(sequelize.models.bedroom, {foreignKey: 'id_Bedroom'});
+  // ReservationsSequelize.hasMany(sequelize.models.Guest, { foreignKey: 'id_guest' });
+  // ReservationsSequelize.belongsTo(sequelize.models.bedroom, {foreignKey: 'id_bedroom'});
 
 
 
