@@ -43,7 +43,14 @@ export class  BedroomInMemory implements BedroomRepository{
         }
     }
     update(id: string, bedroom: Bedroom): Promise<void> {
-        throw new Error("Method not implemented.");
+        const index = this._data.findIndex((bedroom) => bedroom.id === id);
+        if (index !== -1){
+            this._data[index] = bedroom;
+            return Promise.resolve();
+        }else{
+            return Promise.reject(new DbError('Quarto não encontrado',404));
+        }
+        
     }
 
     set data(data: Bedroom[]){
