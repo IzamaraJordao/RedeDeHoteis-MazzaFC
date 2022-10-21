@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../sequelize'
 // import { EmployeeSequelize } from './employee';
-// import { GuestSequelize } from './guest';
+import { GuestSequelize } from './guest';
 // import { HotelSequelize } from './hotel';
 
 export const AddressSequelize = sequelize.define(
@@ -48,14 +48,14 @@ export const AddressSequelize = sequelize.define(
 )
 
 /////// Guest
-// AddressSequelize.hasMany(GuestSequelize, { foreignKey: 'address_id' });
-// GuestSequelize.belongsTo(AddressSequelize, { constraints: true ,foreignKey: 'address_id'});
-// ////// Employee
+AddressSequelize.hasMany(GuestSequelize, { foreignKey: 'address_id' });
+GuestSequelize.belongsTo(AddressSequelize, { constraints: true ,foreignKey: 'address_id'});
+////// Employee
 // EmployeeSequelize.hasMany(AddressSequelize, { foreignKey: 'address_id' });
 // AddressSequelize.belongsTo(EmployeeSequelize, { constraints: true ,foreignKey: 'address_id'});
-// ////// Hotel
-// HotelSequelize.hasMany(AddressSequelize, { foreignKey: 'address_id' });
-// AddressSequelize.belongsTo(HotelSequelize, { constraints: true ,foreignKey: 'address_id'});
+////// Hotel
+// AddressSequelize.hasMany(HotelSequelize, { foreignKey: 'address_id' });
+// HotelSequelize.belongsTo(AddressSequelize, { constraints: true ,foreignKey: 'address_id'});
 
 
 //
