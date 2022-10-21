@@ -16,7 +16,7 @@ export class CreateEmployee implements UseCase<EmployeeConstructor,undefined,und
 
   }
   async execute(params: Request<EmployeeConstructor>) {
-    const address = new Address(params.body.address)
+    const address = new Address(params.body.address);
     params.body.address = address
     const employee = new Employee(params.body)
     const employeeFounded = await this.employeeRepository.findByEmail(

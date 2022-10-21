@@ -47,7 +47,7 @@ export const GuestSequelize = sequelize.define(
     },
 );
 
-GuestSequelize.hasMany(ReservationGuestSequelize, { foreignKey: 'guest_id' });
+GuestSequelize.hasMany(ReservationGuestSequelize, {  foreignKey: 'guest_id' });
 ReservationGuestSequelize.belongsTo(GuestSequelize, { constraints: true ,foreignKey: 'guest_id'});
 
 

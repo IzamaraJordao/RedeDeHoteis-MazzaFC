@@ -44,18 +44,18 @@ export const AddressSequelize = sequelize.define(
     underscored: true,
     modelName: 'Address',
     tableName: 'address',
-    
   },
 )
 
 /////// Guest
-GuestSequelize.hasMany(AddressSequelize, { foreignKey: 'address_id' });
-AddressSequelize.belongsTo(GuestSequelize, { constraints: true ,foreignKey: 'address_id'});
+AddressSequelize.hasMany(GuestSequelize, { foreignKey: 'address_id' });
+GuestSequelize.belongsTo(AddressSequelize, { constraints: true ,foreignKey: 'address_id'});
 ////// Employee
 EmployeeSequelize.hasMany(AddressSequelize, { foreignKey: 'address_id' });
 AddressSequelize.belongsTo(EmployeeSequelize, { constraints: true ,foreignKey: 'address_id'});
 ////// Hotel
 HotelSequelize.hasMany(AddressSequelize, { foreignKey: 'address_id' });
 AddressSequelize.belongsTo(HotelSequelize, { constraints: true ,foreignKey: 'address_id'});
+
 
 //

@@ -20,7 +20,7 @@ export class PaginateGuest
     page = Number (page) || 1  // se existr page, se não 1 (como se fosse um if ternario)
     pageSize = Number (pageSize) || 10 // se existir pageSize, se não 10
     filter = JSON.parse (filter as unknown as string || '{}')
-    console.log(typeof filter)
+    
     let filterSanitized = {}
     const keys = Object.keys(filter).filter((current, index) => {
       if (Guest.filter().includes(current)) {

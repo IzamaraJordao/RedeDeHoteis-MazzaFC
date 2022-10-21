@@ -61,7 +61,7 @@ export class Guest {
   }
 
   static filter() {
-    return ['id', 'name', 'email', 'cpf', 'rg', 'phone']
+    return ['id', 'name', 'email', 'cpf', 'rg', 'phone', 'address']
   }
 
 }

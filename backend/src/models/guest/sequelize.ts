@@ -4,6 +4,7 @@ import { sequelize } from '../../database'
 import { Sequelize } from 'sequelize/types'
 import { DbError } from '../../exceptions/dbError'
 import { PaginateParams } from '../employees'
+import { Address } from '../address'
 
 
 
@@ -30,10 +31,17 @@ export class GuestRepositorySequelize implements GuestRepository {
         where: filter,
         offset: (page - 1) * pageSize,
         limit: pageSize,
-      });
-    return response.map((guest) => new Guest(guest.toJSON()));
-  }
+        include:[{
+          model: this.address,  
+          as: 'Address', 
+          attributes: ['id','street','number','complement','neighborhood','city','state','zip_code']
+        }]
 
+      });
+      console.log(response.map((guest)=> guest.toJSON()))
+
+    return response.map((guest ) => new Guest({...guest.toJSON(), address: new Address(guest.toJSON().Address )  })) ;
+  } 
 
   async findById(id: string): Promise<Guest> {
     const response = await this.sequelize.findByPk(id)
