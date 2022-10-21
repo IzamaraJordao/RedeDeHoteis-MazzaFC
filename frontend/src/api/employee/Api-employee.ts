@@ -1,38 +1,80 @@
-import api from 'axios'
 
-export async function save({
-  name,
-  rg,
-  cpf,
-  email,
-  phone,
-  address,
-  note,
-  password,
-}: any) {
-  const response = await api.post('/employees', {
-    name,
-    rg,
-    cpf,
-    email,
-    phone,
-    address,
-    note,
-    password,
+import {handleRequest} from "../handleRequest";
+import {ProviderContext} from "notistack";
+import {useDispatch} from "react-redux";
+import {Employee, setData, setIsLoading, setEmployee} from "../../store/employeeSlice";
+import {Pagination} from "../../template/types/pagination";
 
-  })
-  return response.data
+
+export async function employeePaginate(
+    {
+      page,
+      pageSize,
+      filter,
+    }: Pagination<Employee>,
+    enqueueSnackbar: ProviderContext["enqueueSnackbar"],
+    dispatch: ReturnType<typeof useDispatch>
+) {
+    dispatch(setIsLoading(true));
+    const response = await handleRequest({
+        method: "get",
+        url: "/employee",
+        params: {
+          page,
+          pageSize,
+          filter: JSON.stringify(filter),
+        },
+    }, enqueueSnackbar);
+    dispatch(setData(response?.data));
+    dispatch(setIsLoading(false));
 }
 
-export async function get(id: number) {
-  return await api.get('/employee/' + id)
+export async function employeeById(
+    id: Employee["id"],
+    enqueueSnackbar: ProviderContext["enqueueSnackbar"],
+    dispatch: ReturnType<typeof useDispatch>
+) {
+    dispatch(setIsLoading(true));
+    const response = await handleRequest({
+        method: "get",
+        url: `/employee/${id}`,
+    }, enqueueSnackbar);
+    dispatch(setEmployee(response?.data));
+    dispatch(setIsLoading(false));
 }
-export async function paginate() {
-  return await api.get('/employee')
+
+export async function employeeDelete(
+    id: Employee["id"],
+    enqueueSnackbar: ProviderContext["enqueueSnackbar"],
+    dispatch: ReturnType<typeof useDispatch>
+) {
+    dispatch(setIsLoading(true));
+    const response = await handleRequest({
+        method: "delete",
+        url: `/employee/${id}`,
+    }, enqueueSnackbar);
+    dispatch(setIsLoading(false));
+    return response?.data;
 }
-export async function remove(id: number) {
-  return await api.delete('/employee/' + id)
-}
-export async function update(id: number) {
-  return await api.put('/employee/' + id)
+
+export async function employeePut(
+    id: Employee["id"],
+    enqueueSnackbar: ProviderContext["enqueueSnackbar"],
+    dispatch: ReturnType<typeof useDispatch>
+) {
+    dispatch(setIsLoading(true));
+    const response = await handleRequest({
+        method: "put",
+        url: `/employee/${id}`,
+        
+    }, enqueueSnackbar);
+    enqueueSnackbar(response?.data, {
+        anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+        },
+        variant: "success",
+    });
+    dispatch(setIsLoading(false));
+   
 }

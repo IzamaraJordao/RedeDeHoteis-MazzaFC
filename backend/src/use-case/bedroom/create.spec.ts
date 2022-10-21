@@ -45,13 +45,18 @@ describe('Create Bedroom', () => {
   it('Should create an bedroom', async () => {
     const { sut, repository, data } = makeSut()
     data.id = 'new_id'
+    // @ts-ignore
+    console.log(repository._data, data)
+    // @ts-ignore
     await sut.execute({ params: undefined, body: data, query: undefined })
+   
     const result = await repository.findById(data.id);
     expect(result).toBeDefined()
   });
   it('Should throw if id already exists', async () => {
     const { sut, data } = makeSut()
     expect(
+      // @ts-ignore
       sut.execute({ params: undefined, body: data, query: undefined }),
     ).rejects.toThrow()
   });

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit'
 
 
 export type BancoEmployees = {
@@ -19,13 +20,14 @@ export type BancoEmployees = {
 
 
 export default function ColumnEmployee(props: any) {
-
   const [employees, setEmployees] = useState<BancoEmployees[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
+  const [value, setValue] = useState<BancoEmployees>()
+  const [idModal, setIdModal] = useState<string>()
 
 
   async function tableMain(page: number, pageSize: number, filter?: object) {
@@ -72,29 +74,12 @@ export default function ColumnEmployee(props: any) {
   },[])
   
 // função para editar os dados do funcionário
-  const handleEdit = (id: number,data:any) => {
-     axios.put(`http://localhost:3030/employee/${id}`,{
-      name: data.name,
-      rg: data.rg,
-      cpf: data.cpf,
-      email: data.email,
-      phone: data.phone,
-      password: data.password,
-      address: {
-        street: data.address.street,
-        number: data.address.number,
-        complement: data.address.complement,
-        neighborhood: data.address.neighborhood,
-        city: data.address.city,
-        state: data.address.state,
-        zipCode: data.address.zipCode
-      },
-      hotel_id: data.hotel_id
-
-
-     })
-
-  }
+function ModalPutGuest(id: string) {
+  setIsModalVisiblePut(true)
+  axios.get(`http://localhost:3030/guest/${id}`).then((response) => {
+    setValue(response.data)
+  })
+}
 
   const columns: GridColDef[] = [
 
@@ -165,7 +150,7 @@ export default function ColumnEmployee(props: any) {
         return (
           <div>
             <IconButton color='error' sx={{backgroundColor: '#fff !important'}} onClick={() => { handleDelete(employee.row.id) }}><DeleteIcon/></IconButton>
-
+            <IconButton color='primary' sx={{backgroundColor: '#fff !important'}} onClick={() => {setIsModalVisiblePut(true), setIdModal(employee.row.id) }}><EditIcon/></IconButton>
           </div>
         )
       }
@@ -179,7 +164,7 @@ export default function ColumnEmployee(props: any) {
     <TableMain 
       data={employees}
       columns={columns}
-      search={tableMain} 
+      search={tableMain}
       isLoading={isLoading} 
       page={page} 
       pageSize={pageSize}
