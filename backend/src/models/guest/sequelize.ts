@@ -38,7 +38,7 @@ export class GuestRepositorySequelize implements GuestRepository {
         }]
 
       });
-      console.log(response.map((guest)=> guest.toJSON()))
+      // console.log(response.map((guest)=> guest.toJSON()))
 
     return response.map((guest ) => new Guest({...guest.toJSON(), address: new Address(guest.toJSON().Address )  })) ;
   } 

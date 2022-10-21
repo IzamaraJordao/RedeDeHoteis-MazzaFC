@@ -35,13 +35,27 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
         where: filter,
         offset: (page - 1) * pageSize,
         limit: pageSize,
+        include:[{
+          model: this.address,  
+          as: 'Address', 
+          attributes: ['id','street','number','complement','neighborhood','city','state','zip_code']
+        }]
         });
-    return response.map((employee) => {
-      const employeeData = employee.toJSON() 
-      employeeData.address = {}
-      return new Employee(employeeData)
-    })  ;
+
+        // console.log(response.map((employee) => employee.toJSON()))
+
+        return response.map((employee) => 
+          new Employee({...employee.toJSON(), address: new Address(employee.toJSON().Address )  })) 
   }
+
+
+    // return response.map((employee) => {
+    //   const employeeData = employee.toJSON() 
+    //   employeeData.address = {}
+    //   return new Employee(employeeData)
+    // })  ;
+
+  // }
 
 
   async findById(id: string): Promise<Employee> {
