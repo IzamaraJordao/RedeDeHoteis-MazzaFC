@@ -13,6 +13,7 @@ export function Auth(token:string):DataToken{
         throw new UnauthorizedError("Token not found")
     }
     if (token.includes('Bearer ')){
+      console.log(token)
       try{
         return tokenGenerator.decode(token.split(' ')[1]) as DataToken
       }
