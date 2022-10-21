@@ -8,8 +8,8 @@ export type AddressConstructor = {
      neighborhood: string;
      city: string;
      state: string;
-     zipCode: string
-
+     zipCode?: string
+     zip_code?: string
 }
 
 export class Address {
@@ -31,7 +31,8 @@ export class Address {
         this.neighborhood = props.neighborhood;
         this.city = props.city;
         this.state = props.state;
-        this.zipCode = props.zipCode.replace(/\D/g, "") ;
+        this.zipCode = props.zipCode || props.zip_code as string;
+        this.zipCode = this.zipCode.replace(/\D/g, "") ;
         
     }
 
