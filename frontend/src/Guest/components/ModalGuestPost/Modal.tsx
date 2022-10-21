@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import PageGuest from '../../../Guest/Guest'
+import PageGuest from '../../Guest'
 
 
 const style = {

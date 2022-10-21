@@ -55,8 +55,8 @@ export class Guest {
       rg: this.rg,
       email: this.email,
       phone: this.phone,
-      address: this.address.data,
-      address_id: this.address.id,
+      address: this.address.data || undefined,
+      address_id: this.address.id || undefined,
     }
   }
 

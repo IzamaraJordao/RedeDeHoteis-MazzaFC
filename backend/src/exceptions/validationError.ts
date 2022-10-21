@@ -1,10 +1,9 @@
-
 import { HttpError } from './httpError'
 
-export class UnauthorizedError extends HttpError {
+export class ValidationError extends HttpError {
   constructor(message: string) {
     super(message, 400)
 
-    this.name = 'UnauthorizedError'
+    this.name = 'ValidationError'
   }
 }

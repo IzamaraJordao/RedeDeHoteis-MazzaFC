@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Pagination } from "../template/types/pagination";
+import { Address } from "./address.type";
 import { AppState } from "./store";
 
 export type Hotel = {
@@ -9,6 +10,7 @@ export type Hotel = {
   phone: string;
   cnpj: string;
   floors: string;
+  address: Partial<Address> & Required<Pick<Address, 'id'>>
 }
 
 type HotelState = {

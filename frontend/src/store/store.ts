@@ -5,6 +5,7 @@ import {guestSlice} from "./guestSlice";
 import {employeeSlice} from "./employeeSlice";
 import {hotelSlice} from "./hotelSlice";
 
+
 const makeStore = () =>
   configureStore({
     reducer: {

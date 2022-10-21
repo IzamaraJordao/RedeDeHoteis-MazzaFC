@@ -15,12 +15,13 @@ export class UpdateEmployee implements UseCase<EmployeeConstructor,undefined,und
   async execute(params: Request<EmployeeConstructor>) {
     const {id} = params.params
     const employee = new Employee(params.body)
-
+    console.log(id, employee)
     await this.employeeRepository.update(id, employee)
     return {  
       status: 201,
-      body:'Funcionario alterado com sucesso'
+      body:'Funcionário alterado com sucesso'
     }
     }
+
   }
 //

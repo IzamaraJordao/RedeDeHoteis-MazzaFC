@@ -1,14 +1,17 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 import { Pagination } from "../template/types/pagination";
+import { Address } from "./address.type";
 import { AppState } from "./store";
 
 export type Guest = {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   phone: string;
   cpf: string;
   rg: string;
+  address: Partial<Address> & Required<Pick<Address, 'id'>>
 }
 
 type GuestState = {

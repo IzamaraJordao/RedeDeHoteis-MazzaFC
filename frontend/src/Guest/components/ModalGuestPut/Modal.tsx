@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-
+import { guestById, guestPut } from '../../../api/guest/api-guest'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
 
@@ -23,24 +23,13 @@ const style = {
   p: 4,
 }
 
-export type TypeEmployee = {
-  name: string,
-  rg: string,
-  cpf: string,
-  email: string,
-  phone: string,
-  password: string,
-  address: {
-    street: string,
-    number: string,
-    complement: string,
-    neighborhood: string,
-    city: string,
-    state: string,
-    zipCode: string
-  },
-  hotel_id: string,
-
+export type TypeGuest = {
+  name: string
+  cpf: string
+  rg: string
+  email: string
+  phone: string
+  address: string
 }
 
 export default function Modal(props : any) {
@@ -52,40 +41,40 @@ export default function Modal(props : any) {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeEmployee>()
+  } = useForm<TypeGuest>()
 
 
-  async function getEmployeeBanco(id: string) {
-    axios.get(`http://localhost:3030/employee/${id}`)
+
+  async function getGuestBanco(id: string) {
+    guestById(id, enqueueSnackbar, dispatch)
     .then((res) => {
-      setValue('name', res.data.name)
-      setValue('cpf', res.data.cpf)
-      setValue('rg', res.data.rg)
-      setValue('phone', res.data.phone)
-      setValue('email',res.data.email)
-      
+      console.log(res)
+      setValue('name', res.name)
+      setValue('cpf', res.cpf)
+      setValue('rg', res.rg)
+      setValue('phone', res.phone)
+      setValue('email',res.email)
     })
   } 
 
   useEffect(() => {
-    getEmployeeBanco(props.idEmployee)
-  },[ props.idEmployee])
+    getGuestBanco(props.idGuest)
+  },[ props.idGuest ])
 
 
-  const onSubmit = (data: TypeEmployee) => {
-    axios
-      .put('http://localhost:3030/employee', {
+  const onSubmit = (data: TypeGuest) => {
+    guestPut(props.idGuest, {
         name: data.name,
         rg: data.rg,
         cpf: data.cpf,
         email: data.email,
         phone: data.phone,
-        address: data.address,
-      })
+        
+      } , enqueueSnackbar, dispatch)
       .then(() => {
         Swal.fire({
           icon: 'success',
-          title: 'Funcionário Editado com sucesso!',
+          title: 'Hóspede cadastrado com sucesso!',
           showConfirmButton: false,
           timer: 1500,
         })
@@ -98,7 +87,7 @@ export default function Modal(props : any) {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: 'Funcionário não cadastrado!',
+      title: 'Hóspede não cadastrado!',
       showConfirmButton: false,
       timer: 1500,
     })
@@ -115,7 +104,7 @@ export default function Modal(props : any) {
             component="h2"
             color={'var(--text)'}
           >
-            Cadastro de Funcionário
+            Cadastro de Hóspede
           </Typography>
         </div>
         <div>

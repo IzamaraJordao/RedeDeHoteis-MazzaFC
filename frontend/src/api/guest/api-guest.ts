@@ -69,6 +69,7 @@ export async function guestDelete(
 
 export async function guestPut(
      id: Guest['id'],
+     data: Guest,
     enqueueSnackbar: ProviderContext['enqueueSnackbar'],
     dispatch: ReturnType<typeof useDispatch>
 ){
@@ -76,6 +77,7 @@ export async function guestPut(
     const response =  await handleRequest({
         method: "put",
         url: `/guest/${id}`,
+        data
     }, enqueueSnackbar);
     enqueueSnackbar(response?.data, {
       anchorOrigin: {

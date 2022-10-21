@@ -1,4 +1,4 @@
-import { UnauthorizedError } from './../exceptions/UnauthorizedError';
+
 import { Request, Response } from 'express'
 import { DbError } from '../exceptions/dbError'
 import { HttpError } from '../exceptions/httpError'
@@ -25,7 +25,7 @@ export function controllerExpress(useCase: UseCase <any, any, any, any>, isPubli
       res.status(response.status).json(response.body)
     } catch (error) {
       
-      if (error instanceof DbError || error instanceof HttpError || error instanceof UnauthorizedError) {
+      if (error instanceof DbError || error instanceof HttpError) {
         res.status(error.code).json(error.message)
         return
       }
