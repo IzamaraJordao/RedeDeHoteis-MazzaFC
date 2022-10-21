@@ -68,6 +68,9 @@ export class Employee {
       hotel: this.hotel_id
     }
   }
+  /**
+   * Retorna todos os parametros em formato json
+   */
   get data() {
     return {
       id: this.id,

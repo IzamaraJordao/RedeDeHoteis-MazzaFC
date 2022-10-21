@@ -24,7 +24,7 @@ export async function handleRequest({ method, url, data, params } : HandleReques
       headers:{
         'Content-Type': 'application/json',
         //@ts-ignore
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${localStorage.getItem('@token')}`
       }
     })
 
