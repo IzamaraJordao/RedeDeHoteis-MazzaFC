@@ -6,6 +6,7 @@ import {
   GuestConstructor,
 } from '../../models/guest'
 import { Request } from '../interface'
+import { Address } from '../../models/address';
 // import { Address } from '../../models/address';
 
 export class UpdateGuest implements UseCase<GuestConstructor,undefined,undefined,string> {
@@ -13,8 +14,8 @@ export class UpdateGuest implements UseCase<GuestConstructor,undefined,undefined
   constructor(private readonly guestRepository: GuestRepository) {}
 
   async execute(params: Request<GuestConstructor>) {
-    // const address = new Address(params.body.address)
-    // params.body.address = address
+    const address = new Address(params.body.address)
+    params.body.address = address
     const {id} = params.params
     const guest = new Guest(params.body)
 

@@ -11,7 +11,8 @@ export type Guest = {
   phone: string;
   cpf: string;
   rg: string;
-  address: Partial<Address> & Required<Pick<Address, 'id'>>
+  address: Partial<Address> 
+  // & Required<Pick<Address, 'id'>>
 }
 
 type GuestState = {
