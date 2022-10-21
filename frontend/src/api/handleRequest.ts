@@ -1,19 +1,16 @@
-
-
-
-import {api} from './api'
+import { api } from './api'
 
 export type HandleRequest = {
-  method: 'get' | 'post' | 'put' | 'delete',
-  url: string,
-  data?: any,
-  params?: any,
-
+  method: 'get' | 'post' | 'put' | 'delete'
+  url: string
+  data?: any
+  params?: any
 }
 
-
-export async function handleRequest({ method, url, data, params } : HandleRequest  ,  enqueueSnackbar: any)  {
- 
+export async function handleRequest(
+  { method, url, data, params }: HandleRequest,
+  enqueueSnackbar: any,
+) {
   let response
   try {
     response = await api.request({
@@ -21,24 +18,22 @@ export async function handleRequest({ method, url, data, params } : HandleReques
       url,
       data,
       params,
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
         //@ts-ignore
-        'Authorization': `Bearer ${localStorage.getItem('@token')}`
-      }
+        Authorization: `Bearer ${localStorage.getItem('@token')}`,
+      },
     })
-
-
   } catch (error: any) {
-    console.log("teste", error)
+    console.log('teste', error)
     if (error && error.response && error.response.status < 500) {
       // const message = error.response.
       enqueueSnackbar(error.response.data, {
         anchorOrigin: {
           vertical: 'top',
-          horizontal: 'center'
+          horizontal: 'center',
         },
-        variant: 'error'
+        variant: 'error',
       })
       return
     } // mostra a mensagem de erro retornada do backend
@@ -48,22 +43,12 @@ export async function handleRequest({ method, url, data, params } : HandleReques
       {
         anchorOrigin: {
           vertical: 'top',
-          horizontal: 'center'
+          horizontal: 'center',
         },
-        variant: 'error'
-      }
+        variant: 'error',
+      },
     ) // mostra a mensagem de erro generica
     return
-    
   }
-
-
-
-
-
-
-
-
   return response
-  
 }

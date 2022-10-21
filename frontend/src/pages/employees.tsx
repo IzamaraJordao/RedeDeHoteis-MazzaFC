@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 import { Layout } from '../common/layout'
-import Funcionario from '../Employees/Emplyees'
+import Funcionario from '../Employees/Employees'
 import  Header from '../common/components/Header'
 
 

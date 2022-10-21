@@ -23,7 +23,7 @@ export class PaginateEmployee
     console.log(typeof filter)
     let filterSanitized = {}
     const keys = Object.keys(filter).filter((current, index) => {
-      if (Employee.filter().includes(current)) {
+      if (Employee.filter().includes(current as keyof Employee['publicInfo'])) {
         return true
       }
       return false

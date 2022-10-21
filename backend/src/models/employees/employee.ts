@@ -1,3 +1,4 @@
+import { ValidationError } from '../../exceptions/validationError'
 import { uuid } from '../../helpers/uuid'
 import { Address } from '../address/address'
 
@@ -30,18 +31,47 @@ export class Employee {
   hotel_id: string
   is_first_access: boolean
 
-  constructor(props: EmployeeConstructor) {
+  constructor(props: EmployeeConstructor, isCreating = false) {
     this.id = props.id || uuid()
-    this.name = props.name
+    if(!props.name){
+      throw new ValidationError('Nome não informado')
+    }
+      this.name =  props.name
+    if(!props.rg){
+      throw new ValidationError('RG não informado')
+    }
     this.rg = props.rg
+    if(!props.cpf){
+      throw new ValidationError('CPF não informado')
+    }
     this.cpf = props.cpf.replace(/\D/g, '')
+    if(!props.email){
+      throw new ValidationError('Email não informado')
+    }
     this.email = props.email
+    if(!props.phone){
+      throw new ValidationError('Telefone não informado')
+    }
     this.phone = props.phone.replace(/\D/g, '')
+
+    if(!props.address){
+      throw new ValidationError('Endereço não informado')
+    }
     this.address = props.address
+   
     this.note = props.note || ''
+    
     this.active = props.active || true
+   
     this.is_first_access = props.is_first_access || false
-    this.password = props.password
+    if(!props.password && isCreating){
+      throw new ValidationError('Senha não informada')
+    }
+    this.password = props.password 
+
+    if(!props.hotel_id){
+      throw new ValidationError('Hotel não informado')
+    }
     this.hotel_id = props.hotel_id
   }
 
@@ -65,7 +95,7 @@ export class Employee {
       note: this.note,
       active: this.active,
       is_first_access: this.is_first_access,
-      hotel: this.hotel_id
+      hotel_id: this.hotel_id,
     }
   }
   /**
@@ -88,8 +118,8 @@ export class Employee {
     }
   }
 
-  static filter() {
-    return ['id', 'name', 'email', 'cpf', 'rg', 'phone', 'hotel', 'active']
+  static filter(): Array<keyof Employee> {
+    return ['id', 'name', 'email', 'cpf', 'rg', 'phone', 'hotel_id', 'active']
   }
 
 }

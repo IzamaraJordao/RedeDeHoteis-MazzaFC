@@ -7,9 +7,10 @@ import TextField from '@mui/material/TextField'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { guestById } from '../../../api/guest/api-guest'
+import {employeeById, employeePut} from '../../../api/employee/api-employee'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
+import { Employee } from '../../../store/employeeSlice'
 
 const style = {
   position: 'absolute',
@@ -23,17 +24,9 @@ const style = {
   p: 4,
 }
 
-export type TypeGuest = {
-  name: string
-  cpf: string
-  rg: string
-  email: string
-  phone: string
-  address: string
-}
 
-export default function Modal(props : any) {
-  const [age, setAge] = React.useState('')
+
+export default function ModalEmployeePut(props : any) {
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
   
@@ -42,12 +35,11 @@ export default function Modal(props : any) {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeGuest>()
+  } = useForm<Employee>()
 
 
-
-  async function getGuestBanco(id: string) {
-    guestById(id, enqueueSnackbar, dispatch)
+  async function getEmployeeBanco(id: string) {
+    employeeById(id, enqueueSnackbar, dispatch)
     .then((res) => {
       console.log(res)
       setValue('name', res.name)
@@ -55,28 +47,37 @@ export default function Modal(props : any) {
       setValue('rg', res.rg)
       setValue('phone', res.phone)
       setValue('email',res.email)
+      register('address.id')
+      setValue('address.id', res.address.id)
     })
+
   } 
 
   useEffect(() => {
-    getGuestBanco(props.idGuest)
-  },[ props.idGuest ])
+    getEmployeeBanco(props.idEmployee)
+  },[ props.idEmployee])
 
 
-  const onSubmit = (data: TypeGuest) => {
-    axios
-      .put('http://localhost:3030/guest', {
-        name: data.name,
-        rg: data.rg,
-        cpf: data.cpf,
-        email: data.email,
-        phone: data.phone,
-        address: data.address,
-      })
+  const onSubmit = (data: Employee) => {
+    employeePut(props.idEmployee, {
+      id: props.idEmployee,
+      name: data.name,
+      rg: data.rg,
+      cpf: data.cpf,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+     note: data.note,
+     active: data.active,
+     is_first_access: data.is_first_access,
+     hotel_id: data.hotel_id,
+     address: {id: data.address.id},
+     
+    }, enqueueSnackbar, dispatch)
       .then(() => {
         Swal.fire({
           icon: 'success',
-          title: 'Hóspede cadastrado com sucesso!',
+          title: 'Funcionário Editado com sucesso!',
           showConfirmButton: false,
           timer: 1500,
         })
@@ -89,7 +90,7 @@ export default function Modal(props : any) {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: 'Hóspede não cadastrado!',
+      title: 'Funcionário não cadastrado!',
       showConfirmButton: false,
       timer: 1500,
     })
@@ -106,7 +107,7 @@ export default function Modal(props : any) {
             component="h2"
             color={'var(--text)'}
           >
-            Cadastro de Hóspede
+            Cadastro de Funcionário
           </Typography>
         </div>
         <div>

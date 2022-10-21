@@ -35,7 +35,7 @@ export const GuestSequelize = sequelize.define(
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'address',
+      model: 'Address',
       key: 'id',
     }
   }

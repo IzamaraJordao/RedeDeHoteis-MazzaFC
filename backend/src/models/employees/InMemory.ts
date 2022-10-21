@@ -5,7 +5,6 @@ import { Employee } from "./employee";
 
 export class  EmployeeInMemory implements EmployeeRepository{
     private _data: Employee[] = [];
-
     constructor(){}
     save(employee: Employee): Promise<void> {
         const employeeToSave = new Employee(employee);

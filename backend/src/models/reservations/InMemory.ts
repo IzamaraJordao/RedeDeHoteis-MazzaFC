@@ -40,7 +40,14 @@ export class  ReservationsInMemory implements ReservationsRepository{
         }
     }
     update(id: string, reservations: Reservations): Promise<void> {
-        throw new Error("Method not implemented.");
+        const index = this._data.findIndex((reservations) => reservations.id === id);
+        if (index !== -1){
+            this._data[index] = reservations;
+            return Promise.resolve();
+        }else{
+            return Promise.reject(new DbError('Reserva não encontrada',404));
+        }
+        
     }
 
     set data(data: Reservations[]){

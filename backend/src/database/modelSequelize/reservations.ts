@@ -19,6 +19,20 @@ import { sequelize } from '../sequelize'
   check_out: {
     type: DataTypes.DATE,
     allowNull: false,
+  },
+  check_in_static:{
+    type: DataTypes.DATE,
+    allowNull: false,
+
+  },
+  check_out_static:{
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  bedroom_id:{
+    type: DataTypes.UUID,
+    allowNull: false,
+    
   }
 },
   {

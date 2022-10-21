@@ -11,7 +11,7 @@ function makeSut() {
         email: 'any_email',
         cpf: '999.999.999-99',
         rg: 'any_rg',
-        phone: 'any_phone',
+        phone: '(99) 99999-9999',
         password: 'any_password',
         hotel_id: 'any_hotel_id',
         address: new Address({
@@ -27,7 +27,8 @@ function makeSut() {
     }
     const employee = new Employee(data)
     const repository = new EmployeeInMemory()
-    repository.data = [employee]
+    // @ts-ignore
+    repository._data = [employee]
     const sut = new UpdateEmployee(repository)
     return { sut, repository, employee, data }
     }
@@ -35,17 +36,23 @@ function makeSut() {
 describe('Update Employee', () => {
     it('Should update an employee', async () => {
         const { sut, repository, employee, data } = makeSut()
+        // @ts-ignore
+        console.log(repository._data)
+       
         const result = await sut.execute({
-        params: { id: employee.id },
+        params: { id: data.id },
+        
         body: {
+            id: data.id,
             name: 'new_name',
             email: 'new_email',
             cpf: '888.888.888-88',
             rg: 'new_rg',
-            phone: 'new_phone',
+            phone: '(88) 88888-8888',
             password: 'new_password',
-            hotel_id: 'new_hotel_id',
+            hotel_id: data.hotel_id,
             address: new Address({
+            id: data.address.id,
             street: 'new_street',
             number: 'new_number',
             complement: 'new_complement',
@@ -58,24 +65,34 @@ describe('Update Employee', () => {
         query: undefined,
         })
         expect(result.status).toBe(201)
-        expect(result.body).toBe('Funcionario alterado com sucesso')
+        expect(result.body).toBe('Funcionário alterado com sucesso')
         const employeeUpdated = await repository.findById(employee.id)
-        expect(employeeUpdated).toEqual({
-        ...data,
+        expect(employeeUpdated.data).toMatchObject<Employee['data']>({ 
+        id: data.id,
         name: 'new_name',
         email: 'new_email',
-        cpf: '888.888.888-88',
+        cpf: '88888888888',
         rg: 'new_rg',
-        phone: 'new_phone',
-        address: new Address({
-            street: 'new_street',
-            number: 'new_number',
-            complement: 'new_complement',
-            neighborhood: 'new_neighborhood',
-            city: 'new_city',
-            state: 'new_state',
-            zipCode: '14400000',
-        }),
+        phone: '88888888888',
+        password: 'new_password',   
+        note:"",
+        address_id: data.address.id,
+        active:true,   
+        is_first_access:false, 
+        hotel_id: data.hotel_id,
+        
+
+        })
+        expect(employeeUpdated.address).toMatchObject<Address['data']>({
+        id: data.address.id,
+        street: 'new_street',
+        number: 'new_number',
+        complement: 'new_complement',
+        neighborhood: 'new_neighborhood',
+        city: 'new_city',
+        state: 'new_state',
+        zipCode: '14400000',
+
         })
     })
     it('Should throw if any employee not founded', async () => {
