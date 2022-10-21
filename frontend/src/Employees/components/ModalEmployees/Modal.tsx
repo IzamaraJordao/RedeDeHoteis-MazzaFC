@@ -49,7 +49,7 @@ export default function ModalEmployee({ onClose }) {
     handleSubmit,
     formState: { errors },
   } = useForm<TypeEmployees>()
- const [hotels, setHotels] = React.useState<Pick<Hotel,'id'| 'name'>[]>([{id: 'teste', name: 'teste'}])
+  const [hotels, setHotels] = React.useState<Pick<Hotel, 'id' | 'name'>[]>([])
   const onSubmit = (data: TypeEmployees) => {
     // handleRequest({ method: 'post', url: '/employee', data },
     // console.log)
@@ -82,15 +82,19 @@ export default function ModalEmployee({ onClose }) {
       })
     onClose()
   }
-  useEffect(() => {
-
-
-  })
+  useEffect(() => {})
   function handleChange(e) {
+    
     setValue('hotel_id', e.target.value)
 
-    
   }
+  useEffect(() => {
+    axios.get('http://localhost:3030/hotel').then((res) => {
+      setHotels(res.data.id)
+    })
+  }, [])
+  
+  
   console.log(handleChange)
 
   function handleCep(cep: string) {
@@ -114,7 +118,6 @@ export default function ModalEmployee({ onClose }) {
     })
     onClose()
   }
-
 
   return (
     <ModalExterna>
@@ -263,15 +266,17 @@ export default function ModalEmployee({ onClose }) {
                 <InputNomeModal>
                   <label>Hotel</label>
                   <Select
+                  sx={{ width: '200px' }}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="hotel"
                     {...register('hotel_id')}
                     onChange={handleChange}
                   >
-                  <MenuItem value=""  selected >Selecione...</MenuItem> 
+                    <MenuItem value="" selected sx={{ width: '250px' }}>
+                      Selecione...
+                    </MenuItem>
                     {hotels.map((hotel) => (
-
                       <MenuItem value={hotel.id}>{hotel.name}</MenuItem>
                     ))}
                   </Select>
