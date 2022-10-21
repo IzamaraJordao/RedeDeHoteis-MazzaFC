@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { guestById, guestPut } from '../../../api/guest/api-guest'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
+import { Address } from '../../../store/address.type'
 
 const style = {
   position: 'absolute',
@@ -29,7 +30,7 @@ export type TypeGuest = {
   rg: string
   email: string
   phone: string
-  address: string
+  address: Address
 }
 
 export default function Modal(props : any) {
@@ -45,7 +46,7 @@ export default function Modal(props : any) {
 
 
 
-  async function getGuestBanco(id: string) {
+  async function getGuestBanco(id: string) { // Busca o convidado no banco de dados
     guestById(id, enqueueSnackbar, dispatch)
     .then((res) => {
       console.log(res)
@@ -54,6 +55,15 @@ export default function Modal(props : any) {
       setValue('rg', res.rg)
       setValue('phone', res.phone)
       setValue('email',res.email)
+      setValue('address.id', res.address.id)
+      setValue('address.street', res.address.street)
+      setValue('address.number', res.address.number)
+      setValue('address.complement', res.address.complement)
+      setValue('address.neighborhood', res.address.neighborhood)
+      setValue('address.city', res.address.city)
+      setValue('address.state', res.address.state)
+      setValue('address.zipCode', res.address.zipCode)
+
     })
   } 
 
@@ -62,14 +72,23 @@ export default function Modal(props : any) {
   },[ props.idGuest ])
 
 
-  const onSubmit = (data: TypeGuest) => {
+  const onSubmit = (data: TypeGuest) => { // salvar no banco
     guestPut(props.idGuest, {
         name: data.name,
         rg: data.rg,
         cpf: data.cpf,
         email: data.email,
         phone: data.phone,
-        
+        address: {
+          id: data.address.id,
+          street: data.address.street,
+          number: data.address.number,
+          complement: data.address.complement,
+          neighborhood: data.address.neighborhood,
+          city: data.address.city,
+          state: data.address.state,
+          zipCode: data.address.zipCode,
+        },
       } , enqueueSnackbar, dispatch)
       .then(() => {
         Swal.fire({
@@ -183,7 +202,100 @@ export default function Modal(props : any) {
                     size="small"
                     id="address"
                     variant="outlined"
-                    {...register('address')}
+                    {...register('address.id')}
+                  />
+                </InputNomeModal>
+              </div>
+            </ModalCentral>
+             <ModalCentral>
+              <div>
+                <InputNomeModal>
+                  <label>CEP</label>
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    {...register('address.zipCode')}
+              
+                  />
+                </InputNomeModal>
+              </div>
+              <div>
+                <InputNomeModal>
+                  <label>Rua</label>
+                  <TextField
+                    sx={{ width: '500px', color: 'var(--text)' }}
+                    size="small"
+                    id="outlined-basic"
+                    variant="outlined"
+                    {...register('address.street')}
+                  />
+                </InputNomeModal>
+              </div>
+            </ModalCentral>
+            <ModalCentral>
+              <div>
+                <InputNomeModal>
+                  <label>Bairro</label>
+                  <TextField
+                    sx={{ width: '560px' }}
+                    size="small"
+                    variant="outlined"
+                    {...register('address.neighborhood')}
+                  />
+                </InputNomeModal>
+              </div>
+              <div>
+                <InputNomeModal>
+                  <label>Número</label>
+                  <TextField
+                    size="small"
+                    id="outlined-basic"
+                    variant="outlined"
+                    {...register('address.number')}
+                  />
+                </InputNomeModal>
+              </div>
+             
+            </ModalCentral>
+            <ModalCentral>
+              <div>
+                <InputNomeModal>
+                  <label>Cidade</label>
+                  <TextField
+                    sx={{ width: '360px' }}
+                    size="small"
+                    id="cpf"
+                    type="text"
+                    variant="outlined"
+                    maxRows={11}
+                    {...register('address.city')}
+                  />
+                </InputNomeModal>
+              </div>
+              <div>
+                <InputNomeModal>
+                  <label>UF</label>
+                  <TextField
+                    sx={{ width: '100px' }}
+                    size="small"
+                    id="cpf"
+                    type="text"
+                    variant="outlined"
+                    maxRows={11}
+                    {...register('address.state')}
+                  />
+                </InputNomeModal>
+              </div>
+              <div>
+                <InputNomeModal>
+                  <label>Complemento</label>
+                  <TextField
+                    size="small"
+                    id="cpf"
+                    type="text"
+                    variant="outlined"
+                    maxRows={11}
+                    {...register('address.complement')}
                   />
                 </InputNomeModal>
               </div>

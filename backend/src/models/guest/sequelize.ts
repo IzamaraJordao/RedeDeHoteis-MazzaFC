@@ -44,9 +44,15 @@ export class GuestRepositorySequelize implements GuestRepository {
   } 
 
   async findById(id: string): Promise<Guest> {
-    const response = await this.sequelize.findByPk(id,{include: this.address})
+    const response = await this.sequelize.findByPk(id,{
+          include:[{
+            model: this.address,
+            as: 'Address',
+            attributes: ['id','street','number','complement','neighborhood','city','state','zip_code']
+          }]
+    })
     if (response) {
-      return new Guest(response.toJSON())
+      return new Guest({...response.toJSON(), address: new Address(response.toJSON().Address )  })
     } else {
       throw new DbError('Cliente não encontrado')
     }
@@ -74,6 +80,11 @@ export class GuestRepositorySequelize implements GuestRepository {
     await this.sequelize.update(guest.data, {
       where: {
         id: id,
+      },
+    })
+    await this.address.update(guest.address.data, {
+      where: {
+        id: guest.address.data.id,
       },
     })
 
