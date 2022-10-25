@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { BoxDiv, BoxExternal } from './styled';
-import Modal from '../common/components/ModalRegistration/Modal';
+// import Modal from '../common/components/ModalRegistration/Modal';
 
 
 // import '../common/components/ModalC/index.css'
@@ -69,7 +69,7 @@ export default function bancoTabela() {
       </BoxExternal>
 
       </div>
-      {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null}
+      {/* {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null} */}
     </div>
   )
 }

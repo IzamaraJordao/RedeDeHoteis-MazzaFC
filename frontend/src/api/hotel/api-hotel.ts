@@ -5,23 +5,39 @@ import { Hotel, setData, setIsLoading } from '../../store/hotelSlice';
 import { Pagination } from '../../template/types/pagination';
 import { handleRequest } from '../handleRequest';
 
-export async function saveHotel({
-    id,
-    name,
-    cnpj,
-    address,
-    phone,
-    email}: any) {
-    const response = await axios.post('/hotel', {
-        id,
-        cnpj,
-        name,
-        address,
-        phone,
-        email,
-    });
-    return response.data;
+// export async function saveHotel({
+//     id,
+//     name,
+//     cnpj,
+//     address,
+//     phone,
+//     email}: any) {
+//     const response = await axios.post('/hotel', {
+//         id,
+//         cnpj,
+//         name,
+//         address,
+//         phone,
+//         email,
+//     });
+//     return response.data;
+// }
+
+export async function saveHotel(
+  data: Hotel,
+  dispatch: ReturnType<typeof useDispatch>,
+  enqueueSnackbar: ProviderContext['enqueueSnackbar']
+) {
+  dispatch(setIsLoading(true));
+  const response = await handleRequest({
+    method: "post",
+    url: "/hotel",
+    data,
+  }, enqueueSnackbar);
+  dispatch(setIsLoading(false));
+  return response;
 }
+
 
 export async function hotelPaginate(
   {

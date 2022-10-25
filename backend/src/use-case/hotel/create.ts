@@ -29,12 +29,12 @@ export class CreateHotel
     const hotelFounded = await this.hotelRepository.findByCnpj(hotel.cnpj)
     if (hotelFounded) {
       throw new Error('CNPJ já cadastrado')
-    }
+    } 
     await this.hotelRepository.save(hotel)
 
     let bedrooms = []
     for (let i = 0; i < floor; i++) {
-      const maxbedroom = Number(floors[i].floor)
+      const maxbedroom = Number(floors[i].units)
       for (let j = 0; j < maxbedroom; j++) {
         bedrooms.push(new Bedroom({
           floor: hotel.floor,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ModalRegistration from '../common/components/ModalRegistration/Modal'
+import ModalRegistration from './components/ModalRegistration/Modal'
 import { Button } from '@mui/material'
 import { BoxDiv, BoxExternal } from './styled'
 import { guestPaginate, guestDelete } from '../api/guest/api-guest'
@@ -182,7 +182,7 @@ export default function PageGuest() {
         <ModalRegistration
           onClose={async () => {
             setIsModalVisible(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
+              await hotelPaginate(pagination, enqueueSnackbar, dispatch)
           }}
         />
       ) : null}
