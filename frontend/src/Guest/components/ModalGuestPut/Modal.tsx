@@ -194,7 +194,7 @@ export default function Modal(props : any) {
               </div>
             </ModalCentral>
             <ModalCentral>
-              <div>
+              <div style={{display: 'none'}}>
                 <InputNomeModal>
                   <label>Endereço</label>
                   <TextField
@@ -203,6 +203,7 @@ export default function Modal(props : any) {
                     id="address"
                     variant="outlined"
                     {...register('address.id')}
+
                   />
                 </InputNomeModal>
               </div>

@@ -26,11 +26,11 @@ export const BedroomSequelize = sequelize.define(
     type: DataTypes.STRING(36),
     allowNull: true,
   },
-  position_X: {
+  position_x: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  position_Y: {
+  position_y: {
     type: DataTypes.STRING,
     allowNull: false,
   },

@@ -13,13 +13,11 @@ export class UpdateBedroom implements UseCase<BedroomConstructor,undefined,undef
   constructor(private readonly bedroomRepository: BedroomRepository) {}
 
   async execute(params: Request<BedroomConstructor>) {
-    // const address = new Address(params.body.address)
-    // params.body.address = address
     const {id} = params.params
     const bedroom = new Bedroom(params.body)
-
+    console.log(id, bedroom)
     await this.bedroomRepository.update(id, bedroom)
-    return {  
+    return {   
       status: 201,
       body:'Quarto alterado com sucesso'
     }
