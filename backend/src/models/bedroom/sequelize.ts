@@ -81,7 +81,7 @@ export class BedroomRepositorySequelize implements BedroomRepository {
         id: id,
       },
     })
-  }
+  } 
 }
 
 //

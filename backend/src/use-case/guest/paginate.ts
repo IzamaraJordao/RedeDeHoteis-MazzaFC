@@ -27,7 +27,7 @@ export class PaginateGuest
         return true
       }
       return false
-    })
+    }) 
     keys.forEach((current, index) => {
       if (typeof filter[current] === 'string') {
         // @ts-ignore

@@ -39,8 +39,6 @@ export class CreateHotel
         bedrooms.push(new Bedroom({
           floor: hotel.floor,
           hotel_id: hotel.id,
-          position_X: i,
-          position_Y: j,
         }))
       }
     }

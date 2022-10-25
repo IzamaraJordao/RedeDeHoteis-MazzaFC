@@ -12,7 +12,6 @@ import { CreateHotel } from './use-case/hotel/create';
 import { DeleteEmployee } from './use-case/employees/delete';
 import { CreateGuest } from './use-case/guest/create';
 import { GetBedroom } from './use-case/bedroom/get';
-import { CreateBedroom } from './use-case/bedroom/create';
 import { DeleteBedroom } from './use-case/bedroom/delete';
 import { bedroomRepository } from './models/bedroom';
 import { PaginateEmployee } from './use-case/employees/paginate';
@@ -30,6 +29,7 @@ import { UpdateEmployee } from './use-case/employees/update';
 import { UpdateReservations } from './use-case/reversations/update';
 import { PaginateHotel } from './use-case/hotel/paginate';
 import { DeleteHotel } from './use-case/hotel/delete';
+import { UpdateBedroom } from './use-case/bedroom/update';
 
 
 ///Employee
@@ -60,8 +60,8 @@ export const updateGuest = new UpdateGuest(guestRepository);
 // bedroom
 export const paginateBedroom = new PaginateBedroom(bedroomRepository);
 export const getBedroom = new GetBedroom(bedroomRepository);
-export const createBedroom = new CreateBedroom(bedroomRepository);
 export const deleteBedroom = new DeleteBedroom(bedroomRepository);
+export const updateBedroom = new UpdateBedroom(bedroomRepository);
 
 // reservations
 export const paginateReservations = new PaginateReservations(reservationsRepository);

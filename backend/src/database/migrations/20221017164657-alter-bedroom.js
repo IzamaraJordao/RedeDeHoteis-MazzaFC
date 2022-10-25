@@ -20,11 +20,11 @@ module.exports = {
           allowNull: false,
           type: Sequelize.STRING(36),
         },
-        position_X: {
+        position_x: {
           allowNull: false,
           type: Sequelize.STRING,
         },
-        position_Y: {
+        position_y: {
           allowNull: false,
           type: Sequelize.STRING,
         },
