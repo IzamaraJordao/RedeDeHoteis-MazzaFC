@@ -34,9 +34,12 @@ export class CreateHotel
 
     let bedrooms = []
     for (let i = 0; i < floor; i++) {
-      const maxbedroom = Number(floors[i].units)
+      
+      const maxbedroom = Number(floors[i].units ) 
       for (let j = 0; j < maxbedroom; j++) {
         bedrooms.push(new Bedroom({
+          
+          // floor: hotel.floor,
           floor: hotel.floor,
           hotel_id: hotel.id,
         }))

@@ -42,6 +42,7 @@ export default function PageGuest() {
   }, [])
 
   function handleDelete(id: string) {
+    console.log(id)
     Swal.fire({
       title: 'Deseja realmente excluir?',
       showDenyButton: true,
