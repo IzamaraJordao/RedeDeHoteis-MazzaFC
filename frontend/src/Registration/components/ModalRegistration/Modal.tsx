@@ -69,7 +69,6 @@ export default function Modal({ onClose }) {
   }
 
   const onSubmit = (data: Hotel) => {
-    console.log(data)
     saveHotel(
       {
         name: data.name,

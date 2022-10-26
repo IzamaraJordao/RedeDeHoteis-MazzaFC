@@ -49,7 +49,11 @@ export default function ModalEmployee({ onClose }) {
     handleSubmit,
     formState: { errors },
   } = useForm<TypeEmployees>()
+
+
   const [hotels, setHotels] = React.useState<Pick<Hotel, 'id' | 'name'>[]>([])
+
+
   const onSubmit = (data: TypeEmployees) => {
     // handleRequest({ method: 'post', url: '/employee', data },
     // console.log)
@@ -82,12 +86,15 @@ export default function ModalEmployee({ onClose }) {
       })
     onClose()
   }
-  useEffect(() => {})
-  function handleChange(e) {
-    
-    setValue('hotel_id', e.target.value)
 
+
+  useEffect(() => {})
+
+
+  function handleChange(e) {
+    setValue('hotel_id', e.target.value)
   }
+  
   useEffect(() => {
     axios.get('http://localhost:3030/hotel').then((res) => {
       setHotels(res.data.id)

@@ -36,3 +36,8 @@ div{
     }
   }
 `;
+export const InputNomeModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin:2px;
+`;
