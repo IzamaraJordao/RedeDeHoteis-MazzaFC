@@ -25,6 +25,24 @@ export async function employeePaginate(
   dispatch(setData(response?.data))
   dispatch(setIsLoading(false))
 }
+export async function employeeCreate(
+  employee: Employee,
+  enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+  dispatch: ReturnType<typeof useDispatch>,
+) {
+  dispatch(setIsLoading(true))
+  const response = await handleRequest(
+    {
+      method: 'post',
+      url: '/employee',
+      data: employee,
+    },
+    enqueueSnackbar,
+  )
+  dispatch(setIsLoading(false))
+  return response
+}
+
 
 export async function employeeById(
   id: Employee['id'],
