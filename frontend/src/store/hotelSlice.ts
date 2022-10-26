@@ -4,13 +4,18 @@ import { Address } from "./address.type";
 import { AppState } from "./store";
 
 export type Hotel = {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   phone: string;
   cnpj: string;
-  floors: string;
-  address: Partial<Address> & Required<Pick<Address, 'id'>>
+  floor: number;
+  floors: {
+    floor: Number
+    units: Number
+  }[];
+  address: Partial<Address> 
+  // & Required<Pick<Address, 'id'>>
 }
 
 type HotelState = {

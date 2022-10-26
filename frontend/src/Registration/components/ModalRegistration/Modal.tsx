@@ -4,11 +4,14 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { ModalInterna, ModalExterna, ModalInternaFloors } from './styled'
 import TextField from '@mui/material/TextField'
-/////////////////Botão Select
 import Swal from 'sweetalert2'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { range } from 'ramda'
 import axios from 'axios'
+import { saveHotel } from '../../../api/hotel/api-hotel'
+import { Hotel } from '../../../store/hotelSlice'
+import { useSnackbar } from 'notistack'
+import { useDispatch } from 'react-redux'
 
 const style = {
   position: 'absolute',
@@ -23,31 +26,11 @@ const style = {
   scroll: 'auto',
 }
 
-export type TypeEmployees = {
-
-  name: String
-  floor: Number
-  unidades: Number
-  perfil: String
-  address: {
-    street: string
-    number: string
-    complement: string
-    neighborhood: string
-    city: string
-    state: string
-    zipCode: string
-  }
-  floors:{
-    floor: Number
-    units: Number
-  }[]
-}
-
 export default function Modal({ onClose }) {
   const [numberOfRoom, setNumberOfRoom] = React.useState<number>(0)
-  const [walk, setWalk] = React.useState(false)
-  const [age, setAge] = React.useState('')
+
+  const { enqueueSnackbar } = useSnackbar()
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -56,11 +39,10 @@ export default function Modal({ onClose }) {
     watch,
     control,
     formState: { errors },
-  } = useForm<TypeEmployees>()
+  } = useForm<Hotel>()
 
-  
   const { fields, append, remove } = useFieldArray({
-    name: "floors", 
+    name: 'floors',
     control,
   })
 
@@ -86,37 +68,64 @@ export default function Modal({ onClose }) {
     }
   }
 
-  const onSubmit = (data: TypeEmployees) => {
+  const onSubmit = (data: Hotel) => {
     console.log(data)
+    saveHotel(
+      {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        cnpj: data.cnpj,
+        floor: data.floor,
+        address: {
+          street: data.address.street,
+          number: data.address.number,
+          complement: data.address.complement,
+          neighborhood: data.address.neighborhood,
+          city: data.address.city,
+          state: data.address.state,
+          zipCode: data.address.zipCode,
+        },
+        floors: data.floors,
+      },
+      dispatch,
+      enqueueSnackbar,
+    ).then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Hotel cadastrado com sucesso!',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
+    onClose()
   }
 
   function formFloorRooms() {
-    const floors = range(1, numberOfRoom + 1)  
+    const floors = range(1, numberOfRoom + 1)
     console.log(floors)
     return (
       <div>
         {floors.map((floor, index) => (
-            <ModalInternaFloors key={floor}>
-              <ModalExterna>
-                <ModalInterna>
-                  <label htmlFor={`floorName${floor}`}>Nome do andar</label>
-                  <TextField {...register(`floors.${index}.floor`)} />
-                  {/* <TextField id={`floorName${floor}`} /> */}
-                </ModalInterna>
-                <ModalInterna>
-                  <label >Qtde quartos</label>
-                  <TextField  {...register(`floors.${index}.units`)} />
-                </ModalInterna>
-              </ModalExterna>
-            </ModalInternaFloors>
-            
+          <ModalInternaFloors key={floor}>
+            <ModalExterna>
+              <ModalInterna>
+                <label htmlFor={`floorName${floor}`}>Nome do andar</label>
+                <TextField {...register(`floors.${index}.floor`)} />
+                {/* <TextField id={`floorName${floor}`} /> */}
+              </ModalInterna>
+              <ModalInterna>
+                <label>Qtde quartos</label>
+                <TextField {...register(`floors.${index}.units`)} />
+              </ModalInterna>
+            </ModalExterna>
+          </ModalInternaFloors>
         ))}
-        </div>
-      
+      </div>
     )
   }
   console.log(watch('floors'))
-  
+
   return (
     <div>
       <Box sx={style}>
@@ -132,13 +141,41 @@ export default function Modal({ onClose }) {
         </div>
         <div>
           {/* <form> */}
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <ModalInterna>
               <ModalInterna>
                 <label>Nome do hotel</label>
                 <TextField size="small" id="name" {...register('name')} />
               </ModalInterna>
             </ModalInterna>
+
+            <ModalExterna>
+              <ModalInterna>
+                <label>CNPJ</label>
+                <TextField size="small" {...register('cnpj')} />
+              </ModalInterna>
+
+              <ModalInterna>
+                <label>Email</label>
+                <TextField
+                  sx={{ width: '400px' }}
+                  size="small"
+                  id="outlined-basic"
+                  variant="outlined"
+                  {...register('email')}
+                />
+              </ModalInterna>
+              <ModalInterna>
+                <label>Telefone</label>
+                <TextField
+                  sx={{ width: '200px' }}
+                  size="small"
+                  id="outlined-basic"
+                  variant="outlined"
+                  {...register('phone')}
+                />
+              </ModalInterna>
+            </ModalExterna>
 
             <ModalInterna>
               <label>Quantidade de Andares</label>
@@ -155,8 +192,11 @@ export default function Modal({ onClose }) {
             <ModalExterna>
               <ModalInterna>
                 <label>CEP</label>
-                <TextField size="small"  {...register('address.zipCode')}
-                    onChange={(e) => handleCep(e.target.value)}  />
+                <TextField
+                  size="small"
+                  {...register('address.zipCode')}
+                  onChange={(e) => handleCep(e.target.value)}
+                />
               </ModalInterna>
 
               <ModalInterna>
@@ -182,16 +222,14 @@ export default function Modal({ onClose }) {
                 />
               </ModalInterna>
 
-
               <ModalInterna>
                 <label>Número</label>
-                <TextField 
+                <TextField
                   size="small"
                   id="outlined-basic"
                   variant="outlined"
                   {...register('address.number')}
-                  />
-                  
+                />
               </ModalInterna>
               <ModalInterna>
                 <label>Cidade</label>
@@ -202,7 +240,6 @@ export default function Modal({ onClose }) {
                   type="text"
                   variant="outlined"
                   {...register('address.city')}
-               
                 />
               </ModalInterna>
             </ModalExterna>
@@ -225,16 +262,26 @@ export default function Modal({ onClose }) {
                   size="small"
                   id="cpf"
                   type="text"
-                  variant="outlined"           
+                  variant="outlined"
                   {...register('address.complement')}
                 />
               </ModalInterna>
             </ModalExterna>
 
-            <Button color="success" variant="contained" type="submit" sx={{ marginRight: '10px', marginTop: '10px' }}>
+            <Button
+              color="success"
+              variant="contained"
+              type="submit"
+              sx={{ marginRight: '10px', marginTop: '10px' }}
+            >
               Enviar
             </Button>
-            <Button variant="contained" color="error" onClick={close} sx={{ marginTop: '10px' }}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={close}
+              sx={{ marginTop: '10px' }}
+            >
               Voltar
             </Button>
           </form>
