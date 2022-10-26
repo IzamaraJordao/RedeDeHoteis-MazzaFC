@@ -1,4 +1,4 @@
- import { UnauthorizedError } from "../exceptions/unauthorizedError";
+ import { UnauthorizedError } from "../exceptions/UnauthorizedError";
 import { tokenGenerator } from "./tokenGenerator";
 
 export type DataToken = {

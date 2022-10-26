@@ -15,6 +15,16 @@ export const ModalExterna = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  .registerModal{
+    .updateModal{
+      display:none
+    }
+  }
+  .updateModal{
+      .registerModal{
+      display:none
+    }
+  }
 `;
 
 export const ModalCentral = styled.div`

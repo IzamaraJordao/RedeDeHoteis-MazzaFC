@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalEmployee from '../ModalEmployees/Modal'
-import ModalEmployeePut from '../ModalEmployeesPut/Modal'
-import { Button } from '@mui/material'
-import { employeePaginate, employeeDelete, employeePut } from '../../../api/employee/Api-employee'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  Employee,
-  selectData,
-  selectEmployee,
-  selectIsFormLoading,
-  selectIsLoading,
-  selectPaginate,
-} from '../../../store/employeeSlice'
+
+import { employeePaginate } from '../../../api/employee/Api-employee'
+
+import { Employee } from '../../../store/employeeSlice'
 import { useSnackbar } from 'notistack'
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import Swal from 'sweetalert2'
 import TableMain from '../../../common/components/MultTabela/index'
 import { Pagination } from '../../../template/types/pagination'
 import EditIcon from '@mui/icons-material/Edit'
 import { If } from '../../../common/components/If'
+import React from 'react'
+import { MyContext } from '../../Employees'
 
-export type BancoEmployee = {
+export interface BancoEmployee {
   id: number
   nome: string
   rg: string
@@ -32,60 +25,24 @@ export type BancoEmployee = {
 }
 
 export default function ColumnEmployee() {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
-  const dispatch = useDispatch()
-  const pagination = useSelector(selectPaginate)
-  const data = useSelector(selectData)  
-  const guest = useSelector(selectEmployee)
-  const isLoading = useSelector(selectIsLoading)
-  const isFormLoading = useSelector(selectIsFormLoading)
-  const [value, setValue] = useState<BancoEmployee>()
-  const [idModal, setIdModal] = useState<string>()
+  const {
+    handleDelete,
+    ModalPutEmployee,
+    pagination,
+    enqueueSnackbar,
+    handleUpdate,
+    dispatch,
+    data,
+    isLoading,
+    setIsModalVisible,
+    setIdModal,
+    isModalVisible,
+    idModal,
+  } = MyContext()
 
   useEffect(() => {
     employeePaginate(pagination, enqueueSnackbar, dispatch)
   }, [])
-
-  function handleDelete(id: string) {
-    Swal.fire({
-      title: 'Deseja realmente excluir?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Excluir',
-      denyButtonText: `Não Remover`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        employeeDelete(id, enqueueSnackbar, dispatch).then(() => {
-          employeePaginate(pagination, enqueueSnackbar, dispatch)
-        })
-        Swal.fire('Funcionário excluido', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-      }
-    })
-  }
-
-  function ModalPutEmployee(id: string,data: Employee) {
-    Swal.fire({
-      title: 'Deseja realmente editar?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      denyButtonText: `Não Editar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-    employeePut(id,data,enqueueSnackbar,dispatch).then(() => {
-      employeePaginate(pagination, enqueueSnackbar, dispatch)
-    })
-    Swal.fire('Funcionário editado', '', 'success')
-  } else if (result.isDenied) {
-    Swal.fire('Changes are not saved', '', 'info')
-
-  }
-  }
-  ) }
 
   const columns: GridColDef[] = [
     {
@@ -126,7 +83,6 @@ export default function ColumnEmployee() {
 
       disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
     },
-
     {
       field: 'email',
       headerName: 'Email',
@@ -143,7 +99,6 @@ export default function ColumnEmployee() {
       align: 'center',
       disableColumnMenu: true,
     },
-
     {
       field: 'id',
       headerName: 'Ações',
@@ -151,14 +106,14 @@ export default function ColumnEmployee() {
       width: 150,
       align: 'center',
       disableColumnMenu: true,
-      renderCell: (guest: GridRenderCellParams<BancoEmployee>) => {
+      renderCell: (employee: GridRenderCellParams<BancoEmployee>) => {
         return (
           <div>
             <IconButton
               color="error"
               sx={{ backgroundColor: '#fff !important' }}
               onClick={() => {
-                handleDelete(guest.row.id)
+                handleDelete(employee.row.id)
               }}
             >
               <DeleteIcon />
@@ -169,7 +124,8 @@ export default function ColumnEmployee() {
                 color: 'var(--tertiary)',
               }}
               onClick={() => {
-                setIsModalVisiblePut(true), setIdModal(guest.row.id)
+                setIdModal(employee.row.id)
+                setIsModalVisible(true)
               }}
             >
               <EditIcon />
@@ -184,9 +140,6 @@ export default function ColumnEmployee() {
     <div>
       <div>
         <div>
-          <div>
-           
-          </div>
           <TableMain
             data={data}
             columns={columns}
@@ -205,19 +158,12 @@ export default function ColumnEmployee() {
         <ModalEmployee
           onClose={async () => {
             setIsModalVisible(false),
+              setIdModal(undefined),
               await employeePaginate(pagination, enqueueSnackbar, dispatch)
           }}
+          props={idModal}
         />
       ) : null}
-      <If condition={isModalVisiblePut}>
-        <ModalEmployeePut
-          onClose={async () => {
-            setIsModalVisiblePut(false),
-              await employeePaginate(pagination, enqueueSnackbar, dispatch)
-          }}
-          idEmployee={idModal}
-        />
-      </If>
     </div>
   )
 }
