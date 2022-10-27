@@ -25,7 +25,7 @@ export class HotelRepositorySequelize implements HotelRepository {
       where: {
         cnpj: cnpj,
       },
-      attributes: ['id', 'name', 'cnpj', 'email', 'phone', 'email'],
+      attributes: ['id', 'name', 'cnpj', 'email', 'phone', 'email', 'floor_hotel'],
     })
     if(response) {
       const hotel = response.toJSON()

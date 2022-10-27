@@ -12,10 +12,11 @@ export enum BedroomType {
 
 export type BedroomConstructor = {
   id?: string
-  floor:number
+  name?: string
+  floor:string
   hotel_id: string
-  position_x?: string | null
-  position_y?: string | null
+  position_x?: number | null
+  position_y?: number | null
   status_room_id?: BedroomStatus
   room_type_id?: BedroomType
 }
@@ -23,10 +24,11 @@ export type BedroomConstructor = {
 
 export class Bedroom {
   id: string
-  floor: number
+  name: string
+  floor: string
   hotel_id: string
-  position_x: string | null 
-  position_y: string | null
+  position_x: number | null 
+  position_y: number | null
   status_room_id: BedroomStatus
   room_type_id: BedroomType
 
@@ -34,6 +36,7 @@ export class Bedroom {
 
   constructor(props: BedroomConstructor) {
     this.id = props.id || uuid()
+    this.name = props.name || ''
     this.floor = props.floor
     this.hotel_id = props.hotel_id
     this.position_x = props.position_x || null
@@ -47,6 +50,7 @@ export class Bedroom {
   get publicInfo(){
     return{
       id : this.id ,
+      name : this.name,
       floor: this.floor,
       hotel_id : this.hotel_id,
       position_x : this.position_x,
@@ -60,6 +64,7 @@ export class Bedroom {
   get data() {
     return {
       id: this.id,
+      name: this.name,
       floor: this.floor,
       hotel_id: this.hotel_id,
       position_x: this.position_x,
@@ -69,7 +74,7 @@ export class Bedroom {
     }
   }
   static filter() {
-    return ['id', 'floor', 'hotel_id', 'status_room_id', 'room_type_id']
+    return ['id', 'name', 'floor', 'hotel_id', 'status_room_id', 'room_type_id']
   }
 
 }
