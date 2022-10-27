@@ -3,8 +3,8 @@ import ModalEmployee from '../ModalEmployees/Modal'
 
 import { employeePaginate } from '../../../api/employee/Api-employee'
 
-import { Employee } from '../../../store/employeeSlice'
-import { useSnackbar } from 'notistack'
+import { Employee, selectData, selectIsLoading, selectPaginate } from '../../../store/employeeSlice'
+import { useSnackbar } from 'notistack' 
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
@@ -13,7 +13,7 @@ import { Pagination } from '../../../template/types/pagination'
 import EditIcon from '@mui/icons-material/Edit'
 import { If } from '../../../common/components/If'
 import React from 'react'
-import { MyContext } from '../../Employees'
+import { useSelector } from 'react-redux'
 
 export interface BancoEmployee {
   id: number
@@ -23,26 +23,17 @@ export interface BancoEmployee {
   email: string
   phone: string
 }
+ type Props={
+  setIdModal: React.Dispatch<React.SetStateAction<string | undefined>>
+  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>
+  employeePaginate: (pagination: Pagination<Employee>) => void
+  handleDelete: (id: string) => void
 
-export default function ColumnEmployee() {
-  const {
-    handleDelete,
-    ModalPutEmployee,
-    pagination,
-    enqueueSnackbar,
-    handleUpdate,
-    dispatch,
-    data,
-    isLoading,
-    setIsModalVisible,
-    setIdModal,
-    isModalVisible,
-    idModal,
-  } = MyContext()
-
-  useEffect(() => {
-    employeePaginate(pagination, enqueueSnackbar, dispatch)
-  }, [])
+ }
+export function TableEmployee(props:Props) {
+  const pagination = useSelector(selectPaginate)
+  const data = useSelector(selectData )
+  const isLoading = useSelector(selectIsLoading)
 
   const columns: GridColDef[] = [
     {
@@ -113,7 +104,7 @@ export default function ColumnEmployee() {
               color="error"
               sx={{ backgroundColor: '#fff !important' }}
               onClick={() => {
-                handleDelete(employee.row.id)
+                props.handleDelete(employee.row.id)
               }}
             >
               <DeleteIcon />
@@ -122,10 +113,11 @@ export default function ColumnEmployee() {
               sx={{
                 backgroundColor: '#fff !important',
                 color: 'var(--tertiary)',
+               margin:'8px'
               }}
               onClick={() => {
-                setIdModal(employee.row.id)
-                setIsModalVisible(true)
+                props.setIdModal(employee.row.id)
+                props.setIsModalVisible(true)
               }}
             >
               <EditIcon />
@@ -144,7 +136,7 @@ export default function ColumnEmployee() {
             data={data}
             columns={columns}
             search={(pagination: Pagination<Employee>) =>
-              employeePaginate(pagination, enqueueSnackbar, dispatch)
+              props.employeePaginate(pagination)
             }
             isLoading={isLoading}
             page={pagination.page}
@@ -154,16 +146,6 @@ export default function ColumnEmployee() {
         </div>
       </div>
 
-      {isModalVisible ? (
-        <ModalEmployee
-          onClose={async () => {
-            setIsModalVisible(false),
-              setIdModal(undefined),
-              await employeePaginate(pagination, enqueueSnackbar, dispatch)
-          }}
-          props={idModal}
-        />
-      ) : null}
     </div>
   )
 }

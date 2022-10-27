@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { BoxDiv, BoxExternal } from './styled'
 import Button from '@mui/material/Button'
-import TableMain from './components/TableEmployee/ColumnEmployee'
+import { TableEmployee } from './components/TableEmployee/ColumnEmployee'
 import ModalEmployee from './components/ModalEmployees/Modal'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { MenuItem, Select } from '@mui/material'
-import { selectData } from '../store/EmployeeSlice'
+import { selectData, setEmployee } from '../store/EmployeeSlice'
 import { hotelPaginate } from '../api/hotel/api-hotel'
 import { useSnackbar } from 'notistack'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,34 +25,22 @@ import {
   selectIsLoading,
   selectPaginate,
 } from '../store/employeeSlice'
-import { createContext } from 'react'
+import { Pagination } from '../template/types/pagination'
+import { If } from '../common/components'
 
-export interface BancoEmployee {
-  id: number
-  nome: string
-  rg: string
-  cpf: string
-  email: string
-  phone: string
-}
-
-interface Props {
-  idEmployee: string
-}
-
-export const context = createContext({})
-export function MyContext() {
-  const [isVisibled, setIsVisibled] = useState(false)
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
+export function EmployeePage() {
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
+
+  const [isVisibled, setIsVisibled] = useState(false)
+  const [idModal, setIdModal] = useState<string | undefined>(undefined)
+
   const pagination = useSelector(selectPaginate)
   const data = useSelector(selectData)
   const employee = useSelector(selectEmployee)
   const isLoading = useSelector(selectIsLoading)
   const isFormLoading = useSelector(selectIsFormLoading)
-  const [idModal, setIdModal] = useState<string | undefined>(undefined)
+
   const {
     register,
     setValue,
@@ -98,7 +86,7 @@ export function MyContext() {
     })
   }
 
-  function getEmployeeBanco(id: string) {
+  async function getEmployeeBanco(id: string, setValue: any) {
     employeeById(id, enqueueSnackbar, dispatch).then((res) => {
       setValue('name', res.name)
       setValue('cpf', res.cpf)
@@ -115,26 +103,8 @@ export function MyContext() {
       setValue('address.zipCode', res.address.zipCode)
     })
   }
-  const handleUpdate = (data: Employee, props: Props) => {
-    employeePut(
-      props.idEmployee,
-      {
-        id: props.idEmployee,
-        name: data.name,
-        rg: data.rg,
-        cpf: data.cpf,
-        email: data.email,
-        phone: data.phone,
-        password: data.password,
-        note: data.note,
-        active: data.active,
-        is_first_access: data.is_first_access,
-        hotel_id: data.hotel_id,
-        address: { id: data.address.id },
-      },
-      enqueueSnackbar,
-      dispatch,
-    ).then(() => {
+  const handleUpdate = (data: Employee, props: any) => {
+    employeePut(props.idEmployee, data, enqueueSnackbar, dispatch).then(() => {
       Swal.fire({
         icon: 'success',
         title: 'Funcionário Editado com sucesso!',
@@ -151,32 +121,16 @@ export function MyContext() {
     )
   }, [])
 
-  const onSubmit = (data: Employee, props: any) => {
-    if (props.idEmployee) {
+  const onSubmit = (data: Employee, props: any): any => {
+    if (data.id) {
       handleUpdate(data, props)
     } else {
-      handleCreate(data, props)
+      handleCreate(data)
     }
+    handleClose()
   }
-  const handleCreate = (data: Employee, props: any) => {
-    employeeCreate(
-      {
-        id: props.idEmployee,
-        name: data.name,
-        rg: data.rg,
-        cpf: data.cpf,
-        email: data.email,
-        phone: data.phone,
-        password: data.password,
-        note: data.note,
-        active: data.active,
-        is_first_access: data.is_first_access,
-        hotel_id: data.hotel_id,
-        address: { id: data.address.id },
-      },
-      enqueueSnackbar,
-      dispatch,
-    ).then(() => {
+  const handleCreate = (data: Employee) => {
+    employeeCreate(data, enqueueSnackbar, dispatch).then(() => {
       Swal.fire({
         icon: 'success',
         title: 'Funcionário cadastrado com sucesso!',
@@ -184,14 +138,16 @@ export function MyContext() {
         timer: 1500,
       })
     })
-    props.onClose()
   }
 
-  function handleChange(e) {
-    setValue('hotel_id', e.target.value)
+  function handleClose (){
+    setIsVisibled(false)
+    setIdModal(undefined)
+    dispatch(setEmployee(undefined))
+    employeePaginate(pagination, enqueueSnackbar, dispatch)
   }
 
-  function handleCep(cep: string) {
+  function handleCep(cep: string, setValue: any): any {
     if (cep.length === 8) {
       axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
         setValue('address.street', response.data.logradouro)
@@ -201,35 +157,9 @@ export function MyContext() {
       })
     }
   }
-
-  return {
-    handleDelete,
-    ModalPutEmployee,
-    pagination,
-    enqueueSnackbar,
-    dispatch,
-    data,
-    isLoading,
-    setIsModalVisible,
-    setIdModal,
-    isModalVisible,
-    idModal,
-    getEmployeeBanco,
-    handleUpdate,
-    handleCreate,
-    onSubmit,
-    close,
-    handleChange,
-    handleCep,
-    setIsVisibled,
-    isVisibled,
-  }
-}
-export default function bancoTabela() {
-  // const { openModal } = MyContext();
-  const [isVisibled, setIsVisibled] = useState(false)
-  const [modalIsVisible, setIsModalVisible] = useState(false)
-  const [idModal, setIdModal] = useState<string | undefined>(undefined)
+  useEffect(() => {
+    employeePaginate(pagination, enqueueSnackbar, dispatch)
+  }, [])
 
   return (
     <>
@@ -245,15 +175,26 @@ export default function bancoTabela() {
               NOVO CADASTRO
             </Button>
           </div>
-          <TableMain />
+          <TableEmployee
+            setIdModal={setIdModal}
+            employeePaginate={(pagination: Pagination<Employee>) =>
+              employeePaginate(pagination, enqueueSnackbar, dispatch)
+            }
+            handleDelete={handleDelete}
+            setIsModalVisible={setIsVisibled}
+          />
         </BoxDiv>
       </BoxExternal>
-      {isVisibled && (
+      <If condition={isVisibled}>
         <ModalEmployee
-          onClose={() => setIsVisibled(false)}
+          getEmployee={getEmployeeBanco}
+          onClose={handleClose}
           idEmployee={idModal}
+          open={false}
+          onSubmit={onSubmit}
+          handleCep={handleCep}
         />
-      )}
+      </If>
     </>
   )
 }

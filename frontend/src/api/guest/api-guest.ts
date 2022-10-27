@@ -88,3 +88,24 @@ export async function guestPut(
     })
     dispatch(setIsLoading(false));
 };
+
+export async function guestPost(
+      data: Guest,
+      enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+      dispatch: ReturnType<typeof useDispatch>
+  ){
+      dispatch(setIsLoading(true));
+      const response =  await handleRequest({
+          method: "post",
+          url: `/guest`,
+          data
+      }, enqueueSnackbar);
+      enqueueSnackbar(response?.data, {
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'center'
+        },
+        variant: 'success'
+      })
+      dispatch(setIsLoading(false));
+  }

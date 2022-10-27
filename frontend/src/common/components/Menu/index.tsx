@@ -95,7 +95,7 @@ export function AsideMenu(props: {
             }}
             startIcon={<PermContactCalendarIcon />}
           >
-            Hopedes
+            Hóspedes
           </Button>
           <Button
             size="large"
