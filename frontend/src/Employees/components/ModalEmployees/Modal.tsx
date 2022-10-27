@@ -38,6 +38,7 @@ export default function ModalEmployee({ onClose, open, idEmployee }: any) {
   useEffect(() => {
     employeePaginate(pagination, enqueueSnackbar, dispatch)
   }, [])
+  
   function close() {
     Swal.fire({
       position: 'center',

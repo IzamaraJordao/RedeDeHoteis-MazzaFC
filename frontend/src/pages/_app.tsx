@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps:{session, ...pageProps }}: AppProps) {
     <ThemeProvider theme={theme} >
      <SnackbarProvider maxSnack={3}>
       <GlobalStyle />
-      <Header toggleTheme={toggleTheme} />
+      {/* <Header toggleTheme={toggleTheme} /> */}
   
         <Component {...pageProps} />
       </SnackbarProvider>

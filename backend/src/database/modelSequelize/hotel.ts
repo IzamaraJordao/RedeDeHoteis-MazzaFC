@@ -27,6 +27,10 @@ export const HotelSequelize = sequelize.define(
     type: DataTypes.STRING,
     allowNull: false,
   },
+  floor_hotel: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   address_id: {
     type: DataTypes.UUID,
     allowNull: false,

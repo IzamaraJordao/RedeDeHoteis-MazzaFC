@@ -75,7 +75,7 @@ export default function Modal({ onClose }) {
         email: data.email,
         phone: data.phone,
         cnpj: data.cnpj,
-        floor: data.floor,
+        floor_hotel: data.floor_hotel,
         address: {
           street: data.address.street,
           number: data.address.number,
@@ -183,7 +183,7 @@ export default function Modal({ onClose }) {
                 size="small"
                 id="andares"
                 variant="outlined"
-                {...register('floor')}
+                {...register('floor_hotel')}
                 onChange={(e) => setNumberOfRoom(Number(e.target.value))}
               />
               {numberOfRoom > 0 && formFloorRooms()}

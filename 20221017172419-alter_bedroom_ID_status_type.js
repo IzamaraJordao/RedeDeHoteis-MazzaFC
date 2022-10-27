@@ -2,6 +2,8 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    const BedroomColumn = queryInterface.removeColumn('bedroom', 'status');
+    const BedroomCreateStatus = queryInterface.removeColumn('bedroom', 'status');
     const BedroomType = queryInterface.addColumn('bedroom', 'status_room_id', {
       allowNull: false,
       type: Sequelize.STRING(36),
@@ -18,7 +20,6 @@ module.exports = {
         key: 'id',
       },
       });
-
 
     return  BedroomType, BedroomStatus;
   },
