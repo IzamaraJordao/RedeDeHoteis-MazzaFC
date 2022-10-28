@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
-import { BoxDiv, BoxExternal, InputNomeModal, ModalInternaFloors, ModalExterna, ModalInterna } from './styled';
+import { BoxDiv, BoxExternal, InputNomeModal, ModalInternaFloors,ModalBox } from './styled';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Hotel, selectData } from "../store/hotelSlice";
@@ -10,7 +10,9 @@ import { hotelPaginate } from "../api/hotel/api-hotel";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { range } from "ramda";
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Unstable_Grid2';
+import ModalBedroom from "./components/ModalBedroom/Modal";
+import CardsBedroom from "./components/CardsBedroom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -70,7 +72,15 @@ export default function bancoTabela() {
 
   function openModal(x, y) {
     setIsModalVisible(true)
+
     //*verificar se existe o quarto na posicao x,y
+    const room = rooms.find((room) => room.position_x === x && room.position_y === y)
+    if (room ) {
+
+    }else{
+      /// position x e y == null
+    }
+
     //*se existir, abrir modal com os dados do quarto
     //*se nao existir, abrir modal para criar um novo quarto, passando informaçõe para a 
     //*primeira informação posicao x,y
@@ -78,38 +88,41 @@ export default function bancoTabela() {
   }
 
 
-  function formFloorRooms() {
 
-    const floors = range(0, numberOfRoom + 2)
-    return (
-      <div>
-
-        {floors.map((floor, x) => (
-          <ModalInternaFloors key={floor}>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                {floors.map((_, y) => (
-                  <Grid item xs={2} sm={3} md={3} key={y}>
-                    <Box
-                      sx={{
-                        borderRadius:2,
-                        width: 150,
-                        height: 70,
-                        backgroundColor: getRoomColor(x, y),
-                        color: '#fff',
-                        boxShadow: '5px 5px 16px 3px rgba(0,0,0,0.2)'
-                      }}
-                      onClick={()=> openModal(x,y)}
-                    >{getRoomName(x, y)}</Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          </ModalInternaFloors>
-        ))}
-      </div>
-    )
-  }
+        // function formFloorRooms() {
+    
+        //   const floors = range(0, numberOfRoom + 2)
+        //   return (
+        //     <ModalBox>
+      
+        //       {floors.map((floor, x) => (
+        //         <ModalInternaFloors key={floor}>
+        //           <Box sx={{ flexGrow: 1, width: '900px' }}>
+        //             <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} columns={{ xs: 6, sm: 8, md: 12 }}>
+        //               {floors.map((_, y) => (
+        //                 <Grid xs={2} sm={3} md={2} lg={1.5} key={y}>
+        //                   <Box
+        //                     sx={{
+        //                       borderRadius:2,
+        //                       width: 110,
+        //                       height: 70,
+        //                       backgroundColor: getRoomColor(x, y),
+        //                       color: '#fff',
+        //                       boxShadow: '5px 5px 16px 3px rgba(0,0,0,0.2)',
+                            
+        //                     }}
+        //                     onClick={()=> openModal(x,y)}
+        //                   >{getRoomName(x, y)}</Box>
+        //                 </Grid>
+        //               ))}
+        //             </Grid>
+        //           </Box>
+        //         </ModalInternaFloors>
+        //       ))}
+        //     </ModalBox>
+        //   )
+        // }
+  
 
 
   return (
@@ -123,7 +136,7 @@ export default function bancoTabela() {
               <InputNomeModal>
                 <label>Hotel</label>
                 <Select
-                  sx={{ width: '200px' }}
+                  sx={{ width: '200px', display: 'flex', justifyContent: 'center' }}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label="hotel"
@@ -143,7 +156,7 @@ export default function bancoTabela() {
               <InputNomeModal>
                 <label>Andar</label>
                 <Select
-                  sx={{ width: '200px' }}
+                  sx={{ width: '200px', display: 'flex', justifyContent: 'center'}}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label="hotel"
@@ -159,12 +172,20 @@ export default function bancoTabela() {
                 </Select>
               </InputNomeModal>
             </div>
-            {numberOfRoom > 0 && formFloorRooms()}
+            <div>
+            {numberOfRoom > 0 && <CardsBedroom 
+            numberOfRoom={numberOfRoom} 
+            getRoomName={getRoomName}
+            getRoomColor={getRoomColor}
+            openModal={openModal}
+            />}
+            </div>
+         
           </BoxDiv>
         </BoxExternal>
 
       </div>
-      {/* {isModalVisible ? <Modal onClose={() => setIsModalVisible(false)} /> : null} */}
+      {isModalVisible ? <ModalBedroom onClose={() => setIsModalVisible(false)} /> : null}
     </div>
   )
 }
