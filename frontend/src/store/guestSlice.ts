@@ -64,6 +64,7 @@ export const { setData, setIsLoading, setGuest } = guestSlice.actions; // Export
 
 export const selectData = (state: AppState) => state.guest.data;
 export const selectGuest = (state: AppState) => state.guest.guest;
+export const selectGuestData = (state: AppState) => state.guest.guest;
 export const selectPaginate = (state: AppState) => state.guest.pagination;// Exportando o state
 export const selectIsLoading = (state: AppState) => state.guest.isLoading;// Exportando o state
 export const selectIsFormLoading = (state: AppState) => state.guest.isFormLoading;// Exportando o state

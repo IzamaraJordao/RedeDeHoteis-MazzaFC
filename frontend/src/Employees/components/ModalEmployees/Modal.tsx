@@ -21,7 +21,7 @@ type Props = {
   open: boolean
   idEmployee: string | undefined
   getEmployee: (id: string, setValue: any) => Promise<void>
-  onSubmit: (data: Employee, props: any) => Promise<any>
+  onSubmit: (data: Employee, props: any) => Promise<Employee>
   handleCep: (cep: string, setValue: any) => Promise<Address>
 }
 
