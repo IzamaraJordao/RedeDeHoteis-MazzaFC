@@ -55,10 +55,10 @@ export function TableGuest(props: Props) {
       sortable: false,
       disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
 
-      renderCell: (employee: GridRenderCellParams<BancoGuest>) => {
+      renderCell: (guest: GridRenderCellParams<BancoGuest>) => {
         return (
           <div style={{ color: 'blue', marginLeft: '15px' }}>
-            {employee.row.cpf}
+            {guest.row.cpf}
           </div>
         )
       },
@@ -117,8 +117,9 @@ export function TableGuest(props: Props) {
                 color: 'var(--tertiary)',
               }}
               onClick={() => {
-                props.setIsModalVisible(true), 
-                props.setIdModal(guest.row.id)
+                props.setIdModal(guest.row.id),
+                props.setIsModalVisible(true)
+                
               }}
             >
               <EditIcon />

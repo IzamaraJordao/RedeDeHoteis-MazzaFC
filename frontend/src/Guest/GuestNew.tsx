@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import ModalGuest from './components/ModalGuestPost/Modal'
 import { Button } from '@mui/material'
 import { BoxDiv, BoxExternal } from './styled'
-import { guestPaginate, guestDelete, guestPost, guestById } from '../api/guest/api-guest'
+import {
+  guestPaginate,
+  guestDelete,
+  guestPost,
+  guestById,
+  guestPut,
+} from '../api/guest/api-guest'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Guest,
-  selectData,
-  selectGuest,
-  selectIsFormLoading,
-  selectIsLoading,
   selectPaginate,
   setGuest,
 } from '../store/guestSlice'
@@ -22,14 +24,13 @@ import { TableGuest } from './components/tableGuest/ColumnGuest'
 import { Pagination } from '../template/types/pagination'
 
 export default function PageGuest() {
-  const [isModalVisible, setIsModalVisible] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
+
   const pagination = useSelector(selectPaginate)
   const [isVisibled, setIsVisibled] = useState(false)
   const [idGuest, setIdGuest] = useState<string | undefined>(undefined)
 
- 
   function handleDelete(id: string) {
     Swal.fire({
       title: 'Deseja realmente excluir?',
@@ -48,15 +49,14 @@ export default function PageGuest() {
       }
     })
   }
-  async function getGuestBanco(id: string,setValue:any) { // Busca o convidado no banco de dados
-    guestById(id, enqueueSnackbar, dispatch)
-    .then((res) => {
-      console.log(res)
+  async function getGuestBanco(id: string, setValue: any) {
+    // Busca o convidado no banco de dados
+    guestById(id, enqueueSnackbar, dispatch).then((res) => {
       setValue('name', res.name)
       setValue('cpf', res.cpf)
       setValue('rg', res.rg)
       setValue('phone', res.phone)
-      setValue('email',res.email)
+      setValue('email', res.email)
       setValue('address.id', res.address.id)
       setValue('address.street', res.address.street)
       setValue('address.number', res.address.number)
@@ -65,11 +65,8 @@ export default function PageGuest() {
       setValue('address.city', res.address.city)
       setValue('address.state', res.address.state)
       setValue('address.zipCode', res.address.zipCode)
-
     })
-  } 
- 
-
+  }
 
   const onSubmit = (data: Guest): any => {
     if (idGuest) {
@@ -81,15 +78,19 @@ export default function PageGuest() {
   }
   const handleCreate = (data: Guest) => {
     guestPost(data, enqueueSnackbar, dispatch).then(() => {
-      guestPaginate(pagination, enqueueSnackbar, dispatch)
+      Swal.fire({
+        icon: 'success',
+        title: 'Hóspede cadastrado com sucesso!',
+        showConfirmButton: false,
+        timer: 1500,
+      }) 
     })
   }
 
   const handlePut = (data: Guest) => {
-    guestPost(data, enqueueSnackbar, dispatch).then(() => {
-      guestPaginate(pagination, enqueueSnackbar, dispatch)
-    })
+    guestPut(idGuest as string,data, enqueueSnackbar, dispatch)
   }
+
   const handleClose = () => {
     setIsVisibled(false)
     setIdGuest(undefined)
@@ -110,14 +111,13 @@ export default function PageGuest() {
   useEffect(() => {
     guestPaginate(pagination, enqueueSnackbar, dispatch)
   }, [])
-  
 
   return (
     <div>
       <BoxExternal>
         <BoxDiv>
           <div>
-            <Button variant="contained" onClick={() => setIsModalVisible(true)}>
+            <Button variant="contained" onClick={() => setIsVisibled(true)}>
               NOVO CADASTRO
             </Button>
           </div>
@@ -131,14 +131,14 @@ export default function PageGuest() {
           />
         </BoxDiv>
       </BoxExternal>
-      <If condition={isModalVisible}>
+      <If condition={isVisibled}>
         <ModalGuest
-         getGuest={getGuestBanco}
-         onClose={handleClose}
-         idGuest={idGuest}
-         open={false}
-         onSubmit={onSubmit}
-         handleCep={handleCep}
+          getGuest={getGuestBanco}
+          onClose={handleClose}
+          idGuest={idGuest}
+          open={false}
+          onSubmit={onSubmit}
+          handleCep={handleCep}
         />
       </If>
     </div>

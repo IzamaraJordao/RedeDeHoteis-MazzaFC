@@ -26,7 +26,7 @@ export class CreateGuest implements UseCase<GuestConstructor,undefined,undefined
   
     await this.guestRepository.save(guest)
     return {  
-      status: 201,
+      status: 200,
       body:'Cliente criado com sucesso'
     }
     }

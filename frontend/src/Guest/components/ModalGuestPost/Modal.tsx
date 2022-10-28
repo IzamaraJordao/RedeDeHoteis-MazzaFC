@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import PageGuest from '../../Guest'
+import PageGuest from '../../GuestNew'
 import { Guest, selectData, selectGuestData, selectPaginate, setGuest } from '../../../store/guestSlice'
 import { guestPaginate, guestPost } from '../../../api/guest/api-guest'
 import { useSnackbar } from 'notistack'
@@ -37,7 +37,7 @@ export default function ModalGuest(props:Props) {
     handleSubmit,
     formState: { errors },
   } = useForm<Guest>()
-const hotels = useSelector(selectData)
+
 const guest = useSelector(selectGuestData)
 
 const dataGuest =  async (id: Required<Guest>['id']) => {
@@ -65,9 +65,7 @@ useEffect(() => {
       dispatch(setGuest(undefined))
     }
   },[])
-  // function handleChange(e) {
-  //   setValue('hotel_id', e.target.value)
-  // }
+ 
 
   return (
     <ModalExterna>
@@ -79,7 +77,7 @@ useEffect(() => {
             component="h2"
             color={'var(--text)'}
           >
-          {props.idGuest === undefined ? 'Editar Hóspede' : 'Cadastrar Hóspede'}
+          {props.idGuest === undefined ?  'Cadastrar Hóspede': 'Editar Hóspede' }
           </Typography>
         </div>
         <div>
@@ -160,7 +158,9 @@ useEffect(() => {
                     size="small"
                     variant="outlined"
                     {...register('address.zipCode')}
-                    onChange={(e) => props.handleCep(e.target.value, setValue)}
+                    onChange={(e) => 
+                      props.handleCep(e.target.value, setValue)
+                    }
                   />
                 </InputNomeModal>
               </div>

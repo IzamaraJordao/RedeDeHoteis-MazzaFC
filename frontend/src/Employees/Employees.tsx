@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { MenuItem, Select } from '@mui/material'
-import { selectData, setEmployee } from '../store/EmployeeSlice'
+
 import { hotelPaginate } from '../api/hotel/api-hotel'
 import { useSnackbar } from 'notistack'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,6 +24,7 @@ import {
   selectIsFormLoading,
   selectIsLoading,
   selectPaginate,
+  setEmployee 
 } from '../store/employeeSlice'
 import { Pagination } from '../template/types/pagination'
 import { If } from '../common/components'

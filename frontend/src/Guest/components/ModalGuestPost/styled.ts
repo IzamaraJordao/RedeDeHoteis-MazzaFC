@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalExterna = styled.div`
-  background-color: rgb(0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   height: 100vh;
   width: 100vw;
   overflow: hidden;

@@ -29,7 +29,7 @@ export class CreateEmployee implements UseCase<EmployeeConstructor,undefined,und
     
     await this.employeeRepository.save(employee)
     return {  
-      status: 201,
+      status: 200,
       body:'Funcionário criado com sucesso'
     }
   }
