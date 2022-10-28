@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {controllerExpress} from './helpers/controllerExpress';
-import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, deleteBedroom, paginateEmployee, paginateBedroom, paginateReservations, getReservations, createReservations, deleteReservations, paginateGuest, deleteGuest, updateGuest, updateEmployee, updateReservations, paginateHotel, deleteHotel, updateBedroom } from './composers';
+import { getEmployee, login, getGuest, createEmployee, createHotel, getHotel, deleteEmployee, createGuest, getBedroom, deleteBedroom, paginateEmployee, paginateBedroom, paginateReservations, getReservations, createReservations, deleteReservations, paginateGuest, deleteGuest, updateGuest, updateEmployee, updateReservations, paginateHotel, deleteHotel, updateBedroom, paginateType, paginateStatus } from './composers';
 
 const router = Router();
 
@@ -40,6 +40,11 @@ router.get('/reservations/:id', controllerExpress(getReservations))
 router.post('/reservations', controllerExpress(createReservations))
 router.delete('/reservations/:id', controllerExpress(deleteReservations))
 router.put('/reservations/:id', controllerExpress(updateReservations))
+///type
+router.get('/type', controllerExpress(paginateType));
+//status
+router.get('/status', controllerExpress(paginateStatus));
+
 
 export default router;
 ///

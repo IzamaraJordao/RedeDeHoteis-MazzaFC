@@ -30,6 +30,10 @@ import { UpdateReservations } from './use-case/reversations/update';
 import { PaginateHotel } from './use-case/hotel/paginate';
 import { DeleteHotel } from './use-case/hotel/delete';
 import { UpdateBedroom } from './use-case/bedroom/update';
+import { typeRepository } from './models/typeBedroom';
+import { PaginateType } from './use-case/type/paginate';
+import { statusRepository } from './models/statusBedroom';
+import { PaginateStatus } from './use-case/statusBedroom/paginate';
 
 
 ///Employee
@@ -69,4 +73,10 @@ export const getReservations = new GetReservations(reservationsRepository);
 export const createReservations = new CreateReservations(reservationsRepository);
 export const deleteReservations = new DeleteReservations(reservationsRepository);
 export const updateReservations = new UpdateReservations(reservationsRepository);
+///type
+export const paginateType = new PaginateType(typeRepository);
+//status
+export const paginateStatus = new PaginateStatus(statusRepository);
+
+//
 
