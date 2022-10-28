@@ -24,7 +24,7 @@ import {
   selectIsFormLoading,
   selectIsLoading,
   selectPaginate,
-  setEmployee 
+  setEmployee,
 } from '../store/employeeSlice'
 import { Pagination } from '../template/types/pagination'
 import { If } from '../common/components'
@@ -36,7 +36,6 @@ export function EmployeePage() {
   const [isVisibled, setIsVisibled] = useState(false)
   const [idEmployee, setIdEmployee] = useState<string | undefined>(undefined)
   const pagination = useSelector(selectPaginate)
-
 
   function handleDelete(id: string) {
     Swal.fire({
@@ -57,7 +56,6 @@ export function EmployeePage() {
     })
   }
 
-
   async function getEmployeeBanco(id: string, setValue: any) {
     employeeById(id, enqueueSnackbar, dispatch).then((res) => {
       setValue('name', res.name)
@@ -77,9 +75,8 @@ export function EmployeePage() {
   }
   const handleUpdate = (data: Employee) => {
     employeePut(idEmployee as string, data, enqueueSnackbar, dispatch)
-    
-    }
-  
+  }
+
   useEffect(() => {
     hotelPaginate(
       { page: 1, pageSize: 100, filter: {} },
@@ -108,7 +105,7 @@ export function EmployeePage() {
     })
   }
 
-  function handleClose (){
+  function handleClose() {
     setIsVisibled(false)
     setIdEmployee(undefined)
     dispatch(setEmployee(undefined))
@@ -150,7 +147,6 @@ export function EmployeePage() {
             }
             handleDelete={handleDelete}
             setIsModalVisible={setIsVisibled}
-            
           />
         </BoxDiv>
       </BoxExternal>

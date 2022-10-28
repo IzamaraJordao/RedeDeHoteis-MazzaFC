@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const TableHeade = styled.div`
+export const TableHeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   
   div{
     margin-top: -30px;

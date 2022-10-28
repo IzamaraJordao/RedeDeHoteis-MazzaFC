@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import React, { useEffect } from 'react'
-import { TableHeade} from './styled'
+import { TableHeader} from './styled'
 import SearchIcon from '@mui/icons-material/Search'
 
 export default function tableHeader(props: any) {
@@ -34,7 +34,7 @@ export default function tableHeader(props: any) {
   }
 
   return (
-    <TableHeade>
+    <TableHeader>
       
       <strong>{props.name}</strong>
      
@@ -53,7 +53,7 @@ export default function tableHeader(props: any) {
           <SearchIcon sx={{ fontSize: 10 }} />
         </button>
       </div>
-    </TableHeade>
+    </TableHeader>
   )
 }
 

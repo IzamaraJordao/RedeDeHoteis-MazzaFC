@@ -45,6 +45,7 @@ export default function Tabela(props: Props) {
       sortable: false,
       renderHeader: () => (
         <TableHeader
+        key={column.headerName}
           name={column.headerName}
           value={filter[column.field]}
           onSearch={(value: any) => handleSearch(column.field, value)}

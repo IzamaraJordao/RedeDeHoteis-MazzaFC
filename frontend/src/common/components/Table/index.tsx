@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TabelaCentral } from './styled';
-import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-import Modal from '../Modal/Modal';
+import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
+import Modal from '../styled/Modal';
 import Button from '@mui/material/Button';
 import {Typography } from "@mui/material";
 
