@@ -33,7 +33,7 @@ export default function App() {
   const columns: GridColumns = [
     {
       field: 'numero',
-      headerName: 'Comsumo',
+      headerName: 'Consumo',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
@@ -74,7 +74,7 @@ export default function App() {
       }
     },
     {
-      field: 'status',
+      field: 'Status',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
@@ -94,7 +94,7 @@ export default function App() {
       }
     },
     {
-      field: 'Quartaaa',
+      field: 'Quarta',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,

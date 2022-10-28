@@ -7,14 +7,26 @@ import TextField from '@mui/material/TextField'
 import { useForm } from 'react-hook-form'
 import { MenuItem, Select } from '@mui/material'
 import { style } from './typesAndStyles'
-import { employeePaginate } from '../../../api/employee/api-employee'
-import { Employee } from '../../../store/employeeSlice'
-import { MyContext } from '../../Employees'
-import { useSelector } from 'react-redux'
+import {
+  Employee,
+  selectEmployeeData,
+  setEmployee,
+} from '../../../store/employeeSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectData } from '../../../store/hotelSlice'
-import Swal from 'sweetalert2'
+import { Address } from '../../../store/address.type'
 
-export default function ModalEmployee({ onClose, open, idEmployee }: any) {
+type Props = {
+  onClose: () => void
+  open: boolean
+  idEmployee: string | undefined
+  getEmployee: (id: string, setValue: any) => Promise<void>
+  onSubmit: (data: Employee, props: any) => Promise<any>
+  handleCep: (cep: string, setValue: any) => Promise<Address>
+}
+
+export default function ModalEmployee(props: Props) {
+  const dispatch = useDispatch()
   const {
     register,
     setValue,
@@ -22,32 +34,37 @@ export default function ModalEmployee({ onClose, open, idEmployee }: any) {
     formState: { errors },
   } = useForm<Employee>()
   const hotels = useSelector(selectData)
-  const {
-    pagination,
-    enqueueSnackbar,
-    handleCreate,
-    dispatch,
-    onSubmit,
-    handleChange,
-    handleCep,
-    setIsModalVisible,
-    setIsVisibled,
-    isVisibled,
-  } = MyContext()
+  const employee = useSelector(selectEmployeeData)
 
+  const dataEmployee = async (id: Required<Employee['id']>) => {
+    return await props.getEmployee(id as string, setValue)
+  }
   useEffect(() => {
-    employeePaginate(pagination, enqueueSnackbar, dispatch)
+    if (props.idEmployee) {
+      dataEmployee(props.idEmployee)
+      if (employee) {
+        setValue('name', employee.name)
+        setValue('rg', employee.rg)
+        setValue('cpf', employee.cpf)
+        setValue('email', employee.email)
+        setValue('phone', employee.phone)
+        setValue('password', employee.password)
+        setValue('address.street', employee.address.street)
+        setValue('address.number', employee.address.number)
+        setValue('address.complement', employee.address.complement)
+        setValue('address.neighborhood', employee.address.neighborhood)
+        setValue('address.city', employee.address.city)
+        setValue('address.state', employee.address.state)
+        setValue('address.zipCode', employee.address.zipCode)
+        setValue('hotel_id', employee.hotel_id)
+      }
+    } else {
+      dispatch(setEmployee(undefined))
+    }
   }, [])
-  
-  function close() {
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Funcionário não cadastrado!',
-      showConfirmButton: false,
-      timer: 1500,
-    })
-    onClose()
+
+  function handleChange(e) {
+    setValue('hotel_id', e.target.value)
   }
 
   return (
@@ -61,11 +78,13 @@ export default function ModalEmployee({ onClose, open, idEmployee }: any) {
               component="h2"
               color={'var(--text)'}
             >
-              {idEmployee !== null ? 'Novo Funcionário' : 'Editar Funcionário'}
+              {props.idEmployee === undefined
+                ? 'Novo Funcionário'
+                : 'Editar Funcionário'}
             </Typography>
           </div>
           <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(props.onSubmit)}>
               <InputNomeModal>
                 <label style={{ marginLeft: '10px', color: 'var(--text)' }}>
                   Nome
@@ -154,7 +173,9 @@ export default function ModalEmployee({ onClose, open, idEmployee }: any) {
                       size="small"
                       variant="outlined"
                       {...register('address.zipCode')}
-                      onChange={(e) => handleCep(e.target.value)}
+                      onChange={(e) =>
+                        props.handleCep(e.target.value, setValue)
+                      }
                     />
                   </InputNomeModal>
                 </div>
@@ -260,13 +281,18 @@ export default function ModalEmployee({ onClose, open, idEmployee }: any) {
               </ModalCentral>
 
               <Button
-                sx={{ bgcolor: 'var(--text)' }}
+                sx={{ bgcolor: 'var(--text)', margin: '10px' }}
                 variant="contained"
                 type="submit"
               >
                 Enviar
               </Button>
-              <Button variant="contained" color="error" onClick={close}>
+              <Button
+                sx={{ margin: '10px' }}
+                variant="contained"
+                color="error"
+                onClick={props.onClose}
+              >
                 Cancelar
               </Button>
             </form>
