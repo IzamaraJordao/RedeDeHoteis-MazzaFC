@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ModalGuest from './components/ModalGuestPost/Modal'
-import ModalGuestPut from './components/ModalGuestPut/Modal'
 import { Button } from '@mui/material'
 import { BoxDiv, BoxExternal } from './styled'
-import { guestPaginate, guestDelete } from '../api/guest/api-guest'
+import { guestPaginate, guestDelete, guestPost, guestById } from '../api/guest/api-guest'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Guest,
@@ -12,44 +11,25 @@ import {
   selectIsFormLoading,
   selectIsLoading,
   selectPaginate,
+  setGuest,
 } from '../store/guestSlice'
 import { useSnackbar } from 'notistack'
-import DeleteIcon from '@mui/icons-material/Delete'
-import IconButton from '@mui/material/IconButton'
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+
 import Swal from 'sweetalert2'
-import TableMain from '../common/components/MultTabela/index'
-import { Pagination } from '../template/types/pagination'
-import EditIcon from '@mui/icons-material/Edit'
 import axios from 'axios'
 import { If } from '../common/components/If'
-
-export type BancoGuest = {
-  id: number
-  nome: string
-  rg: string
-  cpf: string
-  email: string
-  phone: string
-}
+import { TableGuest } from './components/tableGuest/ColumnGuest'
+import { Pagination } from '../template/types/pagination'
 
 export default function PageGuest() {
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isModalVisiblePut, setIsModalVisiblePut] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
   const pagination = useSelector(selectPaginate)
-  const data = useSelector(selectData)  
-  const guest = useSelector(selectGuest)
-  const isLoading = useSelector(selectIsLoading)
-  const isFormLoading = useSelector(selectIsFormLoading)
-  const [value, setValue] = useState<BancoGuest>()
-  const [idModal, setIdModal] = useState<string>()
+  const [isVisibled, setIsVisibled] = useState(false)
+  const [idGuest, setIdGuest] = useState<string | undefined>(undefined)
 
-  useEffect(() => {
-    guestPaginate(pagination, enqueueSnackbar, dispatch)
-  }, [])
-
+ 
   function handleDelete(id: string) {
     Swal.fire({
       title: 'Deseja realmente excluir?',
@@ -68,106 +48,69 @@ export default function PageGuest() {
       }
     })
   }
+  async function getGuestBanco(id: string,setValue:any) { // Busca o convidado no banco de dados
+    guestById(id, enqueueSnackbar, dispatch)
+    .then((res) => {
+      console.log(res)
+      setValue('name', res.name)
+      setValue('cpf', res.cpf)
+      setValue('rg', res.rg)
+      setValue('phone', res.phone)
+      setValue('email',res.email)
+      setValue('address.id', res.address.id)
+      setValue('address.street', res.address.street)
+      setValue('address.number', res.address.number)
+      setValue('address.complement', res.address.complement)
+      setValue('address.neighborhood', res.address.neighborhood)
+      setValue('address.city', res.address.city)
+      setValue('address.state', res.address.state)
+      setValue('address.zipCode', res.address.zipCode)
 
-  function ModalPutGuest(id: string) {
-    setIsModalVisiblePut(true)
-    axios.get(`http://localhost:3030/guest/${id}`).then((response) => {
-      setValue(response.data)
+    })
+  } 
+ 
+
+
+  const onSubmit = (data: Guest): any => {
+    if (idGuest) {
+      handlePut(data)
+    } else {
+      handleCreate(data)
+    }
+    handleClose()
+  }
+  const handleCreate = (data: Guest) => {
+    guestPost(data, enqueueSnackbar, dispatch).then(() => {
+      guestPaginate(pagination, enqueueSnackbar, dispatch)
     })
   }
 
-  const columns: GridColDef[] = [
-    {
-      field: 'name',
-      headerName: 'Nome',
-      headerAlign: 'center',
-      width: 180,
-      align: 'center',
-      sortable: false,
-      disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
-    },
+  const handlePut = (data: Guest) => {
+    guestPost(data, enqueueSnackbar, dispatch).then(() => {
+      guestPaginate(pagination, enqueueSnackbar, dispatch)
+    })
+  }
+  const handleClose = () => {
+    setIsVisibled(false)
+    setIdGuest(undefined)
+    dispatch(setGuest(undefined))
+    guestPaginate(pagination, enqueueSnackbar, dispatch)
+  }
 
-    {
-      field: 'cpf',
-      headerName: 'CPF',
-      headerAlign: 'center',
-      width: 180,
-      align: 'center',
-      sortable: false,
-      disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
-
-      renderCell: (employee: GridRenderCellParams<BancoGuest>) => {
-        return (
-          <div style={{ color: 'blue', marginLeft: '15px' }}>
-            {employee.row.cpf}
-          </div>
-        )
-      },
-    },
-
-    {
-      field: 'rg',
-      headerName: 'RG',
-      headerAlign: 'center',
-      width: 180,
-      align: 'center',
-      sortable: false,
-
-      disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
-    },
-
-    {
-      field: 'email',
-      headerName: 'Email',
-      headerAlign: 'center',
-      width: 180,
-      align: 'center',
-      disableColumnMenu: true,
-    },
-    {
-      field: 'phone',
-      headerName: 'Telefone',
-      headerAlign: 'center',
-      width: 180,
-      align: 'center',
-      disableColumnMenu: true,
-    },
-
-    {
-      field: 'id',
-      headerName: 'Ações',
-      headerAlign: 'center',
-      width: 150,
-      align: 'center',
-      disableColumnMenu: true,
-      renderCell: (guest: GridRenderCellParams<BancoGuest>) => {
-        return (
-          <div>
-            <IconButton
-              color="error"
-              sx={{ backgroundColor: '#fff !important' }}
-              onClick={() => {
-                handleDelete(guest.row.id)
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-            <IconButton
-              sx={{
-                backgroundColor: '#fff !important',
-                color: 'var(--tertiary)',
-              }}
-              onClick={() => {
-                setIsModalVisiblePut(true), setIdModal(guest.row.id)
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          </div>
-        )
-      },
-    },
-  ]
+  function handleCep(cep: string, setValue: any): any {
+    if (cep.length === 8) {
+      axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
+        setValue('address.street', response.data.logradouro)
+        setValue('address.neighborhood', response.data.bairro)
+        setValue('address.city', response.data.localidade)
+        setValue('address.state', response.data.uf)
+      })
+    }
+  }
+  useEffect(() => {
+    guestPaginate(pagination, enqueueSnackbar, dispatch)
+  }, [])
+  
 
   return (
     <div>
@@ -178,35 +121,24 @@ export default function PageGuest() {
               NOVO CADASTRO
             </Button>
           </div>
-          <TableMain
-            data={data}
-            columns={columns}
-            search={(pagination: Pagination<Guest>) =>
+          <TableGuest
+            setIdModal={setIdGuest}
+            guestPaginate={(pagination: Pagination<Guest>) =>
               guestPaginate(pagination, enqueueSnackbar, dispatch)
             }
-            isLoading={isLoading}
-            page={pagination.page}
-            pageSize={pagination.pageSize}
-            total={pagination.total as number}
+            handleDelete={handleDelete}
+            setIsModalVisible={setIsVisibled}
           />
         </BoxDiv>
       </BoxExternal>
-
-      {isModalVisible ? (
+      <If condition={isModalVisible}>
         <ModalGuest
-          onClose={async () => {
-            setIsModalVisible(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
-          }}
-        />
-      ) : null}
-      <If condition={isModalVisiblePut}>
-        <ModalGuestPut
-          onClose={async () => {
-            setIsModalVisiblePut(false),
-              await guestPaginate(pagination, enqueueSnackbar, dispatch)
-          }}
-          idGuest={idModal}
+         getGuest={getGuestBanco}
+         onClose={handleClose}
+         idGuest={idGuest}
+         open={false}
+         onSubmit={onSubmit}
+         handleCep={handleCep}
         />
       </If>
     </div>

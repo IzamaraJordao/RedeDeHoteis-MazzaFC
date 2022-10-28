@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -8,102 +8,66 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import PageGuest from '../../Guest'
+import { Guest, selectData, selectGuestData, selectPaginate, setGuest } from '../../../store/guestSlice'
+import { guestPaginate, guestPost } from '../../../api/guest/api-guest'
+import { useSnackbar } from 'notistack'
+import { useDispatch, useSelector } from 'react-redux'
+import { style } from './typeAndStyles'
 
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 800,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-}
+ type Props = {
+  onClose: () => void
+  open: boolean
+  idGuest: string | undefined
+  getGuest:(id:string,setValue: any) => Promise<void>
+  onSubmit:(data: Guest,setValue: any) => Promise<Guest>
+  handleCep:(cep: string,setValue: any) => Promise<void>
+ }
 
-export type TypeEmployees = {
-  name: string
-  cpf: string
-  rg: string
-  email: string
-  phone: string
-  address: {
-    street: string
-    number: string
-    complement: string
-    neighborhood: string
-    city: string
-    state: string
-    zipCode: string
-  }
-  hotel_id: string
-}
 
-export default function Modal({ onClose }) {
-
-  const [age, setAge] = React.useState('')
-  
+export default function ModalGuest(props:Props) {
+  const dispatch = useDispatch()
+  const pagination = useSelector(selectPaginate)
+  const [isVisibled, setIsVisibled] = useState(false)
+  const [ idGuest, setIdGuest ] = useState<string | undefined>(undefined)
+ 
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeEmployees>()
+  } = useForm<Guest>()
+const hotels = useSelector(selectData)
+const guest = useSelector(selectGuestData)
 
-  const onSubmit = (data: TypeEmployees) => {
-    // handleRequest({ method: 'post', url: '/employee', data },
-    // console.log)
-    axios
-      .post('http://localhost:3030/guest', {
-        name: data.name,
-        rg: data.rg,
-        cpf: data.cpf,
-        email: data.email,
-        phone: data.phone,
-        address: {
-          street: data.address.street,
-          number: data.address.number,
-          complement: data.address.complement,
-          neighborhood: data.address.neighborhood,
-          city: data.address.city,
-          state: data.address.state,
-          zipCode: data.address.zipCode,
-        }
-      })
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Hóspede cadastrado com sucesso!',
-          showConfirmButton: false,
-          timer: 1500,
-        })
-      })
-    onClose()
-    
+const dataGuest =  async (id: Required<Guest>['id']) => {
+    return await props.getGuest(id as string, setValue)
   }
 
-  function handleCep(cep: string) {
-    if (cep.length === 8) {
-      axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
-        setValue('address.street', response.data.logradouro)
-        setValue('address.neighborhood', response.data.bairro)
-        setValue('address.city', response.data.localidade)
-        setValue('address.state', response.data.uf)
-      })
+useEffect(() => {
+  if(props.idGuest){
+    dataGuest(props.idGuest)
+    if(guest){
+      setValue('name', guest.name)
+      setValue('cpf', guest.cpf)
+      setValue('rg', guest.rg)
+      setValue('email', guest.email)
+      setValue('phone', guest.phone)
+      setValue('address.street', guest.address.street)
+      setValue('address.number', guest.address.number)
+      setValue('address.complement', guest.address.complement)
+      setValue('address.neighborhood', guest.address.neighborhood)
+      setValue('address.city', guest.address.city)
+      setValue('address.state', guest.address.state)
+      setValue('address.zipCode', guest.address.zipCode)
     }
-  }
-
-  function close() {
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Hóspede não cadastrado!',
-      showConfirmButton: false,
-      timer: 1500,
-    })
-    onClose()
-  }
+    }else{
+      dispatch(setGuest(undefined))
+    }
+  },[])
+  // function handleChange(e) {
+  //   setValue('hotel_id', e.target.value)
+  // }
 
   return (
     <ModalExterna>
@@ -115,11 +79,11 @@ export default function Modal({ onClose }) {
             component="h2"
             color={'var(--text)'}
           >
-            Cadastro de Hóspede
+          {props.idGuest === undefined ? 'Editar Hóspede' : 'Cadastrar Hóspede'}
           </Typography>
         </div>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(props.onSubmit)}>
             <InputNomeModal>
               <label style={{ marginLeft: '10px', color: 'var(--text)' }}>
                 Nome
@@ -196,7 +160,7 @@ export default function Modal({ onClose }) {
                     size="small"
                     variant="outlined"
                     {...register('address.zipCode')}
-                    onChange={(e) => handleCep(e.target.value)}
+                    onChange={(e) => props.handleCep(e.target.value, setValue)}
                   />
                 </InputNomeModal>
               </div>
@@ -289,7 +253,7 @@ export default function Modal({ onClose }) {
             >
               Enviar
             </Button>
-            <Button sx={{marginLeft: '10px'}} variant="contained" color="error" onClick={close}>
+            <Button sx={{marginLeft: '10px'}} variant="contained" color="error" onClick={props.onClose}>
               Cancelar
             </Button>
           </form>

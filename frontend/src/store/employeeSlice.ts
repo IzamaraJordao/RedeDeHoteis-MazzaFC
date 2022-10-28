@@ -6,7 +6,7 @@ import { AppState } from "./store";
 import {Address} from './address.type'
 
 export type Employee = {
- id?: string
+ id: string
  name: string
  rg: string
  cpf: string

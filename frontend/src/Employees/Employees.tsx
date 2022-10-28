@@ -33,20 +33,9 @@ export function EmployeePage() {
   const dispatch = useDispatch()
 
   const [isVisibled, setIsVisibled] = useState(false)
-  const [idModal, setIdModal] = useState<string | undefined>(undefined)
-
+  const [idEmployee, setIdEmployee] = useState<string | undefined>(undefined)
   const pagination = useSelector(selectPaginate)
-  const data = useSelector(selectData)
-  const employee = useSelector(selectEmployee)
-  const isLoading = useSelector(selectIsLoading)
-  const isFormLoading = useSelector(selectIsFormLoading)
 
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Employee>()
 
   function handleDelete(id: string) {
     Swal.fire({
@@ -67,24 +56,6 @@ export function EmployeePage() {
     })
   }
 
-  function ModalPutEmployee(id: string, data: Employee) {
-    Swal.fire({
-      title: 'Deseja realmente editar?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      denyButtonText: `Não Editar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        employeePut(id, data, enqueueSnackbar, dispatch).then(() => {
-          employeePaginate(pagination, enqueueSnackbar, dispatch)
-        })
-        Swal.fire('Funcionário editado', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-      }
-    })
-  }
 
   async function getEmployeeBanco(id: string, setValue: any) {
     employeeById(id, enqueueSnackbar, dispatch).then((res) => {
@@ -103,16 +74,11 @@ export function EmployeePage() {
       setValue('address.zipCode', res.address.zipCode)
     })
   }
-  const handleUpdate = (data: Employee, props: any) => {
-    employeePut(props.idEmployee, data, enqueueSnackbar, dispatch).then(() => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Funcionário Editado com sucesso!',
-        showConfirmButton: false,
-        timer: 1500,
-      })
-    })
-  }
+  const handleUpdate = (data: Employee) => {
+    employeePut(idEmployee as string, data, enqueueSnackbar, dispatch)
+    
+    }
+  
   useEffect(() => {
     hotelPaginate(
       { page: 1, pageSize: 100, filter: {} },
@@ -121,14 +87,15 @@ export function EmployeePage() {
     )
   }, [])
 
-  const onSubmit = (data: Employee, props: any): any => {
-    if (data.id) {
-      handleUpdate(data, props)
+  const onSubmit = (data: Employee): any => {
+    if (idEmployee) {
+      handleUpdate(data)
     } else {
       handleCreate(data)
     }
     handleClose()
   }
+
   const handleCreate = (data: Employee) => {
     employeeCreate(data, enqueueSnackbar, dispatch).then(() => {
       Swal.fire({
@@ -142,7 +109,7 @@ export function EmployeePage() {
 
   function handleClose (){
     setIsVisibled(false)
-    setIdModal(undefined)
+    setIdEmployee(undefined)
     dispatch(setEmployee(undefined))
     employeePaginate(pagination, enqueueSnackbar, dispatch)
   }
@@ -176,12 +143,13 @@ export function EmployeePage() {
             </Button>
           </div>
           <TableEmployee
-            setIdModal={setIdModal}
+            setIdModal={setIdEmployee}
             employeePaginate={(pagination: Pagination<Employee>) =>
               employeePaginate(pagination, enqueueSnackbar, dispatch)
             }
             handleDelete={handleDelete}
             setIsModalVisible={setIsVisibled}
+            
           />
         </BoxDiv>
       </BoxExternal>
@@ -189,7 +157,7 @@ export function EmployeePage() {
         <ModalEmployee
           getEmployee={getEmployeeBanco}
           onClose={handleClose}
-          idEmployee={idModal}
+          idEmployee={idEmployee}
           open={false}
           onSubmit={onSubmit}
           handleCep={handleCep}
