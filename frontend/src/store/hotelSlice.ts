@@ -9,7 +9,7 @@ export type Hotel = {
   email: string;
   phone: string;
   cnpj: string;
-  floor: number;
+  floor_hotel: number;
   floors: {
     floor: Number
     units: Number

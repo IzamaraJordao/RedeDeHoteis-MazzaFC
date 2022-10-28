@@ -23,7 +23,7 @@ export class CreateHotel
     const address = new Address(params.body.address) /// pegando o objeto inteiro do addres e colocand
     params.body.address = address // troco o .body.address pela class Address
     const hotel = new Hotel(params.body)
-    const floor = Number(hotel.floor) /// number
+    const floor = Number(hotel.floor_hotel) /// number
     const floors = params.body.floors
 
     const hotelFounded = await this.hotelRepository.findByCnpj(hotel.cnpj)
@@ -38,9 +38,7 @@ export class CreateHotel
       const maxbedroom = Number(floors[i].units ) 
       for (let j = 0; j < maxbedroom; j++) {
         bedrooms.push(new Bedroom({
-          
-          // floor: hotel.floor,
-          floor: hotel.floor,
+          floor: floors[i].floor,
           hotel_id: hotel.id,
         }))
       }
