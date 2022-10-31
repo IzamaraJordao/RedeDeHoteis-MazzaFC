@@ -4,6 +4,10 @@ export const External = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 80vh;
+  overflow: hidden;
 
   div{
     margin-bottom: 2px;
@@ -15,4 +19,4 @@ export const External = styled.div`
 
 
 
-//
+

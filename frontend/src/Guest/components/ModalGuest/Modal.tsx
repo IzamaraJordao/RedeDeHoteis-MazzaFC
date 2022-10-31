@@ -8,10 +8,9 @@ import {
   ModalExterna,
 } from '../../../common/components/styled/styled'
 import TextField from '@mui/material/TextField'
-import Swal from 'sweetalert2'
-import axios from 'axios'
+
 import { useForm } from 'react-hook-form'
-import PageGuest from '../../GuestNew'
+
 import {
   Guest,
   selectData,
@@ -19,8 +18,7 @@ import {
   selectPaginate,
   setGuest,
 } from '../../../store/guestSlice'
-import { guestPaginate, guestPost } from '../../../api/guest/api-guest'
-import { useSnackbar } from 'notistack'
+
 import { useDispatch, useSelector } from 'react-redux'
 
 export const style = {
@@ -30,8 +28,8 @@ export const style = {
   transform: 'translate(-50%, -50%)',
   width: 800,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
+  borderRadius: 2,
   p: 4,
 }
 
