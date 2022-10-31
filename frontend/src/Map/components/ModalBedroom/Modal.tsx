@@ -44,21 +44,6 @@ export default function ModalBedroom({ onClose }) {
   }
 
 
-  function close() {
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: 'Hóspede não cadastrado!',
-      showConfirmButton: false,
-      timer: 1500,
-    })
-    onClose()
-  }
-
-  
-
-
-
   return (
     <ModalExterna>
       <Box sx={style}>
@@ -119,7 +104,7 @@ export default function ModalBedroom({ onClose }) {
             </div>
 
         <div>
-          <Button onClick={close}>Fechar</Button>
+          <Button onClick={onClose}>Fechar</Button>
         </div>
       </Box>
     </ModalExterna>

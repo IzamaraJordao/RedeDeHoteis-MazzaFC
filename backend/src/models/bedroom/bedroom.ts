@@ -32,8 +32,6 @@ export class Bedroom {
   status_room_id: BedroomStatus
   room_type_id: BedroomType
 
- 
-
   constructor(props: BedroomConstructor) {
     this.id = props.id || uuid()
     this.name = props.name || ''
@@ -57,8 +55,6 @@ export class Bedroom {
       position_y : this.position_y,
       status_room_id : this.status_room_id,
       room_type_id : this.room_type_id
-     
-
     }
   }
   get data() {
@@ -75,6 +71,9 @@ export class Bedroom {
   }
   static filter() {
     return ['id', 'name', 'floor', 'hotel_id', 'status_room_id', 'room_type_id']
+  }
+  static fields(){
+    return ['id', 'name', 'floor', 'hotel_id', 'position_x', 'position_y', 'status_room_id', 'room_type_id']
   }
 
 }

@@ -2,6 +2,7 @@ import { Guest, GuestRepository } from '../../models/guest'
 import { Request, UseCase } from '../interface'
 
 export class GetGuest implements UseCase <undefined, { id: string }, undefined, Guest["publicInfo"] >{
+  
   private readonly guestRepository : GuestRepository
   constructor( guestRepository: GuestRepository) {
     this.guestRepository = guestRepository

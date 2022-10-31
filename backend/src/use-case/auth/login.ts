@@ -56,8 +56,8 @@ export class Login {
 
     const hotel = await this.hotelRepository.findById(employeeFounded.hotel_id)
     const token = this.tokenGenerator.encode({
-      id_user: employeeFounded.id,
-      id_hotel: employeeFounded.hotel_id,
+      user_id: employeeFounded.id,
+      hotel_id: employeeFounded.hotel_id,
     })
 
     return {
