@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import React, { useState } from 'react'
-import {  Form, BodyLogin, Div } from './style'
+import { Form, BodyLogin, Div } from './style'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
@@ -10,7 +10,6 @@ import { setAuth } from '../store/authSlice'
 import { createSession } from '../api/login/login'
 import { Button, TextField } from '@mui/material'
 import { useSnackbar, VariantType, SnackbarProvider } from 'notistack'
-
 
 interface IFormInputs {
   email: string
@@ -70,16 +69,15 @@ export default function Login() {
   }
 
   return (
- 
     <BodyLogin>
-   
       <Form onSubmit={handleSubmit(onSubmit)}>
         <h2>Rede Inn Hotel</h2>
 
         <label htmlFor="Email">Email: *</label>
         <TextField
           type="email"
-          id="standard-basic" variant="standard" 
+          id="standard-basic"
+          variant="standard"
           placeholder="Digite o email"
           {...register('email')}
         />
@@ -87,7 +85,9 @@ export default function Login() {
         <label htmlFor="password">Senha: *</label>
         <TextField
           type="password"
-          id="standard-basic"  variant="standard" color="primary"
+          id="standard-basic"
+          variant="standard"
+          color="primary"
           placeholder="Digite a senha"
           {...register('password')}
         />
@@ -97,6 +97,5 @@ export default function Login() {
         </Button>
       </Form>
     </BodyLogin>
-   
   )
 }

@@ -3,8 +3,13 @@ import ModalEmployee from '../ModalEmployees/Modal'
 
 import { employeePaginate } from '../../../api/employee/Api-employee'
 
-import { Employee, selectData, selectIsLoading, selectPaginate } from '../../../store/employeeSlice'
-import { useSnackbar } from 'notistack' 
+import {
+  Employee,
+  selectData,
+  selectIsLoading,
+  selectPaginate,
+} from '../../../store/employeeSlice'
+import { useSnackbar } from 'notistack'
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
@@ -23,17 +28,15 @@ export interface BancoEmployee {
   email: string
   phone: string
 }
- type Props={
+type Props = {
   setIdModal: React.Dispatch<React.SetStateAction<string | undefined>>
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>
   employeePaginate: (pagination: Pagination<Employee>) => void
   handleDelete: (id: string) => void
-  
-
- }
-export function TableEmployee(props:Props) {
+}
+export function TableEmployee(props: Props) {
   const pagination = useSelector(selectPaginate)
-  const data = useSelector(selectData )
+  const data = useSelector(selectData)
   const isLoading = useSelector(selectIsLoading)
 
   const columns: GridColDef[] = [
@@ -114,14 +117,12 @@ export function TableEmployee(props:Props) {
               sx={{
                 backgroundColor: '#fff !important',
                 color: 'var(--tertiary)',
-               margin:'8px'
+                margin: '8px',
               }}
               onClick={() => {
                 props.setIdModal(employee.row.id)
                 props.setIsModalVisible(true)
-                
               }}
-            
             >
               <EditIcon />
             </IconButton>
@@ -148,7 +149,6 @@ export function TableEmployee(props:Props) {
           />
         </div>
       </div>
-
     </div>
   )
 }

@@ -13,7 +13,6 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Pagination } from '../../../template/types/pagination'
 import TableMain from '../../../common/components/MultTabela/index'
 
-
 export type BancoGuest = {
   id: number
   nome: string
@@ -117,9 +116,7 @@ export function TableGuest(props: Props) {
                 color: 'var(--tertiary)',
               }}
               onClick={() => {
-                props.setIdModal(guest.row.id),
-                props.setIsModalVisible(true)
-                
+                props.setIdModal(guest.row.id), props.setIsModalVisible(true)
               }}
             >
               <EditIcon />

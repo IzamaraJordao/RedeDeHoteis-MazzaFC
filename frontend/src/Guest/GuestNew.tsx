@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import ModalGuest from './components/ModalGuestPost/Modal'
+import ModalGuest from './components/ModalGuest/Modal'
 import { Button } from '@mui/material'
 import { BoxDiv, BoxExternal } from './styled'
+
 import {
   guestPaginate,
   guestDelete,
@@ -10,11 +11,7 @@ import {
   guestPut,
 } from '../api/guest/api-guest'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Guest,
-  selectPaginate,
-  setGuest,
-} from '../store/guestSlice'
+import { Guest, selectPaginate, setGuest } from '../store/guestSlice'
 import { useSnackbar } from 'notistack'
 
 import Swal from 'sweetalert2'
@@ -83,12 +80,12 @@ export default function PageGuest() {
         title: 'Hóspede cadastrado com sucesso!',
         showConfirmButton: false,
         timer: 1500,
-      }) 
+      })
     })
   }
 
   const handlePut = (data: Guest) => {
-    guestPut(idGuest as string,data, enqueueSnackbar, dispatch)
+    guestPut(idGuest as string, data, enqueueSnackbar, dispatch)
   }
 
   const handleClose = () => {

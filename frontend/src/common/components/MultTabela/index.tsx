@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-import TableHeader from './TableHeader';
-import { omit } from 'ramda';
-import { Pagination } from "../../../template/types/pagination";
+import React, { useEffect, useState } from 'react'
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridColumns,
+  GridRenderCellParams,
+} from '@mui/x-data-grid'
+import TableHeader from './TableHeader'
+import { omit } from 'ramda'
+import { Pagination } from '../../../template/types/pagination'
 ///GridColDef pode incluir uma função ou combinação para uma deternminada coluna
 
 interface Props {
@@ -16,15 +22,14 @@ interface Props {
 }
 
 export default function Tabela(props: Props) {
+  const [filter, setFilter] = useState<any>({})
+  const [pageSize, setPageSize] = useState(props.pageSize)
+  const [page, setPage] = useState(props.page)
 
-  const [filter, setFilter] = useState<any>({});
-  const [pageSize, setPageSize] = useState(props.pageSize);
-  const [page, setPage] = useState(props.page);
-  
-  
   async function handleSearch(field: string, value: string) {
     if (value === '') {
-      await setFilter((prevState: any) => { /// tratamento de erro, se o valor for vazio, o estado anterior é mantido
+      await setFilter((prevState: any) => {
+        /// tratamento de erro, se o valor for vazio, o estado anterior é mantido
         return omit([field], prevState)
       })
       return
@@ -36,31 +41,31 @@ export default function Tabela(props: Props) {
   }
 
   useEffect(() => {
-    props.search({page, pageSize, filter});
+    props.search({ page, pageSize, filter })
   }, [filter, pageSize])
 
-   const columns =  [
+  const columns = [
     ...props.columns.map((column) => ({
-      ...column,  
+      ...column,
       sortable: false,
       renderHeader: () => (
         <TableHeader
+          key={column.headerName}
           name={column.headerName}
           value={filter[column.field]}
           onSearch={(value: any) => handleSearch(column.field, value)}
         />
-      )
-    }))
+      ),
+    })),
   ]
 
   return (
-    <div style={{ height: 400, width: '1100px', color: '#222' }}>
-
+    <div style={{ height: 200, width: '1100px', color: '#222' }}>
       <DataGrid
         autoHeight
         rows={props.data}
         columns={columns}
-        sx={{ backgroundColor: "#fff", }}
+        sx={{ backgroundColor: '#fff' }}
         // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[10, 20, 30]}
         pagination
@@ -73,10 +78,7 @@ export default function Tabela(props: Props) {
         paginationMode="server"
         onPageChange={(newPage) => setPage(newPage)}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-
-
       />
     </div>
-
   )
 }
