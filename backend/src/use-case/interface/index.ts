@@ -11,9 +11,9 @@ export type Response<T> = Promise<{
 
 export type ReturnPaginate<T> = {
   result: T[]
-  current: number
-  pageSize: number
-  total: number
+  current: number 
+  pageSize: number 
+  total: number  
 }
 
 export interface UseCase <B, P, Q, T> { 

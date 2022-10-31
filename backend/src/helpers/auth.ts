@@ -4,8 +4,8 @@ import { tokenGenerator } from "./tokenGenerator";
 export type DataToken = {
     exp: number,
     iat: number,
-    id_user : string,
-    id_hotel : string
+    user_id : string,
+    hotel_id : string
 }
 
 export function Auth(token:string):DataToken{

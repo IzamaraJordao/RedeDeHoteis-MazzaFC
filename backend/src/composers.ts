@@ -11,11 +11,9 @@ import { CreateEmployee } from './use-case/employees/create';
 import { CreateHotel } from './use-case/hotel/create';
 import { DeleteEmployee } from './use-case/employees/delete';
 import { CreateGuest } from './use-case/guest/create';
-import { GetBedroom } from './use-case/bedroom/get';
-import { DeleteBedroom } from './use-case/bedroom/delete';
 import { bedroomRepository } from './models/bedroom';
 import { PaginateEmployee } from './use-case/employees/paginate';
-import { PaginateBedroom } from './use-case/bedroom/paginate';
+import { GetBedroomByFloor } from './use-case/bedroom/getBedroomByFloor';
 import { GetHotel } from './use-case/hotel/get';
 import { PaginateReservations } from './use-case/reversations/paginate';
 import { reservationsRepository } from './models/reservations';
@@ -34,6 +32,7 @@ import { typeRepository } from './models/typeBedroom';
 import { PaginateType } from './use-case/type/paginate';
 import { statusRepository } from './models/statusBedroom';
 import { PaginateStatus } from './use-case/statusBedroom/paginate';
+import { GetFloors } from './use-case/bedroom/getFloors ';
 
 
 ///Employee
@@ -62,9 +61,8 @@ export const deleteGuest = new DeleteGuest(guestRepository);
 export const updateGuest = new UpdateGuest(guestRepository);
 
 // bedroom
-export const paginateBedroom = new PaginateBedroom(bedroomRepository);
-export const getBedroom = new GetBedroom(bedroomRepository);
-export const deleteBedroom = new DeleteBedroom(bedroomRepository);
+export const paginateBedroom = new GetBedroomByFloor(bedroomRepository);
+export const getFloors = new GetFloors(bedroomRepository);
 export const updateBedroom = new UpdateBedroom(bedroomRepository);
 
 // reservations
