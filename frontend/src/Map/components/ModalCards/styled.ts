@@ -50,11 +50,11 @@ export const ModalCentral = styled.div`
 ;`
 
 
-export const ModalDireita = styled.div`
+export const TituloCenter = styled.div`
 
-  input{
-    width: 350px;
-  }
+  display: flex;
+  /* justify-content: center; */
+  text-align: center;
 ;`
 export const InputNomeModal = styled.div`
   display: flex;

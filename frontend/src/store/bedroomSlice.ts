@@ -69,7 +69,7 @@ export const bedroomSlice = createSlice({ /// Recebe 3 parametros
 export const { setData, setIsLoading, setBedroom } = bedroomSlice.actions; // Exportando as actions
 
 
-export const selectData = (state: AppState) => state.bedroom.data;
+export const selectBedroomData = (state: AppState) => state.bedroom.data;
 export const selectBedroom = (state: AppState) => state.bedroom.bedroom;
 export const selectPaginate = (state: AppState) => state.bedroom.pagination;// Exportando o state
 export const selectIsLoading = (state: AppState) => state.bedroom.isLoading;// Exportando o state

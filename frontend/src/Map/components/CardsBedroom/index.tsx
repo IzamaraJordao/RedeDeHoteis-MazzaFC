@@ -6,8 +6,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 
 export default function formFloorRooms(props: any) {
-
-      const floors = range(0, props.numberOfRoom + 2)
+console.log(props.units)
+      const floors = range(0, props.units + 2)
       return (
         <ModalBox>
           
@@ -27,7 +27,7 @@ export default function formFloorRooms(props: any) {
                           color: '#fff',
                           boxShadow: '5px 5px 16px 3px rgba(0,0,0,0.2)',
                           margin: 1,  
-                           
+                          border: '1px solid var(--text-secondary)',
                         }}
                         onClick={()=> props.openModal(x,y)}
                       >{props.getRoomName(x, y)}</Box>

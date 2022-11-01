@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form'
 import { MenuItem, Select } from '@mui/material'
 import { Bedroom } from '../../../store/bedroomSlice'
 import { useSelector } from 'react-redux'
-import { selectData as selectBedroomData } from "../../../store/bedroomSlice";
+import { selectBedroomData } from "../../../store/bedroomSlice";
 
 const style = {
   position: 'absolute',

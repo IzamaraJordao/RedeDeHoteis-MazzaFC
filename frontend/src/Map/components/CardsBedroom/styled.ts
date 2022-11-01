@@ -13,8 +13,8 @@ export const ModalBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid var(--blue);
-  background-color: var(--muted);
+  /* border: 1px solid var(--blue); */
+  /* background-color: var(--muted); */
   border-radius: 8px;
   margin: 20px;
   height: auto;  
