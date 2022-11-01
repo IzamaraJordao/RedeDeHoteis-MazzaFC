@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { ModalCentral, InputNomeModal, ModalExterna } from './styled'
+import { TituloCenter, ModalExterna } from './styled'
 import Box from '@mui/material/Box'
 import { useSelector } from 'react-redux'
-import { selectData as selectBedroomData } from "../../../store/bedroomSlice";
+import { selectBedroomData } from "../../../store/bedroomSlice";
 import CardsBedroom from "../CardsBedroom";
 import { Button, Typography } from '@mui/material';
 import ModalBedroom from "../ModalBedroom/Modal";
@@ -21,14 +21,11 @@ export const style = {
   p: 4,
   borderRadius: 2,
   overflow: 'auto',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+
 }
 
 export default function ModalCards(props: any) {
   const rooms = useSelector(selectBedroomData)
-  const [numberOfRoom, setNumberOfRoom] = React.useState<number>(0)
   const [isModalVisible, setIsModalVisible] = useState(false);
 
 
@@ -64,22 +61,26 @@ export default function ModalCards(props: any) {
     //na modal dar opção de excluir o quarto
   }
 
+
+
   return (
     <div>
       <ModalExterna>
         <Box sx={style}>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1, color: 'var(--text)' }}>Mapa dos Quartos</Typography>
+          <TituloCenter>
+            <Typography variant="h4" component="div" sx={{ flexGrow: 1, color: 'var(--text)' }}>Mapa dos Quartos</Typography>
+          </TituloCenter>
           <div>
             <CardsBedroom
-              numberOfRoom={props.numberOfRoom}
+              units={props.units}
               getRoomName={getRoomName}
               getRoomColor={getRoomColor}
               openModal={openModal}
             />
           </div>
-          <Button  sx={{marginLeft: '20px'}} variant="contained" color="error"  onClick={props.onClose}>Fechar</Button>
+          <Button sx={{ marginLeft: '20px' }} variant="contained" color="error" onClick={props.onClose}>Fechar</Button>
         </Box>
-       {isModalVisible ? <ModalBedroom onClose={() => setIsModalVisible(false)} /> : null}
+        {isModalVisible ? <ModalBedroom onClose={() => setIsModalVisible(false)} /> : null}
       </ModalExterna>
     </div>
   )

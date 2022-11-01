@@ -25,11 +25,14 @@ export const BoxDiv = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-top: 40px;
 div{
   margin-top: 2px;
 
   button{
-    margin-top: 2px;
+    margin-top: 20px;
+    width: 200px;
+    height: 60px;
     background-color: var(--text);
     &:hover {
       background-color: var(--secondary);
@@ -41,7 +44,7 @@ export const InputNomeModal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin:2px;
+  margin:20px;
 `;
 
 export const ModalInternaFloors = styled.div`
