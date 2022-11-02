@@ -11,8 +11,8 @@ export default function BoxSx() {
   return (
     <Box
       sx={{
-        width:  ' calc (100% - 20px)',
-        height: 500,
+        width:  ' calc (90% - 20px)',
+        height: 450,
         backgroundColor: '#e1dddd',
         margin: 1,
         borderRadius: 3,

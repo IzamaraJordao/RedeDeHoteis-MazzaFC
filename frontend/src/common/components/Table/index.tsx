@@ -74,7 +74,7 @@ export default function App() {
       }
     },
     {
-      field: 'Status',
+      field: 'Terça',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,

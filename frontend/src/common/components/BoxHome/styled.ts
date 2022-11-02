@@ -6,11 +6,11 @@ export const External = styled.div`
   justify-content: center;
   background-repeat: no-repeat;
   background-position: center;
-  height: 80vh;
+  height: 75vh;
   overflow: hidden;
 
   div{
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   
   button{
     background-color: #3f3d56;

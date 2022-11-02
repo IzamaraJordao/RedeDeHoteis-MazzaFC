@@ -8,6 +8,7 @@ import { GuestSequelize } from './modelSequelize/guest'
 import { BedroomSequelize } from './modelSequelize/bedroom'
 import { ReservationsSequelize } from './modelSequelize/reservations'
 import { ReservationGuestSequelize } from './modelSequelize/reservations'
+import { ScheduleSequelize } from './modelSequelize/schedule'
 
 
 
@@ -20,6 +21,7 @@ export {
   BedroomSequelize,
   ReservationsSequelize,
   ReservationGuestSequelize,
+  ScheduleSequelize,
   sequelize,
 }
 
