@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import React, { useEffect } from 'react'
-import { TableHeader} from './styled'
+import { TableHeader } from './styled'
 import SearchIcon from '@mui/icons-material/Search'
 
 export default function tableHeader(props: any) {
@@ -10,13 +10,10 @@ export default function tableHeader(props: any) {
     if (props.value) setInputValue(props.value)
   }, [props.value])
 
-  
-
   return (
     <TableHeader>
-      
       <h4>{props.name}</h4>
-     
+
       <div>
         <input
           value={inputValue}

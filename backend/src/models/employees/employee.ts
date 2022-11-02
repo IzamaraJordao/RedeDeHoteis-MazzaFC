@@ -8,7 +8,7 @@ export type EmployeeConstructor = {
   rg: string
   cpf: string
   email: string
-  phone: string
+  phone?: string
   address: Address
   note?: string
   active?: boolean

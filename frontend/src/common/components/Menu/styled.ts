@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Menu = styled.div`
 margin-top: 2%;
+
   // color:333;
   h2{
     color:  #6c63ff;
@@ -16,7 +17,8 @@ margin-top: 2%;
 
 export const MenuButton = styled.div`
   color: #858485;
-  margin:10px;
+  margin:1px;
+ 
   h3{
     margin-left: 10px;
   }
@@ -39,7 +41,7 @@ export const MenuButton = styled.div`
   background-color: #3f3c57;
   width: calc(100vw - 280px);
   height: 110px;
-  left: 100px;
+  left: 100%;
   display: flex;
   justify-content: flex-end;
   `;
