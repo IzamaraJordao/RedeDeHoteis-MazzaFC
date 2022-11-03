@@ -37,8 +37,8 @@ export class Bedroom {
     this.name = props.name || ''
     this.floor = props.floor
     this.hotel_id = props.hotel_id
-    this.position_x = props.position_x || null
-    this.position_y = props.position_y || null
+    this.position_x = props.position_x  ?? null
+    this.position_y = props.position_y ?? null
     this.status_room_id = props.status_room_id || BedroomStatus.UNAVAILABLE
     this.room_type_id = props.room_type_id || BedroomType.NOT_DEFINED
 

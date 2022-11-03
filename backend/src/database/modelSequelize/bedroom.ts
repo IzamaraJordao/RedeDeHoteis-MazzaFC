@@ -27,11 +27,11 @@ export const BedroomSequelize = sequelize.define(
     allowNull: true,
   },
   position_x: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   position_y: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   name: {

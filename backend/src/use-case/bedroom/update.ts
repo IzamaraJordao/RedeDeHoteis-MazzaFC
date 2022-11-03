@@ -13,6 +13,7 @@ export class UpdateBedroom implements UseCase<BedroomConstructor,undefined,undef
 
   async execute(params: Request<BedroomConstructor>) {
     const {id} = params.params
+    console.log(params.body)
     const bedroom = new Bedroom(params.body)
     console.log(bedroom)
     

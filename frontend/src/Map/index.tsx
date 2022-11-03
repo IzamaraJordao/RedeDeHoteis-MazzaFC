@@ -47,12 +47,16 @@ console.log(hotel)
     })
   }, [hotel])
 
+  
+// useEffect(() => {
+//   mapBedroom()
+// }, [bedrooms])
 
  
 async function mapBedroom() {
   await getBedroomFloors(hotel as string, numberOfRoom as string, enqueueSnackbar, dispatch).
   then((res) => {
-    console.log("Rooms Selected ", ...res.map((item) => item.name))
+    console.log("Rooms Selected ",res)
     setUnits(res.length)
    
   })
@@ -119,7 +123,7 @@ async function mapBedroom() {
         units={units}
         onClose={() => setIsModalVisible(false)} 
         hotelId={hotel as string}
-        // numberOfRoom={numberOfRoom as string}
+        numberOfRoom={numberOfRoom as string}
         />
         : null}
     </div>

@@ -3,22 +3,22 @@ import { Pagination } from "../template/types/pagination";
 import { AppState } from "./store";
 
 export enum BedroomStatus {
-  UNAVAILABLE = 1
+  UNAVAILABLE = '1'
 }
 
 export enum BedroomType {
-  NOT_DEFINED = 1
+  NOT_DEFINED = '1'
 }
 
 export type Bedroom = {
   id?: string
-  name: string
+  name: string 
   floor: string
   hotel_id: string
   position_x: number | null 
   position_y: number | null
   status_room_id: BedroomStatus
-  room_type_id: BedroomType
+  room_type_id: string
 
 }
 
