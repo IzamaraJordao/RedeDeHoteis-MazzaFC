@@ -14,10 +14,10 @@ export type PaginateParams = {
 
 export interface ScheduleRepository {
     save(schedule: Schedule): Promise<void>;
-    // paginate(params: PaginateParams): Promise<Schedule[] | number>;
     findById(id: string): Promise<Schedule>;
     delete(id: string): Promise<void>;
     update(id: string, schedule: Schedule): Promise<void>;
+    findAll(): Promise<Schedule[]>;
 
     
 }

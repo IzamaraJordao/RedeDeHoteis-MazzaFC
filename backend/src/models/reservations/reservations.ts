@@ -11,7 +11,7 @@ export type ReservationsConstructor = {
   check_in_static: Date
   check_out_static: Date
   guests: Guest[]
-
+  bedroom_id: string
 
 
 }
@@ -24,6 +24,7 @@ export class Reservations {
   check_in_static: Date
   check_out_static: Date
   guests: Guest[]
+  bedroom_id: string
  
  
 
@@ -34,6 +35,7 @@ export class Reservations {
     this.check_in_static = props.check_in_static
     this.check_out_static = props.check_out_static
     this.guests = props.guests
+    this.bedroom_id = props.bedroom_id
     
 
   }
@@ -46,6 +48,7 @@ export class Reservations {
       check_in_static: this.check_in_static,
       check_out_static:this.check_out_static,
       guests: this.guests,
+      bedroom_id: this.bedroom_id,
   
      
 
@@ -59,7 +62,7 @@ export class Reservations {
       check_in_static: this.check_in_static,
       check_out_static:this.check_out_static,
       guests: this.guests.map(guest => guest.data),
-   
+      bedroom_id: this.bedroom_id,
 
     }
   }

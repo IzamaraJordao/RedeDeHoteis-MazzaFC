@@ -22,6 +22,14 @@ export class  ScheduleInMemory implements ScheduleRepository{
             return Promise.reject(new DbError('Agendamento não encontrado',404));
         }
     }
+    findAll(): Promise<Schedule[]> {
+        const schedules = this._data;
+      if(schedules){
+        return Promise.resolve(schedules);
+      }else{
+        return Promise.reject(new DbError('Agendamentos não encontrados',404));
+      }
+    }
     
     delete(id: string): Promise<void> {
         const index = this._data.findIndex((schedule) => schedule.id === id);

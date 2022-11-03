@@ -32,10 +32,27 @@ export class ScheduleRepositorySequelize implements ScheduleRepository {
     if (response) {
       return new Schedule({ ...response.toJSON() })
     } else {
-      throw new DbError('Agenda não encontrado')
+      throw new DbError('Agendamento  não encontrado')
     }
   }
 
+  async findAll(): Promise<Schedule[]> {
+    const response = await this.sequelize.findAll({
+      include: [
+        {
+          model: this.bedroom,
+          as: 'Bedroom',
+          attributes: ['id', 'status'],
+        },
+      ],
+    })
+    if (response) {
+      return response.map((schedule) => new Schedule({ ...schedule.toJSON() }))
+    } else {
+      throw new DbError('Agendamentos não encontrados')
+    }
+  }
+  
   async delete(id: string): Promise<void> {
     await this.sequelize.destroy({
       where: {
