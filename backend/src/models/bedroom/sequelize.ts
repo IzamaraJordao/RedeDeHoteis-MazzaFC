@@ -26,9 +26,15 @@ export class BedroomRepositorySequelize implements BedroomRepository {
       })
     return response.map((bedroom) => new Bedroom(bedroom.toJSON()))
   }
-  update(id: string, bedroom: Bedroom): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async update(id: string, bedroom: Bedroom): Promise<void> {
+    await this.sequelize.update(bedroom.data, {
+      where: {
+        id: id,
+      },
+    })
   }
+
   async saveMany(bedrooms : Bedroom[]): Promise<void> {
     await this.sequelize.bulkCreate(bedrooms.map((bedroom) => bedroom.data))
   }

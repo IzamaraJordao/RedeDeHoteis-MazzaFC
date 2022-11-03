@@ -31,7 +31,7 @@ router.put('/guest/:id', controllerExpress(updateGuest))
 //bedroom
 router.get('/floor', controllerExpress(getFloors));
 router.get('/floor/bedroom', controllerExpress(paginateBedroom));
-router.put('/bedroom/:id', controllerExpress(updateBedroom))
+router.put('/bedroom/:id', controllerExpress(updateBedroom)) 
 //reservations
 router.get('/reservations', controllerExpress(paginateReservations));
 router.get('/reservations/:id', controllerExpress(getReservations))

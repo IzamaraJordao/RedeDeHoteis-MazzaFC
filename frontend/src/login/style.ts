@@ -8,7 +8,6 @@ export const BodyLogin = styled.div`
   background-position: center;
   height: 95vh;
   overflow: hidden;
-
   
 `
 export const Div = styled.div`
