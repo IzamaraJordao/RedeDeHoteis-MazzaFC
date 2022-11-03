@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { TituloCenter, ModalExterna } from './styled'
 import Box from '@mui/material/Box'
 import { useSelector } from 'react-redux'
-import { selectBedroomData } from "../../../store/bedroomSlice";
+import { Bedroom, selectBedroomData } from "../../../store/bedroomSlice";
 import CardsBedroom from "../CardsBedroom";
 import { Button, Typography } from '@mui/material';
 import ModalBedroom from "../ModalBedroom/Modal";
+import Swal from 'sweetalert2';
+import { type } from 'ramda';
 
 
 
@@ -24,10 +26,19 @@ export const style = {
 
 }
 
-export default function ModalCards(props: any) {
-  const rooms = useSelector(selectBedroomData)
-  const [isModalVisible, setIsModalVisible] = useState(false);
+type Props = {
+  onClose: () => void
+  units: number
+  hotelId: string
 
+}
+
+export default function ModalCards(props: Props) {
+
+  const rooms = useSelector(selectBedroomData)
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [roomSelected, setRoomSelected] = useState<Bedroom | null>(null);
 
 
   function getRoomName(x: number, y: number) {
@@ -50,15 +61,19 @@ export default function ModalCards(props: any) {
     //*verificar se existe o quarto na posicao x,y
     const room = rooms.find((room) => room.position_x === x && room.position_y === y)
     if (room) {
-
+      setRoomSelected(room)
     } else {
       /// position x e y == null
-    }
+      const room =rooms.find((room) => room.position_x === null && room.position_y === null)
+      if(room === undefined){
+        Swal.fire('Não há quartos disponíveis', '', 'error')
+      }else{
+        room.position_x = x
+        room.position_y = y
+        setRoomSelected(room)
 
-    //*se existir, abrir modal com os dados do quarto
-    //*se nao existir, abrir modal para criar um novo quarto, passando informaçõe para a 
-    //*primeira informação posicao x,y
-    //na modal dar opção de excluir o quarto
+      }
+    }
   }
 
 
@@ -80,8 +95,14 @@ export default function ModalCards(props: any) {
           </div>
           <Button sx={{ marginLeft: '20px' }} variant="contained" color="error" onClick={props.onClose}>Fechar</Button>
         </Box>
-        {isModalVisible ? <ModalBedroom onClose={() => setIsModalVisible(false)} /> : null}
+        {isModalVisible ? <ModalBedroom 
+        onClose={() => setIsModalVisible(false)}  
+        roomSelected={roomSelected}
+        hotel={props.hotelId}
+        /> : null}
       </ModalExterna>
     </div>
   )
 }
+
+

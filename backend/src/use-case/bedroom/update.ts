@@ -6,7 +6,6 @@ import {
   BedroomConstructor,
 } from '../../models/bedroom'
 import { Request } from '../interface'
-// import { Address } from '../../models/address';
 
 export class UpdateBedroom implements UseCase<BedroomConstructor,undefined,undefined,string> {
 
@@ -15,10 +14,11 @@ export class UpdateBedroom implements UseCase<BedroomConstructor,undefined,undef
   async execute(params: Request<BedroomConstructor>) {
     const {id} = params.params
     const bedroom = new Bedroom(params.body)
-    console.log(id, bedroom)
+    console.log(bedroom)
+    
     await this.bedroomRepository.update(id, bedroom)
     return {   
-      status: 201,
+      status: 200,
       body:'Quarto alterado com sucesso'
     }
     }

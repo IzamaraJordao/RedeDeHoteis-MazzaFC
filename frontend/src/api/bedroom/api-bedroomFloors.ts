@@ -1,7 +1,7 @@
 import { handleRequest } from "../handleRequest";
 import {ProviderContext} from 'notistack';
 import { useDispatch } from "react-redux";
-import { Bedroom,  setIsLoading } from "../../store/bedroomSlice";
+import { Bedroom,  setData,  setIsLoading } from "../../store/bedroomSlice";
 
 
 export async function getFloors(
@@ -22,13 +22,12 @@ export async function getFloors(
 };
 
 
-
 export async function getBedroomFloors(
      hotel_id: Bedroom['id'],
      floor: Bedroom['floor'],
     enqueueSnackbar: ProviderContext['enqueueSnackbar'],
     dispatch: ReturnType<typeof useDispatch>,
-) : Promise<Bedroom['floor'][]> {
+) : Promise<Bedroom[]> {
     dispatch(setIsLoading(true));
     const response =  await handleRequest({
         method: "get",
@@ -38,11 +37,33 @@ export async function getBedroomFloors(
         },
         url: `/floor/bedroom`,
     }, enqueueSnackbar );
+    dispatch(setData(response?.data));
     dispatch(setIsLoading(false));
     return response?.data;
 };
 
 
+export async function bedroomPut(
+  id: Bedroom['id'],
+  data: Bedroom,
+ enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+ dispatch: ReturnType<typeof useDispatch>
+){
+ dispatch(setIsLoading(true));
+ const response =  await handleRequest({
+     method: "put",
+     url: `/bedroom/${id}`,
+     data
+ }, enqueueSnackbar);
+ enqueueSnackbar(response?.data, {
+   anchorOrigin: {
+     vertical: 'top',
+     horizontal: 'center'
+   },
+   variant: 'success'
+ })
+ dispatch(setIsLoading(false));
+};
 
 
 

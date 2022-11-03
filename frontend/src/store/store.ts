@@ -6,7 +6,8 @@ import {guestSlice} from "./guestSlice";
 import {employeeSlice} from "./employeeSlice";
 import {hotelSlice} from "./hotelSlice";
 import {bedroomSlice} from "./bedroomSlice";
-
+import { typeSlice } from "./typeSlice";
+import { statusSlice } from "./statusSlice";
 
 
 const makeStore = () =>
@@ -18,6 +19,8 @@ const makeStore = () =>
       [employeeSlice.name]: employeeSlice.reducer,
       [hotelSlice.name]: hotelSlice.reducer,
       [bedroomSlice.name]: bedroomSlice.reducer,
+      [typeSlice.name]: typeSlice.reducer,
+      [statusSlice.name]: statusSlice.reducer,
       [reservationsSlice.name]: reservationsSlice.reducer,
 
     },

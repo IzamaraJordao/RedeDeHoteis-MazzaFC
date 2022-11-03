@@ -4,9 +4,16 @@ import {  ModalInternaFloors,ModalBox } from './styled';
 import { range } from "ramda";
 import Grid from '@mui/material/Unstable_Grid2';
 
+type Props = {
+  units: number;
+  getRoomColor: (x,y) => string;
+  openModal: (x,y) => void;
+  getRoomName: (x,y) => string | undefined;
+}
 
-export default function formFloorRooms(props: any) {
-console.log(props.units)
+
+export default function formFloorRooms(props: Props) {
+
       const floors = range(0, props.units + 2)
       return (
         <ModalBox>
@@ -15,7 +22,7 @@ console.log(props.units)
             <ModalInternaFloors key={floor}>
               <Box sx={{ flexGrow: 2, width: '1100px', display: 'flex', justifyContent: 'center' }}> 
                 <Box sx={{ flexGrow: 1,display: 'flex', justifyContent: 'center'}}>
-                
+                  
                   {floors.map((_, y) => (
                     <Grid xs={2} sm={2} md={2} lg={2} key={y}>
                       <Box
@@ -30,13 +37,17 @@ console.log(props.units)
                           border: '1px solid var(--text-secondary)',
                         }}
                         onClick={()=> props.openModal(x,y)}
-                      >{props.getRoomName(x, y)}</Box>
+                      >{props.getRoomName(x, y)}-{x},{y}</Box>
                     </Grid>
-                  ))}
+                  ))
+                  
+                  }
                 </Box>
               </Box>
             </ModalInternaFloors>
-          ))}
+          ))
+        
+          }
         </ModalBox>
       )
     }

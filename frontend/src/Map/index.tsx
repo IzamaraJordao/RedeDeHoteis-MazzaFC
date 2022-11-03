@@ -38,8 +38,8 @@ console.log(hotel)
       { page: 1, pageSize: 100, filter: {} },
       enqueueSnackbar,
       dispatch,
-    )
-  }, [])
+    )}, [])
+
 
   useEffect(() => {
     const response =  getFloors(hotel as string, enqueueSnackbar, dispatch).then((res) => {
@@ -47,22 +47,18 @@ console.log(hotel)
     })
   }, [hotel])
 
-useEffect(() => {
-  
-}, [floor])
 
-  const onSubmit = (data: Hotel) => {
-
-  }
+ 
 async function mapBedroom() {
   await getBedroomFloors(hotel as string, numberOfRoom as string, enqueueSnackbar, dispatch).
   then((res) => {
+    console.log("Rooms Selected ", ...res.map((item) => item.name))
     setUnits(res.length)
    
   })
   setIsModalVisible(true)
 }
-console.log(units)
+
 
   return (
     <div>
@@ -121,7 +117,10 @@ console.log(units)
       {isModalVisible ? 
       <ModalCards
         units={units}
-        onClose={() => setIsModalVisible(false)} />
+        onClose={() => setIsModalVisible(false)} 
+        hotelId={hotel as string}
+        // numberOfRoom={numberOfRoom as string}
+        />
         : null}
     </div>
   )
