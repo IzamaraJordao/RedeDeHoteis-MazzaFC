@@ -6,6 +6,7 @@ import {
   EmployeeConstructor,
 } from '../../models/employees';
 import { Request } from '../interface'
+import { Address } from '../../models/address';
 
 
 export class UpdateEmployee implements UseCase<EmployeeConstructor,undefined,undefined,string> {
@@ -13,6 +14,8 @@ export class UpdateEmployee implements UseCase<EmployeeConstructor,undefined,und
   constructor(private readonly employeeRepository: EmployeeRepository) {}
 
   async execute(params: Request<EmployeeConstructor>) {
+    const address = new Address(params.body.address)
+    params.body.address = address
     const {id} = params.params
     const employee = new Employee(params.body)
     console.log(id, employee)

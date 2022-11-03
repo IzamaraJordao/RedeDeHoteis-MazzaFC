@@ -6,7 +6,7 @@ export const BodyLogin = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 95vh;
+  height: 99.8vh;
   overflow: hidden;
   
 `

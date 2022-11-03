@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { encrypter } from '../../helpers/encrypter'
 import { Address } from '../../models/address/address'
 import { EmployeeInMemory, Employee } from '../../models/employees'
-import { CreateEmployee } from './create'
+import { DeleteEmployee } from './delete'
 
 function makeSut() {
   const data = {
@@ -11,7 +10,7 @@ function makeSut() {
     email: 'any_email',
     cpf: '999.999.999-99',
     rg: 'any_rg',
-    phone: '9999998',
+    phone: 'any_phone',
     password: 'any_password',
     hotel_id: 'any_hotel_id',
     address: new Address({
@@ -27,24 +26,30 @@ function makeSut() {
   const employee = new Employee(data)
   const repository = new EmployeeInMemory()
   repository.data = [employee]
-  const sut = new CreateEmployee(repository, encrypter)
+  const sut = new DeleteEmployee(repository)
   return { sut, repository, employee, data }
 }
 
-describe('Create Employee', () => {
-  it('Should create an employee', async () => {
-    const { sut, repository, data } = makeSut()
-    data.email = 'new_email'
-    data.id = 'new_id'
-    await sut.execute({ params: undefined, body: data, query: undefined })
+describe('Delete Employee', () => {
+  it('Should delete an employee', async () => {
+    const { sut, repository, employee } = makeSut()
+    await sut.execute({
+      params: { id: employee.id },
+      body: undefined,
+      query: undefined,
+    })
 
-    const result = await repository.findById(data.id)
-    expect(result).toBeDefined()
+    const result = async () => await repository.findById(employee.id)
+    expect(result).rejects.toThrow()
   })
-  it('Should throw if email already exists', async () => {
-    const { sut, data } = makeSut()
+  it('Should throw if any employee not founded', async () => {
+    const { sut, employee } = makeSut()
     expect(
-      sut.execute({ params: undefined, body: data, query: undefined }),
+      sut.execute({
+        params: { id: 'new_id' },
+        body: undefined,
+        query: undefined,
+      }),
     ).rejects.toThrow()
   })
 })

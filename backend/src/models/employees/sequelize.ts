@@ -49,26 +49,20 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
   }
 
 
-    // return response.map((employee) => {
-    //   const employeeData = employee.toJSON() 
-    //   employeeData.address = {}
-    //   return new Employee(employeeData)
-    // })  ;
-
-  // }
-
 
   async findById(id: string): Promise<Employee> {
     console.log(id)
     const response = await this.sequelize.findByPk(id,{
-      attributes: ['id', 'name', 'rg', 'cpf', 'email', 'phone', 'note', 'active', 'password', 'hotel_id', 'is_first_access', 'address_id'],
-      // include:{model: this.address, as: 'address'}
+      include:[{
+        model: this.address,
+        as: 'Address',
+        attributes: ['id','street','number','complement','neighborhood','city','state','zip_code']
+      }]
+      
     })
-    console.log(response)
     if (response) {
-      const employeeData = response.toJSON() 
-      employeeData.address = {}
-      return new Employee(employeeData)
+      return new Employee({...response.toJSON(), address: new Address(response.toJSON().Address )  })
+
     } else {
       throw new DbError('Empregado não encontrado')
     }
@@ -106,6 +100,10 @@ export class EmployeeRepositorySequelize implements EmployeeRepository {
         id: id,
       },
     })
-  }
+    await this.address.update(employee.address.data, {
+      where: {
+        id: employee.address.data.id,
+      },
+  })
 }
-
+}

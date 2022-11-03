@@ -8,8 +8,10 @@ export class GetEmployee implements UseCase <undefined, { id: string }, undefine
   }
   async execute(params: Request<undefined, { id: string }>) {
     const { id } = params.params
+    console.log(params.params)
     const employee = await this.employeeRepository.findById(id)
     return {
+      result: employee.publicInfo,
       status: 200,
       body: employee.publicInfo,
     }

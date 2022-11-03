@@ -1,26 +1,19 @@
-import { useEffect, useState } from 'react'
-import ModalEmployee from '../ModalEmployees/Modal'
-
-import { employeePaginate } from '../../../api/employee/Api-employee'
-
-import {
-  Employee,
-  selectData,
-  selectIsLoading,
-  selectPaginate,
-} from '../../../store/employeeSlice'
-import { useSnackbar } from 'notistack'
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import TableMain from '../../../common/components/MultTabela/index'
-import { Pagination } from '../../../template/types/pagination'
-import EditIcon from '@mui/icons-material/Edit'
-import { If } from '../../../common/components/If'
-import React from 'react'
 import { useSelector } from 'react-redux'
+import {
+  Guest,
+  selectData,
+  selectIsLoading,
+  selectPaginate,
+} from '../../../store/guestSlice'
+import React from 'react'
+import EditIcon from '@mui/icons-material/Edit'
+import { Pagination } from '../../../template/types/pagination'
+import TableMain from '../../../common/components/MultTabela/index'
 
-export interface BancoEmployee {
+export type BancoGuest = {
   id: number
   nome: string
   rg: string
@@ -28,13 +21,15 @@ export interface BancoEmployee {
   email: string
   phone: string
 }
+
 type Props = {
   setIdModal: React.Dispatch<React.SetStateAction<string | undefined>>
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>
-  employeePaginate: (pagination: Pagination<Employee>) => void
   handleDelete: (id: string) => void
+  guestPaginate: (pagination: Pagination<Guest>) => void
 }
-export function TableEmployee(props: Props) {
+
+export function TableGuest(props: Props) {
   const pagination = useSelector(selectPaginate)
   const data = useSelector(selectData)
   const isLoading = useSelector(selectIsLoading)
@@ -59,10 +54,10 @@ export function TableEmployee(props: Props) {
       sortable: false,
       disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
 
-      renderCell: (employee: GridRenderCellParams<BancoEmployee>) => {
+      renderCell: (guest: GridRenderCellParams<BancoGuest>) => {
         return (
           <div style={{ color: 'blue', marginLeft: '15px' }}>
-            {employee.row.cpf}
+            {guest.row.cpf}
           </div>
         )
       },
@@ -78,6 +73,7 @@ export function TableEmployee(props: Props) {
 
       disableColumnMenu: true, //// desabilita todas as funcionalidades do cabeçalho
     },
+
     {
       field: 'email',
       headerName: 'Email',
@@ -94,6 +90,7 @@ export function TableEmployee(props: Props) {
       align: 'center',
       disableColumnMenu: true,
     },
+
     {
       field: 'id',
       headerName: 'Ações',
@@ -101,14 +98,14 @@ export function TableEmployee(props: Props) {
       width: 150,
       align: 'center',
       disableColumnMenu: true,
-      renderCell: (employee: GridRenderCellParams<BancoEmployee>) => {
+      renderCell: (guest: GridRenderCellParams<BancoGuest>) => {
         return (
           <div>
             <IconButton
               color="error"
               sx={{ backgroundColor: '#fff !important' }}
               onClick={() => {
-                props.handleDelete(employee.row.id)
+                props.handleDelete(guest.row.id)
               }}
             >
               <DeleteIcon />
@@ -117,11 +114,9 @@ export function TableEmployee(props: Props) {
               sx={{
                 backgroundColor: '#fff !important',
                 color: 'var(--tertiary)',
-                margin: '8px',
               }}
               onClick={() => {
-                props.setIdModal(employee.row.id)
-                props.setIsModalVisible(true)
+                props.setIdModal(guest.row.id), props.setIsModalVisible(true)
               }}
             >
               <EditIcon />
@@ -131,24 +126,19 @@ export function TableEmployee(props: Props) {
       },
     },
   ]
-
   return (
     <div>
-      <div>
-        <div>
-          <TableMain
-            data={data}
-            columns={columns}
-            search={(pagination: Pagination<Employee>) =>
-              props.employeePaginate(pagination)
-            }
-            isLoading={isLoading}
-            page={pagination.page}
-            pageSize={pagination.pageSize}
-            total={pagination.total as number}
-          />
-        </div>
-      </div>
+      <TableMain
+        data={data}
+        columns={columns}
+        search={(pagination: Pagination<Guest>) =>
+          props.guestPaginate(pagination)
+        }
+        isLoading={isLoading}
+        page={pagination.page}
+        pageSize={pagination.pageSize}
+        total={pagination.total as number}
+      />
     </div>
   )
 }

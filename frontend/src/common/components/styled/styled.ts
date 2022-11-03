@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalExterna = styled.div`
-  background-color: rgb(0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -10,11 +10,20 @@ export const ModalExterna = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  opacity: 0.95;
   padding: 1px;
   display: flex;
   justify-content: center;
   align-items: center;
+  .registerModal{
+    .updateModal{
+      display:none
+    }
+  }
+  .updateModal{
+      .registerModal{
+      display:none
+    }
+  }
 `;
 
 export const ModalCentral = styled.div`
@@ -51,4 +60,6 @@ export const InputNomeModal = styled.div`
   flex-direction: column;
   margin:2px;
 `;
+
+
 

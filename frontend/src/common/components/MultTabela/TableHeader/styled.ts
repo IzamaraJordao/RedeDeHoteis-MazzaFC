@@ -1,27 +1,30 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const TableHeade = styled.div`
-  display: flex;
+export const TableHeader = styled.div`
   flex-direction: column;
   align-items: center;
-  
-  div{
+  position: static;
+
+  div {
     margin-top: -30px;
   }
 
-  button{
-      color: #fff;
-      border-radius: 6px
-    }
-    input{
-       width: 7em;
-       border-radius: 6px;
-     }
+  button {
+    color: #fff;
+    border-radius: 8px;
+   
+  }
+  input {
+    width: 100px;
+    border-radius: 6px;
+    position: relative;
+  }
 
-strong{
-  margin-top: -10px;
-}
-`;
-
-
-
+  h4 {
+    height: auto;
+    width: 100%;
+    margin-top: -22px;
+    margin-bottom: 1px;
+    position: static;
+  }
+`

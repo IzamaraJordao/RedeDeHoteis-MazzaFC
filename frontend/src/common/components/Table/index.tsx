@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TabelaCentral } from './styled';
-import { DataGrid, GridRowsProp, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
-import Modal from '../Modal/Modal';
+import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid';
+import Modal from '../styled/Modal';
 import Button from '@mui/material/Button';
 import {Typography } from "@mui/material";
 
@@ -33,7 +33,7 @@ export default function App() {
   const columns: GridColumns = [
     {
       field: 'numero',
-      headerName: 'Comsumo',
+      headerName: 'Consumo',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
@@ -74,7 +74,7 @@ export default function App() {
       }
     },
     {
-      field: 'status',
+      field: 'Terça',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,
@@ -94,7 +94,7 @@ export default function App() {
       }
     },
     {
-      field: 'Quartaaa',
+      field: 'Quarta',
       headerClassName: 'super-app-theme--header',
       headerAlign: 'center',
       width: 140,

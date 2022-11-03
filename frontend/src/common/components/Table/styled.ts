@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const TabelaCentral = styled.div`
 
   display: flex;
-  /* margin: 3em; */
-  /* width: 100%; */
-  height: 2 em;
+  height: 25%;
+  width: 80%;
+
+
 
   div{
     display: flex;
-    width: calc(100vw - 560px);
+    width: calc(100vw - 450px);
   }
 `;
 

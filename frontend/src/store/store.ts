@@ -1,3 +1,4 @@
+import { reservationsSlice } from './reservationSlice';
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { authSlice } from "./authSlice";
 import { createWrapper } from "next-redux-wrapper";
@@ -7,6 +8,7 @@ import {hotelSlice} from "./hotelSlice";
 import {bedroomSlice} from "./bedroomSlice";
 import { typeSlice } from "./typeSlice";
 import { statusSlice } from "./statusSlice";
+
 
 const makeStore = () =>
   configureStore({
@@ -19,6 +21,8 @@ const makeStore = () =>
       [bedroomSlice.name]: bedroomSlice.reducer,
       [typeSlice.name]: typeSlice.reducer,
       [statusSlice.name]: statusSlice.reducer,
+      [reservationsSlice.name]: reservationsSlice.reducer,
+
     },
 
     devTools: true,

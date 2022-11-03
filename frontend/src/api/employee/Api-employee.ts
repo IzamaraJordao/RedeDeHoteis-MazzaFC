@@ -1,7 +1,7 @@
 import { handleRequest } from '../handleRequest'
 import { ProviderContext } from 'notistack'
 import { useDispatch } from 'react-redux'
-import { Employee, setData, setIsLoading } from '../../store/employeeSlice'
+import { Employee, setData, setEmployee, setIsLoading } from '../../store/employeeSlice'
 import { Pagination } from '../../template/types/pagination'
 
 export async function employeePaginate(
@@ -49,6 +49,7 @@ export async function employeeById(
   enqueueSnackbar: ProviderContext['enqueueSnackbar'],
   dispatch: ReturnType<typeof useDispatch>,
 ) {
+
   dispatch(setIsLoading(true))
   const response = await handleRequest(
     {
@@ -56,7 +57,10 @@ export async function employeeById(
       url: `/employee/${id}`,
     },
     enqueueSnackbar,
+  
   )
+  
+  dispatch(setEmployee(response?.data))
   dispatch(setIsLoading(false))
   return response?.data
 }
@@ -86,26 +90,22 @@ export async function employeeDelete(
 export async function employeePut(
   id: Employee['id'],
   data: Employee,
-  enqueueSnackbar: ProviderContext['enqueueSnackbar'],
-  dispatch: ReturnType<typeof useDispatch>,
-) {
-  dispatch(setIsLoading(true))
-  const response = await handleRequest(
-    {
-      method: 'put',
-      url: `/employee/${id}`,
-      data,
-    },
-    enqueueSnackbar,
-  )
-  dispatch(setIsLoading(false))
-  if (response?.status === 200) {
-    enqueueSnackbar(response?.data, {
-      anchorOrigin: {
-        vertical: 'top',
-        horizontal: 'center',
-      },
-      variant: 'success',
-    })
-  }
-}
+ enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+ dispatch: ReturnType<typeof useDispatch>
+){
+ dispatch(setIsLoading(true));
+ const response =  await handleRequest({
+     method: "put",
+     url: `/employee/${id}`,
+     data
+ }, enqueueSnackbar);
+ enqueueSnackbar(response?.data, {
+   anchorOrigin: {
+     vertical: 'top',
+     horizontal: 'center'
+   },
+   variant: 'success'
+ })
+ dispatch(setIsLoading(false));
+};
+

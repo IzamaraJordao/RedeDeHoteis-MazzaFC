@@ -6,7 +6,7 @@ export const FilterHead = styled.div`
   div{
     input{
       
-      width: 3em
+      width: 3em;
     }
   }
 `;

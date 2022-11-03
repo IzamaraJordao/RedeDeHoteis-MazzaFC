@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import React, { useEffect } from 'react'
-import { TableHeade} from './styled'
+import { TableHeader } from './styled'
 import SearchIcon from '@mui/icons-material/Search'
 
 export default function tableHeader(props: any) {
@@ -10,34 +10,10 @@ export default function tableHeader(props: any) {
     if (props.value) setInputValue(props.value)
   }, [props.value])
 
-  function handleAction() {
-    if (props.name === 'Ações') {
-      return null
-    } else{
-      <div>
-        <input
-          value={inputValue}
-          onChange={({ target }) => {
-            setInputValue(target.value)
-          }}
-        />
-        <button
-          onClick={() => {
-            if (props.onSearch) props.onSearch(inputValue)
-          }}
-        >
-          <SearchIcon sx={{ fontSize: 10 }} />
-        </button>
-      </div>
-
-    }
-  }
-
   return (
-    <TableHeade>
-      
-      <strong>{props.name}</strong>
-     
+    <TableHeader>
+      <h4>{props.name}</h4>
+
       <div>
         <input
           value={inputValue}
@@ -53,7 +29,7 @@ export default function tableHeader(props: any) {
           <SearchIcon sx={{ fontSize: 10 }} />
         </button>
       </div>
-    </TableHeade>
+    </TableHeader>
   )
 }
 

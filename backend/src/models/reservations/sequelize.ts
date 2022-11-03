@@ -1,5 +1,5 @@
 
-import { BedroomSequelize } from '../../database/modelSequelize/bedroom';
+
 import { ReservationsRepository, PaginateParams } from '.'
 import { Reservations} from './reservations'
 import { GuestSequelize, ReservationsSequelize} from '../../database'
@@ -11,14 +11,14 @@ import { DbError } from '../../exceptions/dbError'
 export class ReservationsRepositorySequelize implements ReservationsRepository {
   sequelize: Sequelize['models']['Reservations']
   guest: Sequelize['models']['Guest']
-  bedroom: Sequelize['models']['Bedroom'];
+
   constructor() {
     this.sequelize = ReservationsSequelize
     this.guest = GuestSequelize
-    this.bedroom = BedroomSequelize
+    
   }
     async save(reservations: Reservations): Promise<void> {
-    await this.bedroom.create(reservations.bedroom.data)
+   
     await this.sequelize.create(reservations.data)
   }
   async paginate({
