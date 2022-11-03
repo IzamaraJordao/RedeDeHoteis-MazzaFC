@@ -19,6 +19,7 @@ export class GetBedroomByFloor implements UseCase<undefined, undefined,{
     }
     if(!hotel_id || !floor) throw new ValidationError('Hotel e andar são obrigatórios')
     const response = await this.bedroomRepository.getBedrooms(hotel_id, floor)
+    console.log(response)
     return {
       status: 200,
       body: [

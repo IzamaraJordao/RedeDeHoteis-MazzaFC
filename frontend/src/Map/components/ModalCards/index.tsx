@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TituloCenter, ModalExterna } from './styled'
 import Box from '@mui/material/Box'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Bedroom, selectBedroomData } from "../../../store/bedroomSlice";
 import CardsBedroom from "../CardsBedroom";
 import { Button, Typography } from '@mui/material';
 import ModalBedroom from "../ModalBedroom/Modal";
 import Swal from 'sweetalert2';
 import { type } from 'ramda';
+import { bedroomPut } from '../../../api/bedroom/api-bedroomFloors';
+import { useSnackbar } from 'notistack';
+import { useRouter } from 'next/router';
+
 
 
 
@@ -30,16 +34,23 @@ type Props = {
   onClose: () => void
   units: number
   hotelId: string
+  numberOfRoom: string
+ 
 
 }
 
 export default function ModalCards(props: Props) {
-
+  const { enqueueSnackbar } = useSnackbar()
+  const dispatch = useDispatch()
   const rooms = useSelector(selectBedroomData)
-
+  const router = useRouter()
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [roomSelected, setRoomSelected] = useState<Bedroom | null>(null);
+  const [ pos_x, setPos_x ] = useState(0);
+  const [ pos_y, setPos_y ] = useState(0);
 
+  console.log("rooms",rooms.map((room) => room.id))
 
   function getRoomName(x: number, y: number) {
     const room = rooms.find((room) => room.position_x === x && room.position_y === y)
@@ -54,22 +65,31 @@ export default function ModalCards(props: Props) {
     return 'var(--red)'
   }
 
+  // const bedroomId : any = rooms.map((room) => room.id)
+  const bedroomId = roomSelected?.id
+
+
 
   function openModal(x, y) {
-    setIsModalVisible(true)
+    
+    setPos_x(x)
+    setPos_y(y)
 
     //*verificar se existe o quarto na posicao x,y
     const room = rooms.find((room) => room.position_x === x && room.position_y === y)
     if (room) {
+      setIsModalVisible(true)
       setRoomSelected(room)
     } else {
       /// position x e y == null
       const room =rooms.find((room) => room.position_x === null && room.position_y === null)
       if(room === undefined){
         Swal.fire('Não há quartos disponíveis', '', 'error')
+        
       }else{
-        room.position_x = x
-        room.position_y = y
+        setIsModalVisible(true)
+        // room.position_x = x
+        // room.position_y = y
         setRoomSelected(room)
 
       }
@@ -80,6 +100,7 @@ export default function ModalCards(props: Props) {
 
   return (
     <div>
+     
       <ModalExterna>
         <Box sx={style}>
           <TituloCenter>
@@ -98,9 +119,12 @@ export default function ModalCards(props: Props) {
         {isModalVisible ? <ModalBedroom 
         onClose={() => setIsModalVisible(false)}  
         roomSelected={roomSelected}
-        hotel={props.hotelId}
+        pos_x={pos_x}
+        pos_y={pos_y}
+
         /> : null}
       </ModalExterna>
+      
     </div>
   )
 }

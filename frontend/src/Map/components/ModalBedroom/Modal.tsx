@@ -29,22 +29,25 @@ const style = {
   p: 4,
 }
 
-type Props ={
+type Props = {
   onClose: () => void
   roomSelected: Bedroom | null
-  hotel: string
+  pos_x: number
+  pos_y: number
 }
 
-export default function ModalBedroom(props : Props) {
+
+export default function ModalBedroom(props: Props) {
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
 
-  const status = useSelector(selectStatusData)
+  const statusList = useSelector(selectStatusData)
   const types = useSelector(selectTypeData)
 
   const [type, setType] = React.useState<string>()
-  const [statu, setStatu] = React.useState<string>()
+  const [status, setStatus] = React.useState<string>()
 
+  console.log(" roomSelected ", props.roomSelected)
 
   const {
     register,
@@ -54,20 +57,31 @@ export default function ModalBedroom(props : Props) {
   } = useForm<Bedroom>()
 
   const onSubmit = (data: Bedroom) => {
-    bedroomPut(props.hotel, {
+    // if(props.roomSelected?.room_type_id == '6'){
+    //   enqueueSnackbar("Tipo de Quarto é obrigatório", { variant: 'error' })
+    //   return;
+    // }
+    bedroomPut(props.roomSelected?.id, {
+      id: props.roomSelected?.id,
       name: data.name,
-      floor: data.floor,
-      hotel_id: props.hotel,
-      position_x: data.position_x,
-      position_y: data.position_y,
+      floor: props.roomSelected?.floor as string,
+      hotel_id: props.roomSelected?.hotel_id as string,
+      position_x: props.pos_x,
+      position_y: props.pos_y,
       status_room_id: data.status_room_id,
-      room_type_id: data.room_type_id,
+      room_type_id: type as string,
     }, enqueueSnackbar, dispatch)
     props.onClose()
   }
 
-
-
+useEffect(() => {
+    if (props.roomSelected?.position_x != null){
+      setValue('name', props.roomSelected?.name)
+      setValue('status_room_id', props.roomSelected?.status_room_id)
+      // setType(props.roomSelected?.room_type_id)
+      setStatus(props.roomSelected?.status_room_id)
+    } 
+  }, [props.roomSelected])
 
   useEffect(() => {
     statusPaginate(
@@ -87,6 +101,7 @@ export default function ModalBedroom(props : Props) {
 
   return (
     <ModalExterna>
+
       <Box sx={style}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
@@ -98,63 +113,64 @@ export default function ModalBedroom(props : Props) {
             Cadastro de Quarto
           </Typography>
         </div>
-        <InputNomeModal>
-          <label>Nome do quarto</label>
-          <TextField id="outlined-basic" variant="outlined" 
-          {...register('name', { required: true })}
-          />
-        </InputNomeModal>
-
-        <div>
+        <form onSubmit={(e) => e.preventDefault()}>
           <InputNomeModal>
-            <label>Status do quarto</label>
-            <Select
-              sx={{ width: '200px' }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="hotel"
-              value={statu}
-              onChange={(e)=> setStatu(e.target.value)}
-              // {...register('status_room_id', { required: true })}
-            >
-              <MenuItem value="" selected sx={{ width: '250px' }}>
-                Selecione...
-              </MenuItem>
-              {status.map((status) => (
-                <MenuItem value={status.id}>{status.name}</MenuItem>
-              ))}
-            </Select>
+            <label>Nome do quarto</label>
+            <TextField id="outlined-basic" variant="outlined"
+              {...register('name', { required: true })}
+            />
           </InputNomeModal>
-        </div>
-        <div>
-          <InputNomeModal>
-            <label>Tipo de Quarto</label>
-            <Select
-              sx={{ width: '200px' }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="hotel"
-              value={type}
-              onChange={(e)=> setType(e.target.value)}
-            >
-              <MenuItem value="" selected sx={{ width: '250px' }}>
-                Selecione...
-              </MenuItem>
-              {types.map((type) => (
-                <MenuItem value={type.id}>
-                  {type.name}
+
+          <div>
+            <InputNomeModal>
+              <label>Status do quarto</label>
+              <Select
+                sx={{ width: '200px' }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="hotel"
+                defaultValue={props.roomSelected?.status_room_id}
+              {...register('status_room_id')}
+              >
+                <MenuItem value="" selected sx={{ width: '250px' }}>
+                  Selecione...
                 </MenuItem>
-              ))}
-            </Select>
-          </InputNomeModal>
-        </div>
+                {statusList.map((status) => (
+                  <MenuItem value={status.id}>{status.name}</MenuItem>
+                ))}
+              </Select>
+            </InputNomeModal>
+          </div>
+          <div>
+            <InputNomeModal>
+              <label>Tipo de Quarto</label>
+              <Select
+                sx={{ width: '200px' }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="hotel"
+                defaultValue={props.roomSelected?.room_type_id}
+                {...register('room_type_id')}
+              >
+                
+                {types.map((type) => (
+                  <MenuItem value={type.id}>
+                    {type.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </InputNomeModal>
+          </div>
 
-        <div>
-          <Button variant="contained" onClick={props.onClose}>
-            Salvar
-          </Button>
-        </div>
+          <div>
+            <Button variant="contained" onClick={handleSubmit(onSubmit)}>Salvar</Button>
+            <Button variant="contained" color="error" onClick={props.onClose}>
+              Cancelar
+            </Button>
+          </div>
+        </form>
       </Box>
+
     </ModalExterna>
   )
 }
