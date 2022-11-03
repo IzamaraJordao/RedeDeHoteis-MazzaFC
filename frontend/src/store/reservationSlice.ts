@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Pagination } from '../template/types/pagination'
+import { Guest } from './guestSlice'
 import { AppState } from './store'
 
 
@@ -9,7 +10,8 @@ export type Reservations = {
   check_out: Date
   check_in_static: Date
   check_out_static: Date
-  bedroom_id: string
+  guests: Guest[]
+  room_type_id: string
 }
 
 type ReservationState = {

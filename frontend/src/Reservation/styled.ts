@@ -19,6 +19,23 @@ export const BoxExternal = styled.div`
   background-color: #e1dddd;
   display: flex;
   justify-content: center;
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 5px;
+   
+  }
+  input{
+    height: 30px;
+  }
+  label{
+    font-size: 1.2em ;
+    font-weight: lighter;
+
+  }
+
 `;
 
 export const BoxDiv = styled.div`

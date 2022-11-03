@@ -41,4 +41,4 @@ export class BedroomRepositorySequelize implements BedroomRepository {
   
 }
 
-//
+

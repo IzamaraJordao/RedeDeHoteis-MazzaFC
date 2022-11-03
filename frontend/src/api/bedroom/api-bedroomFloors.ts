@@ -2,6 +2,7 @@ import { handleRequest } from "../handleRequest";
 import {ProviderContext} from 'notistack';
 import { useDispatch } from "react-redux";
 import { Bedroom,  setData,  setIsLoading } from "../../store/bedroomSlice";
+import { Pagination } from "../../template/types/pagination";
 
 
 export async function getFloors(
@@ -65,5 +66,35 @@ export async function bedroomPut(
  dispatch(setIsLoading(false));
 };
 
+export async function bedroomGet(
+  id: Bedroom['id'],
+ enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+ dispatch: ReturnType<typeof useDispatch>
+){
+ dispatch(setIsLoading(true));
+ const response =  await handleRequest({
+     method: "get",
+     url: `/bedroom/${id}`,
+ }, enqueueSnackbar);
+ dispatch(setData(response?.data));
+ dispatch(setIsLoading(false));
+}
 
-
+export async function bedroomPaginate(
+   {page,pageSize,filter}:Pagination<Bedroom>,
+   enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+   dispatch: ReturnType<typeof useDispatch>,
+){
+ dispatch(setIsLoading(true));
+ const response =  await handleRequest({
+     method: "get",
+     url: `/bedroom`,
+     params: {
+       page,
+       pageSize,
+       filter: JSON.stringify(filter)
+     }
+ }, enqueueSnackbar);
+ dispatch(setData(response?.data));
+ dispatch(setIsLoading(false));
+}

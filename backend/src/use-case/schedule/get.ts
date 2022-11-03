@@ -19,4 +19,7 @@ export class GetSchedule implements UseCase <undefined, { id: string }, undefine
   }
 }
 
+// pegar os tipo de quarto 
 
+
+ 
