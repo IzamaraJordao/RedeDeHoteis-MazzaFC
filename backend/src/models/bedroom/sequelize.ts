@@ -10,6 +10,7 @@ export class BedroomRepositorySequelize implements BedroomRepository {
     this.sequelize = BedroomSequelize
    
   }
+  // adaptadores  do contrato
   async getFloor(hotel_id: string): Promise<Bedroom["floor"][]> {
     const response = await this.sequelize.findAll({
       attributes:[

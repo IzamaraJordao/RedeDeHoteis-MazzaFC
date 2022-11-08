@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 
 export const ModalExterna = styled.div`
@@ -62,4 +63,24 @@ export const InputNomeModal = styled.div`
 `;
 
 
+export const ModalEsquerda = styled.div`
+label{
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+  input{
+    width: 560px;
+  }
+  `
 
+export const External = styled.div`
+   display: flex;
+  justify-content: center;
+
+  div{
+    margin-bottom: 2px;
+  
+  button{
+    background-color: #3f3d56;
+  }
+}`  

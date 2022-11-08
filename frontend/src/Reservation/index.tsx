@@ -22,6 +22,8 @@ import { selectType, selectTypeData } from '../store/typeSlice'
 import { Dispatch, AnyAction } from 'redux'
 import { selectData } from '../store/employeeSlice'
 import axios from 'axios'
+import { ModalReservation } from './Components/Modal'
+import { If } from '../common/components/If'
 
 
 export default function bancoTabela() {
@@ -81,29 +83,33 @@ export default function bancoTabela() {
   //trazer as informações de guest pelo cpf e preencher os campos
   function handleCpf(cpf: string, setValue: any): any {
     if (cpf.length === 11) {
-      axios.get(`http://localhost:3000/guests?cpf=${cpf}`).then((response) => {
-        setValue('guests.name', response.data[0].name)
-        setValue('guests.cpf', response.data[0].cpf)
-        setValue('guests.email', response.data[0].email)
-        setValue('guests.phone', response.data[0].phone)
-        setValue('guests.address.street', response.data[0].address.street)
-        setValue(
-          'guests.address.neighborhood',
-          response.data[0].address.neighborhood,
-        )
-        setValue('guests.address.city', response.data[0].address.city)
-        setValue('guests.address.state', response.data[0].address.state)
-        setValue('guests.address.zipCode', response.data[0].address.zipCode)
+      axios.get(`http://localhost:3030/guest?`).then((response) => {
+        setValue('guest.name', response.data.name)
+        setValue('guest.cpf', response.data.cpf)
+        setValue('guest.email', response.data.email)
+        setValue('guest.phone', response.data.phone)
+        setValue('guest.address.street', response.data.address.street)
+        setValue('guest.address.neighborhood',response.data.address.neighborhood)
+        setValue('guest.address.city', response.data.address.city)
+        setValue('guest.address.state', response.data.address.state)
+        setValue('guest.address.zipCode', response.data.address.zipCode)
       })
     }
   }
-  function onSubmit(data: Reservations) {
+const onSubmit = (data: Reservations): any => {
     if (idReservation) {
       handleUpdate(data)
     } else {
       handleCreate(data)
     }
+    handleClose()
+  }
+
+  function handleClose(){
     setIsModalVisible(false)
+    setIdReservation(undefined)
+    dispatch(setReservations(undefined))
+    reservationPaginate(pagination, enqueueSnackbar, dispatch)
   }
 
   
@@ -156,6 +162,16 @@ export default function bancoTabela() {
           </div>
         </BoxDiv>
       </BoxExternal>
+
+      {isVisibled &&
+      <ModalReservation
+      handleCep= {handleCep}
+      handleCpf= {handleCpf}
+      onClose={handleClose}
+      onSubmit={onSubmit}
+      />
+      }
+          
     </div>
   )
 }

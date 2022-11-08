@@ -4,7 +4,7 @@ import { DbError } from '../exceptions/dbError'
 import { HttpError } from '../exceptions/httpError'
 import { UseCase } from '../use-case/interface'
 import { Auth } from './auth'
-// import { tokenGenerator } from './tokenGenerator' 
+
 
 export function controllerExpress(useCase: UseCase <any, any, any, any>, isPublic: "PUBLIC" | "PRIVATE" = "PRIVATE") {
   
@@ -34,3 +34,4 @@ export function controllerExpress(useCase: UseCase <any, any, any, any>, isPubli
     }
   }
 }
+// controller express é um middleware que recebe um useCase e retorna uma função que recebe uma requisição e uma resposta

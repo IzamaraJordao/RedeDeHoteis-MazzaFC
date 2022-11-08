@@ -12,7 +12,7 @@ export type PaginateParams = {
     [key:string] :string | number | boolean
   }
 }
-
+//contrato
 export interface BedroomRepository {
     saveMany(bedrooms: Bedroom[]): Promise<void>;
     getFloor(hotel_id: Bedroom["hotel_id"]): Promise<Bedroom["floor"][]>;

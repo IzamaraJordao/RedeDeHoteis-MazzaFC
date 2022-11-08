@@ -16,8 +16,8 @@ export async function reservationPaginate(
   dispatch(setIsLoading(true))
   const response = await handleRequest(
     {
-      method: 'get',
-      url: '/reservations',
+      method: "get",
+      url: `/reservations`,
       params: {
         page,
         pageSize,
@@ -26,8 +26,8 @@ export async function reservationPaginate(
     },
     enqueueSnackbar,
   )
-  dispatch(setData(response?.data))
-  dispatch(setIsLoading(false))
+  dispatch(setData(response?.data));
+  dispatch(setIsLoading(false));
 }
 
 export async function reservationCreate(
@@ -38,7 +38,7 @@ export async function reservationCreate(
   dispatch(setIsLoading(true))
   const response = await handleRequest(
     {
-      method: 'post',
+      method:"post",
       url: '/reservations',
       data: reservations,
     },

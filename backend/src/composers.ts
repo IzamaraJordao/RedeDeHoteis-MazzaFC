@@ -34,7 +34,7 @@ import { statusRepository } from './models/statusBedroom';
 import { PaginateStatus } from './use-case/statusBedroom/paginate';
 import { GetFloors } from './use-case/bedroom/getFloors ';
 
-
+ // composer controller generico 
 ///Employee
 export const paginateEmployee = new PaginateEmployee(employeeRepository);
 export const getEmployee = new GetEmployee(employeeRepository);
@@ -76,5 +76,5 @@ export const paginateType = new PaginateType(typeRepository);
 //status
 export const paginateStatus = new PaginateStatus(statusRepository);
 
-//
+// 
 
