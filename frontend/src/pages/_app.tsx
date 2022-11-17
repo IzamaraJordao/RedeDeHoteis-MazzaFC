@@ -11,7 +11,9 @@ import { useSnackbar, VariantType, SnackbarProvider } from 'notistack';
 import App from 'next/app';
 import { Router, useRouter } from 'next/router';
 
-
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
 
 
 

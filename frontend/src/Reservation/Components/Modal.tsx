@@ -10,15 +10,20 @@ import { useSnackbar } from 'notistack'
 import React, { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import {
   ModalCentral,
   InputNomeModal,
   ModalExterna,
 } from '../../common/components/styled/styled'
 import { Address } from '../../store/address.type'
-import { Guest } from '../../store/guestSlice'
-import { Reservations } from '../../store/reservationSlice'
+import { Guest, setGuest } from '../../store/guestSlice'
+import {
+  Reservations,
+  selectRegistrationData,
+} from '../../store/reservationSlice'
+import { selectTypeData } from '../../store/typeSlice'
 
 type Props = {
   handleCep: (cep: string, setValue: any) => Promise<Address>
@@ -28,19 +33,38 @@ type Props = {
 }
 
 export function ModalReservation(props: Props) {
+  const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
-  const enqueueSnackbar = useSnackbar()
-
+  const type = useSelector(selectTypeData)
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<Reservations>()
+  
+  const registration = useSelector(selectRegistrationData)
 
-  function handleChange(e) {
-    setValue('guests', e.target.value)
-  }
+  useEffect(() => {
+    if (registration) {
+      setValue('guests.cpf', registration.guests.cpf)
+      setValue('guests.name', registration.guests.name)
+      setValue('guests.email', registration.guests.email)
+      setValue('guests.phone', registration.guests.phone)
+      setValue('guests.address.zipCode', registration.guests.address.zipCode)
+      setValue('guests.address.street', registration.guests.address.street)
+      setValue('guests.address.number', registration.guests.address.number)
+      setValue('guests.address.complement', registration.guests.address.complement)
+      setValue('guests.address.neighborhood', registration.guests.address.neighborhood)
+      setValue('guests.address.city', registration.guests.address.city)
+      setValue('guests.address.state', registration.guests.address.state)
+    }else{
+     dispatch(setGuest(undefined))
+    }
+  }, [])
+
+
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -64,7 +88,7 @@ export function ModalReservation(props: Props) {
           >
             Reserva
           </Typography>
-          <form onSubmit={handleSubmit((data) => props.onSubmit(data, props))}>
+          <form onSubmit={handleSubmit(props.onSubmit)}>
             <InputNomeModal>
               <label>Nome: </label>
               <TextField
@@ -77,80 +101,86 @@ export function ModalReservation(props: Props) {
             <ModalCentral>
               <div>
                 <InputNomeModal>
-                  <label>CPF</label>
+                  <label>CPF: </label>
                   <TextField
                     size="small"
                     id="cpf"
-                    type="number"
                     variant="outlined"
                     maxRows={11}
-                    {...register('cpf')}
+                    {...register('guests.cpf')}
+                    onChange={(e) => props.handleCpf(e.target.value, setValue)}
                   />
                 </InputNomeModal>
               </div>
               <div>
                 <InputNomeModal>
-                  <label>RG</label>
+                  <label>RG: </label>
                   <TextField
                     size="small"
                     id="rg"
-                    type="text"
                     variant="outlined"
-                    maxRows={11}
-                    {...register('rg')}
-                  />
-                </InputNomeModal>
-              </div>
-
-              <div>
-                <InputNomeModal>
-                  <label>Telefone</label>
-                  <TextField
-                    size="small"
-                    id="phone"
-                    type="number"
-                    variant="outlined"
-                    {...register('phone')}
+                    {...register('guests.phone')}
                   />
                 </InputNomeModal>
               </div>
             </ModalCentral>
             <ModalCentral>
+            <InputNomeModal>
+            <label>Tipo de Quarto: </label>
+            <Select
+                sx={{ height: '40px' }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="room_type"
+                defaultValue={6}
+                {...register('room_type_id')}
+              >
+                {type.map((room_type) => (
+                  <MenuItem value={room_type.id} sx={{ width: '250px' }}>
+                    {room_type.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </InputNomeModal>
+            </ModalCentral>
+            <ModalCentral>
               <div>
                 <InputNomeModal>
-                  <label>Email</label>
+                  <label>Email: </label>
                   <TextField
                     sx={{ width: '500px', color: 'var(--text)' }}
                     size="small"
                     id="email"
                     variant="outlined"
-                    {...register('email')}
+                    {...register('guests.email')}
+                    value={registration?.guests.email}
                   />
                 </InputNomeModal>
               </div>
             </ModalCentral>
-
+            
             <ModalCentral>
               <div>
                 <InputNomeModal>
-                  <label>CEP</label>
+                  <label>CEP: </label>
                   <TextField
                     size="small"
+                    id="zipCode"
                     variant="outlined"
-                    {...register('address.zipCode')}
+                    {...register('guests.address.zipCode')}
                     onChange={(e) => props.handleCep(e.target.value, setValue)}
                   />
                 </InputNomeModal>
               </div>
               <div>
                 <InputNomeModal>
-                  <label>Rua</label>
+                  <label>Rua: </label>
                   <TextField
                     sx={{ width: '500px', color: 'var(--text)' }}
                     size="small"
-                    id="outlined-basic"
+                    id="street"
                     variant="outlined"
-                    {...register('address.street')}
+                    {...register('guests.address.street')}
                   />
                 </InputNomeModal>
               </div>
@@ -158,23 +188,24 @@ export function ModalReservation(props: Props) {
             <ModalCentral>
               <div>
                 <InputNomeModal>
-                  <label>Bairro</label>
+                  <label>Bairro: </label>
                   <TextField
                     sx={{ width: '360px' }}
                     size="small"
+                    id="neighborhood"
                     variant="outlined"
-                    {...register('address.neighborhood')}
+                    {...register('guests.address.neighborhood')}
                   />
                 </InputNomeModal>
               </div>
               <div>
                 <InputNomeModal>
-                  <label>Número</label>
+                  <label>Número: </label>
                   <TextField
                     size="small"
-                    id="outlined-basic"
+                    id="number"
                     variant="outlined"
-                    {...register('address.number')}
+                    {...register('guests.address.number')}
                   />
                 </InputNomeModal>
               </div>
@@ -182,45 +213,47 @@ export function ModalReservation(props: Props) {
             <ModalCentral>
               <div>
                 <InputNomeModal>
-                  <label>Cidade</label>
+                  <label>Cidade: </label>
                   <TextField
                     sx={{ width: '460px' }}
                     size="small"
-                    id="cpf"
+                    id="city"
                     type="text"
                     variant="outlined"
                     maxRows={11}
-                    {...register('address.city')}
+                    {...register('guests.address.city')}
                   />
                 </InputNomeModal>
               </div>
               <div>
                 <InputNomeModal>
-                  <label>UF</label>
+                  <label>UF: </label>
                   <TextField
                     sx={{ width: '100px' }}
                     size="small"
-                    id="cpf"
+                    id="state"
                     type="text"
                     variant="outlined"
                     maxRows={11}
-                    {...register('address.state')}
+                    {...register('guests.address.state')}
                   />
                 </InputNomeModal>
               </div>
               <div>
                 <InputNomeModal>
-                  <label>Complemento</label>
+                  <label>Complemento: </label>
                   <TextField
                     size="small"
-                    id="cpf"
+                    id="complement"
                     type="text"
                     variant="outlined"
                     maxRows={11}
-                    {...register('address.complement')}
+                    {...register('guests.address.complement')}
                   />
                 </InputNomeModal>
               </div>
+          
+            
             </ModalCentral>
 
             <Button

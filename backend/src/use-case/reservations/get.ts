@@ -1,4 +1,4 @@
-import { Reservations } from './../../models/reservations/reservations';
+import { Reservations } from '../../models/reservations/reservations';
 import { Request, UseCase } from '../interface'
 import { ReservationsRepository } from '../../models/reservations';
 

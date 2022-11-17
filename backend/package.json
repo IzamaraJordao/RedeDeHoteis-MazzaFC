@@ -32,7 +32,10 @@
     "test": "vitest",
     "coverage": "vitest --coverage",
     "start": "ts-node ./src/index.ts",
-    "dev": "ts-node-dev --respawn ./src/index.ts"
+    "dev": "ts-node-dev --respawn ./src/index.ts",
+    "migration:rollback": "npx sequelize-cli db:migrate:undo",
+    "migration:run": "npx sequelize-cli db:migrate"
+    
   },
   "dependencies": {
     "axios": "^0.27.2",

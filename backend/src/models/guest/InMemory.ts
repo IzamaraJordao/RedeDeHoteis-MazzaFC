@@ -27,8 +27,10 @@ export class  GuestInMemory implements GuestRepository{
         const guest = this._data.find((guest) => guest.cpf === cpf);
         if (guest){
             return Promise.resolve(guest);
+        }else{
+            return Promise.reject(new DbError('Cliente não encontrado',404));
         }
-        return Promise.resolve(undefined);
+     
     }
     delete(id: string): Promise<void> {
         const index = this._data.findIndex((guest) => guest.id === id);

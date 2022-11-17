@@ -2,7 +2,7 @@ import { ReservationsRepository, PaginateParams } from '.'
 import { Reservations } from './reservations'
 import { GuestSequelize, ReservationsSequelize } from '../../database'
 import { Sequelize } from 'sequelize/types'
-import { DbError } from '../../exceptions/dbError'
+
 
 export class ReservationsRepositorySequelize implements ReservationsRepository {
   sequelize: Sequelize['models']['Reservations']
@@ -36,14 +36,13 @@ export class ReservationsRepositorySequelize implements ReservationsRepository {
   async findById(id: string): Promise<Reservations> {
     console.log(id)
     const response = await this.sequelize.findByPk(id, {
-      attributes: ['id', 'checkin', 'checkout', 'bedroom_id'],
+      attributes: ['id', 'check_in', 'check_out', 'bedroom_id', 'guest_id'],
     })
     console.log(response)
-    if (response) {
-      return new Reservations(response.toJSON())
-    } else {
-      throw new DbError('Reserva não encontrada')
+    if (!response) {
+      throw new Error('Reservations not found')
     }
+    return new Reservations(response.toJSON())
   }
 
   async delete(id: string): Promise<void> {

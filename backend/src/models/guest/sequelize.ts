@@ -57,17 +57,24 @@ export class GuestRepositorySequelize implements GuestRepository {
       throw new DbError('Cliente não encontrado')
     }
   }
+
   async findByCpf(cpf: string): Promise<Guest | undefined> {
-    const guest = await this.sequelize.findOne({
+    const response = await this.sequelize.findOne({
       where: {
         cpf: cpf,
-      }
+      },
+      include:[{
+        model: this.address,
+        as: 'Address',
+        attributes: ['id','street','number','complement','neighborhood','city','state','zip_code']
+      }] 
     })
-    if (guest) {
-      return new Guest(guest.toJSON())
+    if (response) {
+      return new Guest({...response.toJSON(), address: new Address(response.toJSON().Address )  } )
     }
     return undefined;
   }
+
   async delete(id: string): Promise<void> {
     await this.sequelize.destroy({
       where: {

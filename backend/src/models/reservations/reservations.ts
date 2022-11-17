@@ -5,7 +5,7 @@ import { uuid } from '../../helpers/uuid'
 
 
 export type ReservationsConstructor = {
-  id?: string
+  id: string
   check_in: Date
   check_out: Date
   check_in_static: Date
@@ -36,8 +36,6 @@ export class Reservations {
     this.check_out_static = props.check_out_static
     this.guests = props.guests
     this.bedroom_id = props.bedroom_id
-    
-
   }
 
   get publicInfo(){

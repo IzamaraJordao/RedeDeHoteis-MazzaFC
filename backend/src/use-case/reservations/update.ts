@@ -1,4 +1,4 @@
-import { UseCase } from './../interface';
+import { UseCase } from '../interface';
 
 import {
   ReservationsRepository,

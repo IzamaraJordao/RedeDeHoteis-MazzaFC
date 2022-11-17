@@ -17,7 +17,7 @@ export type PaginateParams = {
 export interface ReservationsRepository {
   save(reservations: Reservations): Promise<void>
   paginate(params: PaginateParams): Promise<Reservations[] | number>
-  findById(id: string): Promise<Reservations>
+  findById(id: string): Promise<Reservations >
   delete(id: string): Promise<void>
   update(id: string, reservations: Reservations): Promise<void>
 }

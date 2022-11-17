@@ -9,7 +9,7 @@ import { Auth } from './auth'
 export function controllerExpress(useCase: UseCase <any, any, any, any>, isPublic: "PUBLIC" | "PRIVATE" = "PRIVATE") {
   
   return async (req: Request, res: Response) => {
-    let dataToken = null
+    let dataToken = undefined
 
     
     try {
@@ -29,7 +29,7 @@ export function controllerExpress(useCase: UseCase <any, any, any, any>, isPubli
         res.status(error.code).json(error.message)
         return
       }
-      console.error(error)
+      console.error(JSON.stringify(error))
       res.status(500).json('Internal Server Error')
     }
   }

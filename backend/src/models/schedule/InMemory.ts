@@ -6,6 +6,12 @@ import { Schedule } from "./schedule";
 export class  ScheduleInMemory implements ScheduleRepository{
     private _data: Schedule[] = [];
     constructor(){}
+  findFreeBedrooms(check_in: string, check_out: string, hotel_id: string): Promise<Schedule[]> {
+    throw new Error('Method not implemented.');
+  }
+  findNotFreeBedrooms(check_in: string, check_out: string, hotel_id: string): Promise<Schedule[]> {
+    throw new Error('Method not implemented.');
+  }
     save(schedule: Schedule): Promise<void> {
         const scheduleToSave = new Schedule(schedule);
         this._data.push(scheduleToSave);
@@ -30,6 +36,7 @@ export class  ScheduleInMemory implements ScheduleRepository{
         return Promise.reject(new DbError('Agendamentos não encontrados',404));
       }
     }
+    
     
     delete(id: string): Promise<void> {
         const index = this._data.findIndex((schedule) => schedule.id === id);

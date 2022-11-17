@@ -8,20 +8,15 @@ export class BedroomRepositorySequelize implements BedroomRepository {
   constructor() {
     this.sequelize = BedroomSequelize
   }
-  getAll(hotel_id: string): Promise<Bedroom[]> {
-    throw new Error('Method not implemented.')
-  }
- 
- 
+
   // adaptadores  do contrato
-  // async getAll (hotel_id: string): Promise<Bedroom["floor"][]> {
-  //   const response = await this.sequelize.findAll({
-  //     where: {
-  //       hotel_id: hotel_id,
-  //     },
-  //   })
-  //   // return response.map((bedroom) => new Bedroom(bedroom.toJSON()))
-  // }
+  async getAll(hotel_id: string): Promise<Bedroom[]> {
+    const response = await this.sequelize.findAll({
+      attributes: Bedroom.fields(),
+      where: { hotel_id: hotel_id },
+    })
+    return response.map((bedroom) => new Bedroom(bedroom.toJSON()))
+  }
   async getFloor(hotel_id: string): Promise<Bedroom['floor'][]> {
     const response = await this.sequelize.findAll({
       attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('floor')), 'floor']],
@@ -47,5 +42,14 @@ export class BedroomRepositorySequelize implements BedroomRepository {
 
   async saveMany(bedrooms: Bedroom[]): Promise<void> {
     await this.sequelize.bulkCreate(bedrooms.map((bedroom) => bedroom.data))
+  }
+
+  async findById(id: string): Promise<Bedroom> {
+    console.log('id', id)
+    const response = await this.sequelize.findByPk(id, {
+      attributes: Bedroom.fields(),
+    })
+    if (!response) throw new Error('Bedroom not found')
+    return new Bedroom(response.toJSON())
   }
 }

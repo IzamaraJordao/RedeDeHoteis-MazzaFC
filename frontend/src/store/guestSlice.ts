@@ -45,10 +45,10 @@ export const guestSlice = createSlice({ /// Recebe 3 parametros
   reducers: {
 
     setData(state, action) {
-      state.data = action.payload.result;
-      state.pagination.total = action.payload.total;
-      state.pagination.page = action.payload.current;
-      state.pagination.pageSize = action.payload.pageSize;
+      state.data = action.payload.result
+      state.pagination.total = action.payload.total
+      state.pagination.page = action.payload.current
+      state.pagination.pageSize = action.payload.pageSize
     },
     setGuest(state, {payload}) {
       state.guest = payload;

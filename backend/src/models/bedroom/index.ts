@@ -21,7 +21,8 @@ export interface BedroomRepository {
     floor: Bedroom['floor'],
   ): Promise<Bedroom[]>
   update(id: string, bedroom: Bedroom): Promise<void>
-  getAll(hotel_id: Bedroom['hotel_id']): Promise<Bedroom[]>
+  getAll(hotel_id: Bedroom['hotel_id'] ): Promise<Bedroom[]> 
+  findById(id: string): Promise<Bedroom>
 }
 
 export const bedroomRepository = new BedroomRepositorySequelize()

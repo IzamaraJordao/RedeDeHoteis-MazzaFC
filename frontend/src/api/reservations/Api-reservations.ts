@@ -3,7 +3,8 @@ import { ProviderContext } from 'notistack'
 import { useDispatch } from 'react-redux'
 import {
   Reservations,
-  setData,
+  
+  setReservations,
   setIsLoading,
 } from '../../store/reservationSlice'
 import { Pagination } from '../../template/types/pagination'
@@ -26,7 +27,7 @@ export async function reservationPaginate(
     },
     enqueueSnackbar,
   )
-  dispatch(setData(response?.data));
+  dispatch(setReservations(response?.data));
   dispatch(setIsLoading(false));
 }
 
@@ -76,6 +77,23 @@ export async function reservationDelete(
         {
         method: 'delete',
         url: `/reservations/${id}`,
+        },
+        enqueueSnackbar,
+    )
+    dispatch(setIsLoading(false))
+    return response
+    }
+
+export async function reservationGetByCPF(   
+    cpf: string,
+    enqueueSnackbar: ProviderContext['enqueueSnackbar'],
+    dispatch: ReturnType<typeof useDispatch>,
+    ) {
+    dispatch(setIsLoading(true))
+    const response = await handleRequest(
+        {
+        method: 'get',
+        url: `/guest/cpf/${cpf}`,
         },
         enqueueSnackbar,
     )

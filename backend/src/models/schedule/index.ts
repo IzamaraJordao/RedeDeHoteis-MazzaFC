@@ -18,8 +18,9 @@ export interface ScheduleRepository {
     delete(id: string): Promise<void>;
     update(id: string, schedule: Schedule): Promise<void>;
     findAll(): Promise<Schedule[]>;
+    findFreeBedrooms(check_in: string, check_out: string,hotel_id:string): Promise<Schedule[]>;
+    findNotFreeBedrooms(check_in: string, check_out: string,hotel_id:string): Promise<Schedule[]>;
 
-    
 }
 
 export const ScheduleRepository =  new ScheduleRepositorySequelize();

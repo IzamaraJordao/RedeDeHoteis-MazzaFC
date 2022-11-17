@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import {
   reservationCreate,
   reservationDelete,
+  reservationGetByCPF,
   reservationPaginate,
   reservationUpdate,
 } from '../api/reservations/Api-reservations'
-import {typePaginate} from '../api/type/api-type'
+import { typePaginate } from '../api/type/api-type'
 import { Button, MenuItem, Select, TextField } from '@mui/material'
 import { BoxDiv, BoxExternal } from './styled'
 import {
@@ -24,19 +24,23 @@ import { selectData } from '../store/employeeSlice'
 import axios from 'axios'
 import { ModalReservation } from './Components/Modal'
 import { If } from '../common/components/If'
-
+import { bedroomGet } from '../api/bedroom/api-bedroomFloors'
+import { Bedroom } from '../store/bedroomSlice'
+import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle'
+import React, { useEffect, useState } from 'react'
+import ptBR from 'date-fns/locale/pt-BR'
 
 export default function bancoTabela() {
-  const [isModalVisible, setIsModalVisible] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
-  const type = useSelector(selectTypeData)
+ 
   const pagination = useSelector(selectPaginate)
   const [isVisibled, setIsVisibled] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
   const [idReservation, setIdReservation] = useState<string | undefined>(
     undefined,
   )
-  
+
   const {
     register,
     setValue,
@@ -83,20 +87,27 @@ export default function bancoTabela() {
   //trazer as informações de guest pelo cpf e preencher os campos
   function handleCpf(cpf: string, setValue: any): any {
     if (cpf.length === 11) {
-      axios.get(`http://localhost:3030/guest?`).then((response) => {
+      reservationGetByCPF(cpf, enqueueSnackbar, dispatch).then((response) => {
         setValue('guest.name', response.data.name)
         setValue('guest.cpf', response.data.cpf)
+        setValue('guest.rg', response.data.rg)
         setValue('guest.email', response.data.email)
         setValue('guest.phone', response.data.phone)
         setValue('guest.address.street', response.data.address.street)
-        setValue('guest.address.neighborhood',response.data.address.neighborhood)
+        setValue('guest.address.number', response.data.address.number)
+        setValue(
+          'guest.address.neighborhood',
+          response.data.address.neighborhood,
+        )
+        setValue('guest.address.complement', response.data.address.complement)
         setValue('guest.address.city', response.data.address.city)
         setValue('guest.address.state', response.data.address.state)
         setValue('guest.address.zipCode', response.data.address.zipCode)
       })
     }
   }
-const onSubmit = (data: Reservations): any => {
+
+  const onSubmit = (data: Reservations): any => {
     if (idReservation) {
       handleUpdate(data)
     } else {
@@ -105,14 +116,11 @@ const onSubmit = (data: Reservations): any => {
     handleClose()
   }
 
-  function handleClose(){
-    setIsModalVisible(false)
+  function handleClose() {
+    setIsVisibled(false)
     setIdReservation(undefined)
-    dispatch(setReservations(undefined))
-    reservationPaginate(pagination, enqueueSnackbar, dispatch)
   }
 
-  
   function handleChange(e) {
     setValue('room_type_id', e.target.value)
   }
@@ -125,7 +133,14 @@ const onSubmit = (data: Reservations): any => {
     )
   }, [])
 
-  console.log(type)
+  // useEffect(() => {
+  //   reservationPaginate(pagination, enqueueSnackbar, dispatch)
+  // }, [pagination])
+  // setar valor e trocar valor de variavel data
+  
+
+  
+
   return (
     <div>
       <BoxExternal>
@@ -133,29 +148,25 @@ const onSubmit = (data: Reservations): any => {
           <div className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
               <label>Check-In</label>
-              <input type="date" {...register('check_in')} />
-              <label>Check-Out</label>
-              <input type="date" {...register('check_out')} />
-              <label>Tipo de Quarto</label>
-              <Select
-                sx={{ height: '30px' }}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="room_type"
-                defaultValue={6}
-                {...register('room_type_id')}
-                
-              >
-                {type.map((room_type) => (
-                  <MenuItem value={room_type.id} sx={{ width: '250px' }}>
-                    {room_type.name}
-                  </MenuItem>
-                ))}
+              <DateTimePicker
+                {...register('check_in')}
+                onChange={(date: Date) => setValue( 'check_in', date)}
+              />
 
-                
-              </Select>
-            
-              <Button variant="contained" onClick={() => {setIsVisibled(true)}}>
+              <label>Check-Out</label>
+              <DateTimePicker
+                selected={startDate}
+                className="form-field"
+                dateFormat="dd/MM/yyyy"
+                {...register('check_out')}
+                onChange={(date: Date) => setStartDate(date)}
+              />
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setIsVisibled(true)
+                }}
+              >
                 Buscar Quartos
               </Button>
             </form>
@@ -163,16 +174,14 @@ const onSubmit = (data: Reservations): any => {
         </BoxDiv>
       </BoxExternal>
 
-      {isVisibled &&
-      <ModalReservation
-      handleCep= {handleCep}
-      handleCpf= {handleCpf}
-      onClose={handleClose}
-      onSubmit={onSubmit}
-      />
-      }
-          
+      {isVisibled && (
+        <ModalReservation
+          handleCep={handleCep}
+          onClose={handleClose}
+          handleCpf={handleCpf}
+          onSubmit={onSubmit}
+        />
+      )}
     </div>
   )
 }
-

@@ -18,7 +18,7 @@ export type BedroomConstructor = {
   position_x?: number | null
   position_y?: number | null
   status_room_id?: BedroomStatus
-  room_type_id?: BedroomType
+  room_type_id?: BedroomType 
 }
 
 

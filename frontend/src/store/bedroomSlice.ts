@@ -11,7 +11,7 @@ export enum BedroomType {
 }
 
 export type Bedroom = {
-  id?: string
+  id: string
   name: string 
   floor: string
   hotel_id: string

@@ -5,13 +5,13 @@ import { AppState } from './store'
 
 
 export type Reservations = {
-  id: string
-  check_in: Date  
-  check_out: Date
-  check_in_static: Date
-  check_out_static: Date
-  guests: Guest[]
-  room_type_id: string
+  id: string;
+  check_in: Date;
+  check_out: Date;
+  check_in_static: Date;
+  check_out_static: Date;
+  guests: Guest;
+  room_type_id: string;
 }
 
 type ReservationState = {
@@ -43,22 +43,22 @@ export const reservationsSlice = createSlice({
   initialState,
   reducers: {
     setData(state, action) {
-      state.data = action.payload.result
-      state.pagination.total = action.payload.total
-      state.pagination.page = action.payload.current
-      state.pagination.pageSize = action.payload.pageSize
+      state.data = action.payload.result;
+      state.pagination.total = action.payload.total;
+      state.pagination.page = action.payload.current;
+      state.pagination.pageSize = action.payload.pageSize;
     },
     setReservations(state, { payload }) {
-      state.reservations = payload
+      state.reservations = payload;
     },
     setIsLoading(state, { payload }) {
-      state.isLoading = payload
+      state.isLoading = payload;
     },
   },
 })
 
 export const { setData, setIsLoading, setReservations } =
-  reservationsSlice.actions // Exportando as actions
+  reservationsSlice.actions; // Exportando as actions
 
 // Selectors
 export const selectRegistration = (state: AppState) => state.reservations // Exportando o estado

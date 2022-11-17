@@ -23,13 +23,7 @@ export class  ReservationsInMemory implements ReservationsRepository{
             return Promise.reject(new DbError('Reserva não encontrada',404));
         }
     }
-    // findBytipo(tipo: string): Promise<Bedroom | undefined> {
-    //     const bedroom = this._data.find((bedroom) => bedroom.tipo === tipo);
-    //     if (bedroom){
-    //         return Promise.resolve(bedroom);
-    //     }
-    //     return Promise.resolve(undefined);
-    // }
+
     delete(id: string): Promise<void> {
         const index = this._data.findIndex((reservations) => reservations.id === id);
         if (index !== -1){

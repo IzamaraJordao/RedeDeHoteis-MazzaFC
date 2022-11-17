@@ -1,4 +1,4 @@
-import { Reservations, ReservationsRepository } from './../../models/reservations';
+import { Reservations, ReservationsRepository } from '../../models/reservations';
 import { PaginateParams } from '../../models/reservations/index'
 
 import { Request, ReturnPaginate, UseCase } from '../interface'
